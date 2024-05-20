@@ -1,55 +1,162 @@
-from pyomon.environ import *
+#==================================================================
+# DCOPF.mod
+# PYOMO model file of "DC" optimal power flow problem (DCOPF)
+# This formulation uses the standard "DC" linearization of the AC power flow equations
+# ---Author---
+# W. Bukhsh,
+# wbukhsh@gmail.com
+# OATS
+# Copyright (c) 2017 by W Bukhsh, Glasgow, Scotland
+# OATS is distributed under the GNU GENERAL PUBLIC LICENSE v3. (see LICENSE file for details).
+#==================================================================
 
-# init model
+#==========Import==========
+from __future__ import division
+from pyomo.environ import *
+#==========================
+
 model = AbstractModel()
 
-# define sets needed
-model.buses = Set() # set of buses
-model.generators = Set()
-model.wind_generators = Set()
-model.demands = Set()
-model.lines = Set()
-model.shunt = Set()
-model.reference_buses = Set(within=model.buses)
-model.line_to_end_sets = Set()
-model.transformers = Set()
+# --- SETS ---
+model.B      = Set()  # set of buses
+model.G      = Set()  # set of generators
+model.WIND   = Set()  # set of wind generators
+model.D      = Set()  # set of demands
+model.DNeg   = Set()  # set of demands
+model.L      = Set()  # set of lines
+model.SHUNT  = Set()  # set of shunts
+model.b0     = Set(within=model.B)  # set of reference buses
+model.LE     = Set()  # line-to and from ends set (1,2)
+model.TRANSF = Set()  # set of transformers
 
+# generators, buses, loads linked to each bus b
+model.Gbs     = Set(within=model.B * model.G)    # set of generator-bus mapping
+model.Wbs     = Set(within=model.B * model.WIND) # set of wind-bus mapping
+model.Dbs     = Set(within=model.B * model.D)    # set of demand-bus mapping
+model.SHUNTbs = Set(within=model.B*model.SHUNT)  # set of shunt-bus mapping
 
-# link different sets together 
-model.generator_buses = Set(within=model.buses * model.generators) # what does the * mean here? overlap? or...?
-model.wind_buses = Set(within=model.buses * model.wind)
-model.demand_buses = Set(within=model.buses * model.demands)
-model.shunt_buses = Set(within=model.buses * model.shunt)
+# --- parameters ---
+# line matrix
+model.A     = Param(model.L*model.LE)       # bus-line matrix
+model.AT    = Param(model.TRANSF*model.LE)  # bus-transformer matrix
 
+# demands
+model.PD      = Param(model.D, within=Reals)  # real power demand
+model.VOLL    = Param(model.D, within=Reals)  # value of lost load
+# generators
+model.PGmax    = Param(model.G, within=NonNegativeReals) # max real power of generator, p.u.
+model.PGmin    = Param(model.G, within=Reals)            # min real power of generator, p.u.
+model.PG       = Param(model.G, within=Reals) # FPN
+model.WGmax    = Param(model.WIND, within=NonNegativeReals) # max real power of wind generator, p.u.
+model.WGmin    = Param(model.WIND, within=NonNegativeReals) # min real power of wind generator, p.u.
 
-# set some constraints as params linked to sets
-model.bus_line_matrix = Param(model.lines * model.lines_to_end_sets, within=Any)
-model.bus_transformer_matrix = Param(model.transformers * model.lines_to_end_sets, within=Any) # within = any?
+# lines and transformer chracteristics and ratings
+model.SLmax  = Param(model.L, within=NonNegativeReals)      # real power line limit
+model.SLmaxT = Param(model.TRANSF, within=NonNegativeReals) # real power transformer limit
+model.BL     = Param(model.L, within=Reals)       # susceptance of a line
+model.BLT    = Param(model.TRANSF, within=Reals)  # susceptance of a transformer
 
-model.power_demand = Param(model.demand, within=Reals)
-model.value_lost_load = Param(model.demand, within=Reals) #how do these 2 combine for demand? or is something else happening?
+# shunt
+model.GB = Param(model.SHUNT, within=Reals) #  shunt conductance
+model.BB = Param(model.SHUNT, within=Reals) #  shunt susceptance
 
-model.max_power_generator = Param(model.generator, within=NonNegativeReals)
-model.min_power_generator = Param(model.generator, within=Reals)
-model.fpn = Param(model.generator, within=Reals)
-model.max_power_wind = Param(model.wind_generators, within=NonNegativeReals)
-model.min_power_wind = Param(model.wind_generators, within=NonNegativeReals)
+# cost data
+model.c2    = Param(model.G, within=NonNegativeReals)# generator cost coefficient c2 (*pG^2)
+model.c1    = Param(model.G, within=NonNegativeReals)# generator cost coefficient c1 (*pG)
+model.c0    = Param(model.G, within=NonNegativeReals)# generator cost coefficient c0
 
-model.power_line_limit = Param(model.lines, within=NonNegativeReals)
-model.power_transformer_limit = Param(model.transformers, within)
+model.baseMVA = Param(within=NonNegativeReals)# base MVA
 
-# cost function
+#constants
+model.eps = Param(within=NonNegativeReals)
 
+# --- control variables ---
+model.pG    = Var(model.G,  domain= Reals)  #real power generation
+model.pW    = Var(model.WIND, domain= Reals) #real power generation from wind
+model.pD    = Var(model.D, domain= Reals) #real power demand delivered
+model.alpha = Var(model.D, domain= NonNegativeReals) #propotion of real power demand delivered
+# --- state variables ---
+model.deltaL  = Var(model.L, domain= Reals)      # angle difference across lines
+model.deltaLT = Var(model.TRANSF, domain= Reals) # angle difference across transformers
+model.delta   = Var(model.B, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
+model.pL      = Var(model.L, domain= Reals) # real power injected at b onto line l, p.u.
+model.pLT     = Var(model.TRANSF, domain= Reals) # real power injected at b onto transformer line l, p.u.
 
-# KCL + KVL
+# --- cost function ---
+def objective(model):
+    obj = sum(model.c1[g]*(model.baseMVA*model.pG[g])+model.c0[g] for g in model.G) +\
+    sum(model.VOLL[d]*(1-model.alpha[d])*model.baseMVA*model.PD[d] for d in model.D)
+    return obj
+model.OBJ = Objective(rule=objective, sense=minimize)
 
+# --- Kirchoff's current law at each bus b ---
+def KCL_def(model, b):
+    return sum(model.pG[g] for g in model.G if (b,g) in model.Gbs) +\
+    sum(model.pW[w] for w in model.WIND if (b,w) in model.Wbs) == \
+    sum(model.pD[d] for d in model.D if (b,d) in model.Dbs)+\
+    sum(model.pL[l] for l in model.L if model.A[l,1]==b)- \
+    sum(model.pL[l] for l in model.L if model.A[l,2]==b)+\
+    sum(model.pLT[l] for l in model.TRANSF if model.AT[l,1]==b)- \
+    sum(model.pLT[l] for l in model.TRANSF if model.AT[l,2]==b)+\
+    sum(model.GB[s] for s in model.SHUNT if (b,s) in model.SHUNTbs)
+model.KCL_const = Constraint(model.B, rule=KCL_def)
 
+# --- Kirchoff's voltage law on each line and transformer---
+def KVL_line_def(model,l):
+    return model.pL[l] == (-model.BL[l])*model.deltaL[l]
+def KVL_trans_def(model,l):
+    return model.pLT[l] == (-model.BLT[l])*model.deltaLT[l]
+model.KVL_line_const     = Constraint(model.L, rule=KVL_line_def)
+model.KVL_trans_const    = Constraint(model.TRANSF, rule=KVL_trans_def)
 
-# power limits
+# --- demand model ---
+def demand_model(model,d):
+    return model.pD[d] == model.alpha[d]*model.PD[d]
+def demand_LS_bound_Max(model,d):
+    return model.alpha[d] <= 1
+model.demandmodelC = Constraint(model.D, rule=demand_model)
+model.demandalphaC = Constraint(model.D, rule=demand_LS_bound_Max)
 
+# --- generator power limits ---
+def Real_Power_Max(model,g):
+    return model.pG[g] <= model.PGmax[g]
+def Real_Power_Min(model,g):
+    return model.pG[g] >= model.PGmin[g]
 
-# phase angle constraints
+model.PGmaxC = Constraint(model.G, rule=Real_Power_Max)
+model.PGminC = Constraint(model.G, rule=Real_Power_Min)
 
+# ---wind generator power limits ---
+def Wind_Real_Power_Max(model,w):
+    return model.pW[w] <= model.WGmax[w]
+def Wind_Real_Power_Min(model,w):
+    return model.pW[w] >= model.WGmin[w]
+model.WGmaxC = Constraint(model.WIND, rule=Wind_Real_Power_Max)
+model.WGminC = Constraint(model.WIND, rule=Wind_Real_Power_Min)
 
-# reference bus constraint
+# --- line power limits ---
+def line_lim1_def(model,l):
+    return model.pL[l] <= model.SLmax[l]
+def line_lim2_def(model,l):
+    return model.pL[l] >= -model.SLmax[l]
+model.line_lim1 = Constraint(model.L, rule=line_lim1_def)
+model.line_lim2 = Constraint(model.L, rule=line_lim2_def)
 
+# --- power flow limits on transformer lines---
+def transf_lim1_def(model,l):
+    return model.pLT[l] <= model.SLmaxT[l]
+def transf_lim2_def(model,l):
+    return model.pLT[l] >= -model.SLmaxT[l]
+model.transf_lim1 = Constraint(model.TRANSF, rule=transf_lim1_def)
+model.transf_lim2 = Constraint(model.TRANSF, rule=transf_lim2_def)
+
+# --- phase angle constraints ---
+def phase_angle_diff1(model,l):
+    return model.deltaL[l] == model.delta[model.A[l,1]] - \
+    model.delta[model.A[l,2]]
+model.phase_diff1 = Constraint(model.L, rule=phase_angle_diff1)
+
+# --- reference bus constraint ---
+def ref_bus_def(model,b):
+    return model.delta[b]==0
+model.refbus = Constraint(model.b0, rule=ref_bus_def)

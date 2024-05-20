@@ -1,21 +1,17 @@
 # opf code let's go!
-import oats
+# import oats
 import os
 import imp
 import pandas as pd
 import datetime
 
-# oats.dcopf()
 
 def dcopf(tc='default',solver='ipopt',neos=True,out=0):
-    if tc == 'default':
-        oats_dir = os.path.dirname(os.path.realpath(__file__))
-        default_testcase = oats_dir+'/testcases/case24_ieee_rts.xlsx'
-        tc = default_testcase
+    
     #options
     opt=({'neos':neos,\
     'solver':solver,'out':out})
-    testcase = tc
+    testcase = os.path.join(".", "data", "case9.xlsx")
     model ='DCOPF'
     # ==log==
     runcase(testcase,model,opt)
@@ -99,7 +95,7 @@ def selecttestcase(test):
         print('Shunt data not defined')
         data["flags"]['shunt'] = 0
 
-
+    print("return data")
     return data
 
 
@@ -303,4 +299,3 @@ class printdata(object):
         f.close()
 
 
-dcopf()

@@ -5,43 +5,40 @@ import networkx as nx
 import matplotlib.pyplot as plt 
 import pandas as pd
 import os
+import opf_intro
+
   
 # Defining a Class 
-class GraphVisualization: 
+class GraphVisualisation: 
    
     def __init__(self): 
-          
-        # visual is a list which stores all  
-        # the set of edges that constitutes a 
-        # graph 
         self.visual = [] 
           
-    # addEdge function inputs the vertices of an 
-    # edge and appends it to the visual list 
-    def addEdge(self, a, b): 
-        temp = [a, b] 
-        self.visual.append(temp) 
+
+    def add_edge(self, a, b): 
+        edge = [a, b] 
+        self.visual.append(edge) 
           
-    # In visualize function G is an object of 
-    # class Graph given by networkx G.add_edges_from(visual) 
-    # creates a graph with a given list 
-    # nx.draw_networkx(G) - plots the graph 
-    # plt.show() - displays the graph 
-    def visualize(self): 
+
+    def visualise(self): 
         G = nx.Graph() 
         G.add_edges_from(self.visual) 
         nx.draw_networkx(G) 
         plt.show() 
   
 # Driver code 
-G = GraphVisualization() 
-G.addEdge(0, 2) 
-G.addEdge(1, 2) 
-G.addEdge(1, 3) 
-G.addEdge(5, 3) 
-G.addEdge(3, 4) 
-G.addEdge(1, 0) 
-G.visualize() 
+G = GraphVisualisation() 
 
-pd.read_csv(os.)
+data = pd.ExcelFile(os.path.join(".", "data", "case9.xlsx"))
+graph_data = pd.read_excel(data, 'branch')
+
+for index, row in graph_data.iterrows():
+    G.add_edge(row["from_busname"], row["to_busname"])
+
+
+# solve opf
+opf_intro.dcopf()
+
+# G.visualise() 
+G.visualise()
 
