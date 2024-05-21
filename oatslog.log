@@ -1,2 +1,7 @@
-Mon, 20 May 2024 09:43:22 INFO     OATS log file
-Mon, 20 May 2024 09:43:22 INFO     Program started
+Tue, 21 May 2024 16:56:40 INFO     OATS log file
+Tue, 21 May 2024 16:56:40 INFO     Program started
+Tue, 21 May 2024 16:56:56 INFO     Solver selected: ipopt
+Tue, 21 May 2024 16:56:56 INFO     Testcase selected: ./data/case9.xlsx
+Tue, 21 May 2024 16:56:56 INFO     Model selected: DCOPF
+Tue, 21 May 2024 16:56:56 INFO     Given model file found and selected from the models library
+Tue, 21 May 2024 16:56:56 INFO     Given testcase file found and selected from the testcase library

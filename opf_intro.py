@@ -4,7 +4,9 @@ import os
 import imp
 import pandas as pd
 import datetime
-
+from pyomo.environ import *
+from pyomo.opt import SolverFactory
+from pyomo.opt import SolverStatus, TerminationCondition
 
 def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     
@@ -15,6 +17,46 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     model ='DCOPF'
     # ==log==
     runcase(testcase,model,opt)
+    modelf = imp.load_source(model, 'model.py')
+    model = modelf.model
+
+    datfile = 'datafile.dat'
+
+    if (not opt['neos']):
+
+        optimise = SolverFactory(opt['solver'])
+        #opt.options['mipgap'] = 0.1
+        #################################################
+
+        ############Solve###################
+        instance = model.create_instance(datfile)
+        instance.dual = Suffix(direction=Suffix.IMPORT)
+        results = optimise.solve(instance,tee=True)
+        instance.solutions.load_from(results)
+        # ##################################
+        #
+        # ############Output###################
+        o = printoutput(results, instance,mod)
+        if (opt['out']):
+            o.solutionstatus()
+        else:
+            o.greet()
+            o.solutionstatus()
+        if 'UC' in mod:
+            o.printUC()
+        else:
+            o.printsummary()
+            o.printoutputxls()
+
+    else:
+        instance       = model.create_instance(datfile)
+        solveroptions  = SolverFactory(opt['solver'])
+        solver_manager = SolverManagerFactory('neos')
+        print (dir(solver_manager.solve))
+        results        = solver_manager.solve(instance, opt=solveroptions)
+
+        print (results)
+
 
 def runcase(testcase,mod,opt=None):
     oats_dir = os.path.dirname(os.path.realpath(__file__))
