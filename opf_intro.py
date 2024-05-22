@@ -41,7 +41,7 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
             results[split_key[0]] = {}
             results[split_key[0]][split_key[1][:-1]] =  value(v)
 
-    print(results)
+    # print(results)
     return results
 
 
