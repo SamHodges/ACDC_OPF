@@ -85,9 +85,8 @@ model.pLT     = Var(model.TRANSF, domain= Reals) # real power injected at b onto
 # --- cost function ---
 def objective(model):
     # something wrong with this obj-- unbounded???
-    obj = sum(model.c1[g] for g in model.G)
-    # obj = sum(model.c1[g]*(model.baseMVA*model.pG[g])+model.c0[g] for g in model.G) +\
-    # sum(model.VOLL[d]*(1-model.alpha[d])*model.baseMVA*model.PD[d] for d in model.D)
+    obj = sum(model.c1[g]*(model.baseMVA*model.pG[g])+model.c0[g] for g in model.G) +\
+    sum(model.VOLL[d]*(1-model.alpha[d])*model.baseMVA*model.PD[d] for d in model.D)
     # print("another run: ", obj)
     return obj
 model.OBJ = Objective(rule=objective, sense=minimize)
@@ -105,61 +104,61 @@ def KCL_def(model, b):
 model.KCL_const = Constraint(model.B, rule=KCL_def)
 
 # --- Kirchoff's voltage law on each line and transformer---
-# def KVL_line_def(model,l):
-#     return model.pL[l] == (-model.BL[l])*model.deltaL[l]
-# def KVL_trans_def(model,l):
-#     return model.pLT[l] == (-model.BLT[l])*model.deltaLT[l]
-# model.KVL_line_const     = Constraint(model.L, rule=KVL_line_def)
-# model.KVL_trans_const    = Constraint(model.TRANSF, rule=KVL_trans_def)
+def KVL_line_def(model,l):
+    return model.pL[l] == (-model.BL[l])*model.deltaL[l]
+def KVL_trans_def(model,l):
+    return model.pLT[l] == (-model.BLT[l])*model.deltaLT[l]
+model.KVL_line_const     = Constraint(model.L, rule=KVL_line_def)
+model.KVL_trans_const    = Constraint(model.TRANSF, rule=KVL_trans_def)
 
 # --- demand model ---
-# def demand_model(model,d):
-#     return model.pD[d] == model.alpha[d]*model.PD[d]
-# def demand_LS_bound_Max(model,d):
-#     return model.alpha[d] <= 1
-# model.demandmodelC = Constraint(model.D, rule=demand_model)
-# model.demandalphaC = Constraint(model.D, rule=demand_LS_bound_Max)
+def demand_model(model,d):
+    return model.pD[d] == model.alpha[d]*model.PD[d]
+def demand_LS_bound_Max(model,d):
+    return model.alpha[d] <= 1
+model.demandmodelC = Constraint(model.D, rule=demand_model)
+model.demandalphaC = Constraint(model.D, rule=demand_LS_bound_Max)
 
 # --- generator power limits ---
-# def Real_Power_Max(model,g):
-#     return model.pG[g] <= model.PGmax[g]
-# def Real_Power_Min(model,g):
-#     return model.pG[g] >= model.PGmin[g]
+def Real_Power_Max(model,g):
+    return model.pG[g] <= model.PGmax[g]
+def Real_Power_Min(model,g):
+    return model.pG[g] >= model.PGmin[g]
 
-# model.PGmaxC = Constraint(model.G, rule=Real_Power_Max)
-# model.PGminC = Constraint(model.G, rule=Real_Power_Min)
+model.PGmaxC = Constraint(model.G, rule=Real_Power_Max)
+model.PGminC = Constraint(model.G, rule=Real_Power_Min)
 
 # # ---wind generator power limits ---
-# def Wind_Real_Power_Max(model,w):
-#     return model.pW[w] <= model.WGmax[w]
-# def Wind_Real_Power_Min(model,w):
-#     return model.pW[w] >= model.WGmin[w]
-# model.WGmaxC = Constraint(model.WIND, rule=Wind_Real_Power_Max)
-# model.WGminC = Constraint(model.WIND, rule=Wind_Real_Power_Min)
+def Wind_Real_Power_Max(model,w):
+    return model.pW[w] <= model.WGmax[w]
+def Wind_Real_Power_Min(model,w):
+    return model.pW[w] >= model.WGmin[w]
+model.WGmaxC = Constraint(model.WIND, rule=Wind_Real_Power_Max)
+model.WGminC = Constraint(model.WIND, rule=Wind_Real_Power_Min)
 
 # # --- line power limits ---
-# def line_lim1_def(model,l):
-#     return model.pL[l] <= model.SLmax[l]
-# def line_lim2_def(model,l):
-#     return model.pL[l] >= -model.SLmax[l]
-# model.line_lim1 = Constraint(model.L, rule=line_lim1_def)
-# model.line_lim2 = Constraint(model.L, rule=line_lim2_def)
+def line_lim1_def(model,l):
+    return model.pL[l] <= model.SLmax[l]
+def line_lim2_def(model,l):
+    return model.pL[l] >= -model.SLmax[l]
+model.line_lim1 = Constraint(model.L, rule=line_lim1_def)
+model.line_lim2 = Constraint(model.L, rule=line_lim2_def)
 
 # # --- power flow limits on transformer lines---
-# def transf_lim1_def(model,l):
-#     return model.pLT[l] <= model.SLmaxT[l]
-# def transf_lim2_def(model,l):
-#     return model.pLT[l] >= -model.SLmaxT[l]
-# model.transf_lim1 = Constraint(model.TRANSF, rule=transf_lim1_def)
-# model.transf_lim2 = Constraint(model.TRANSF, rule=transf_lim2_def)
+def transf_lim1_def(model,l):
+    return model.pLT[l] <= model.SLmaxT[l]
+def transf_lim2_def(model,l):
+    return model.pLT[l] >= -model.SLmaxT[l]
+model.transf_lim1 = Constraint(model.TRANSF, rule=transf_lim1_def)
+model.transf_lim2 = Constraint(model.TRANSF, rule=transf_lim2_def)
 
 # # --- phase angle constraints ---
-# def phase_angle_diff1(model,l):
-#     return model.deltaL[l] == model.delta[model.A[l,1]] - \
-#     model.delta[model.A[l,2]]
-# model.phase_diff1 = Constraint(model.L, rule=phase_angle_diff1)
+def phase_angle_diff1(model,l):
+    return model.deltaL[l] == model.delta[model.A[l,1]] - \
+    model.delta[model.A[l,2]]
+model.phase_diff1 = Constraint(model.L, rule=phase_angle_diff1)
 
 # # --- reference bus constraint ---
-# def ref_bus_def(model,b):
-#     return model.delta[b]==0
-# model.refbus = Constraint(model.b0, rule=ref_bus_def)
+def ref_bus_def(model,b):
+    return model.delta[b]==0
+model.refbus = Constraint(model.b0, rule=ref_bus_def)

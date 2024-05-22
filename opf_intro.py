@@ -22,40 +22,28 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
 
     datfile = 'datafile.dat'
 
-    if (not opt['neos']):
+    instance       = model.create_instance(datfile)
+    solveroptions  = SolverFactory(opt['solver'])
+    solver_manager = SolverManagerFactory('neos')
+    solver_manager.solve(instance, opt=solveroptions)
 
-        optimise = SolverFactory(opt['solver'])
-        #opt.options['mipgap'] = 0.1
-        #################################################
+    # print (results)
+    # instance.display()
 
-        ############Solve###################
-        instance = model.create_instance(datfile)
-        instance.dual = Suffix(direction=Suffix.IMPORT)
-        results = optimise.solve(instance,tee=True)
-        instance.solutions.load_from(results)
-        # ##################################
-        #
-        # ############Output###################
-        o = printoutput(results, instance,mod)
-        if (opt['out']):
-            o.solutionstatus()
-        else:
-            o.greet()
-            o.solutionstatus()
-        if 'UC' in mod:
-            o.printUC()
-        else:
-            o.printsummary()
-            o.printoutputxls()
 
-    else:
-        instance       = model.create_instance(datfile)
-        solveroptions  = SolverFactory(opt['solver'])
-        solver_manager = SolverManagerFactory('neos')
-        print (dir(solver_manager.solve))
-        results        = solver_manager.solve(instance, opt=solveroptions)
+    results = {}
 
-        print (results)
+    for v in instance.component_data_objects(Var):
+        split_key = str(v).split("[")
+        try:
+            results[split_key[0]][split_key[1][:-1]] =  value(v)
+        except:
+            results[split_key[0]] = {}
+            results[split_key[0]][split_key[1][:-1]] =  value(v)
+
+    print(results)
+    return results
+
 
 
 def runcase(testcase,mod,opt=None):

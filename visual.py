@@ -13,16 +13,18 @@ class GraphVisualisation:
    
     def __init__(self): 
         self.visual = [] 
+        self.labels = []
           
 
     def add_edge(self, a, b): 
         edge = [a, b] 
         self.visual.append(edge) 
-          
+
 
     def visualise(self): 
         G = nx.Graph() 
         G.add_edges_from(self.visual) 
+        nx.draw_networkx_labels(G, labels, font_size=22, font_color="whitesmoke")
         nx.draw_networkx(G) 
         plt.show() 
   
@@ -37,7 +39,7 @@ for index, row in graph_data.iterrows():
 
 
 # solve opf
-opf_intro.dcopf()
+results = opf_intro.dcopf()
 
 # G.visualise() 
 G.visualise()
