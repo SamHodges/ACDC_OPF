@@ -41,7 +41,6 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
             results[split_key[0]] = {}
             results[split_key[0]][split_key[1][:-1]] =  value(v)
 
-    # print(results)
     return results
 
 
@@ -110,22 +109,18 @@ def selecttestcase(test):
         df_storage   = xl.parse("storage")
         data.update( {"storage" : df_storage.dropna(how='all')} )
     except:
-        print ('Storage not defined')
         data["flags"]['storage'] = 0
     try:
         df_ts    = xl.parse("timeseries",header=[0,1])
         data.update( {"timeseries" : df_ts.dropna(how='all')} )
     except:
-        print('Time-series data not defined')
         data["flags"]['ts'] = 0
     try:
         df_ts    = xl.parse("shunt")
         data.update( {"shunt" : df_ts.dropna(how='all')} )
     except:
-        print('Shunt data not defined')
         data["flags"]['shunt'] = 0
 
-    print("return data")
     return data
 
 
