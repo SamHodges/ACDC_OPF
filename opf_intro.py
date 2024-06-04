@@ -7,8 +7,9 @@ import datetime
 from pyomo.environ import *
 from pyomo.opt import SolverFactory
 from pyomo.opt import SolverStatus, TerminationCondition
+import logging
 
-def dcopf(tc='default',solver='ipopt',neos=True,out=0):
+def dcopf(tc='default',solver='appsi_highs',neos=True,out=0):
     
     #options
     opt=({'neos':neos,\
@@ -27,8 +28,11 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     solver_manager = SolverManagerFactory('neos')
     solver_manager.solve(instance, opt=solveroptions)
 
-    # print (results)
-    # instance.display()
+    # logging.info("Solver selected: "+opt['solver'])
+    # logging.info("Testcase selected: "+testcase)
+    # logging.info("Model selected: "+model)
+    # runcase(testcase,model,opt)
+    # logging.info("Done!")
 
 
     results = {}
@@ -41,6 +45,7 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
             results[split_key[0]] = {}
             results[split_key[0]][split_key[1][:-1]] =  value(v)
 
+    print(results)
     return results
 
 
@@ -163,6 +168,8 @@ class printdata(object):
         f.write('set G:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+"\n")
         f.write(';\n')
         #---set of demands---
         f.write('set D:=\n')
@@ -213,6 +220,9 @@ class printdata(object):
         f.write('set Gbs:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["busname"][i]) + " "+str(self.data["generator"]["name"][i])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["busname"][i]) + " "+str(self.data["hvdc"]["name"][i])+"\n")
+        
         f.write(';\n')
         #---set of wind generator-bus mapping (windgen_bus, gen_ind)---
         if not(self.data["wind"].empty):
@@ -268,10 +278,16 @@ class printdata(object):
         f.write('param PGmin:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(0)+"\n"))
+        
         f.write(';\n')
         f.write('param PGmax:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["short_output"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        
         f.write(';\n')
         #---Real power wind generation bounds---
         if not(self.data["wind"].empty):
@@ -298,14 +314,20 @@ class printdata(object):
         f.write('param c2:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc2"][i]))+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["costc2"][i]))+"\n")
         f.write(';\n')
         f.write('param c1:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc1"][i]))+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["costc1"][i]))+"\n")
         f.write(';\n')
         f.write('param c0:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc0"][i]))+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["costc0"][i]))+"\n")
         f.write(';\n')
         f.close()
     def printDCOPF(self):
