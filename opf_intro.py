@@ -9,7 +9,7 @@ from pyomo.opt import SolverFactory
 from pyomo.opt import SolverStatus, TerminationCondition
 import logging
 
-def dcopf(tc='default',solver='appsi_highs',neos=True,out=0):
+def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     
     #options
     opt=({'neos':neos,\
@@ -97,6 +97,7 @@ def selecttestcase(test):
     df_baseMVA     = xl.parse("baseMVA")
     df_zone        = xl.parse("zone")
     df_zonalNTC    = xl.parse("zonalNTC")
+    df_hvdc        = xl.parse("hvdc")
 
     data = {
     "bus": df_bus.dropna(how='all'),
@@ -108,6 +109,7 @@ def selecttestcase(test):
     "baseMVA": df_baseMVA.dropna(how='all'),
     "zone":df_zone.dropna(how='all'),
     "zonalNTC":df_zonalNTC.dropna(how='all'),
+    "hvdc":df_hvdc.dropna(how='all'),
     "flags":data_flags
     }
     try:
@@ -161,15 +163,19 @@ class printdata(object):
         ##===sets===
         #---set of buses---
         f.write('set B:=\n')
+        max_bus_num = max(self.data["bus"]["name"]) + 1
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(max_bus_num)+"\n")
+            max_bus_num += 1
         f.write(';\n')
         #---set of generators---
         f.write('set G:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+"\n")
         for i in self.data["hvdc"].index.tolist():
-            f.write(str(self.data["hvdc"]["name"][i])+"\n")
+            f.write(str(self.data["hvdc"]["name"][i]) +"\n")
         f.write(';\n')
         #---set of demands---
         f.write('set D:=\n')
@@ -209,6 +215,9 @@ class printdata(object):
         f.write('set L:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i]) + "_a" +"\n")
+            f.write(str(self.data["hvdc"]["name"][i]) + "_b" +"\n")
         f.write(';\n')
         #set of transformers
         if not(self.data["transformer"].empty):
@@ -220,8 +229,11 @@ class printdata(object):
         f.write('set Gbs:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["busname"][i]) + " "+str(self.data["generator"]["name"][i])+"\n")
+
+        max_bus_num = max(self.data["bus"]["name"]) + 1
         for i in self.data["hvdc"].index.tolist():
-            f.write(str(self.data["hvdc"]["busname"][i]) + " "+str(self.data["hvdc"]["name"][i])+"\n")
+            f.write(str(max_bus_num) + " "+str(self.data["hvdc"]["name"][i])+"\n")
+            max_bus_num += 1
         
         f.write(';\n')
         #---set of wind generator-bus mapping (windgen_bus, gen_ind)---
@@ -245,8 +257,12 @@ class printdata(object):
         f.write('param A:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"1"+" "+str(self.data["branch"]["from_busname"][i])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"2"+" "+str(self.data["branch"]["to_busname"][i])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
         f.write(';\n')
         #---Transformers---
         if not(self.data["transformer"].empty):
@@ -264,6 +280,9 @@ class printdata(object):
         f.write('param BL:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+            f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -279,14 +298,14 @@ class printdata(object):
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         for i in self.data["hvdc"].index.tolist():
-            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(0)+"\n"))
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(-float(self.data["hvdc"]["ShortTermRating"][i]))+"\n")
         
         f.write(';\n')
         f.write('param PGmax:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         for i in self.data["hvdc"].index.tolist():
-            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["short_output"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         
         f.write(';\n')
         #---Real power wind generation bounds---
@@ -303,6 +322,9 @@ class printdata(object):
         f.write('param SLmax:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(float(self.data["branch"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -315,19 +337,19 @@ class printdata(object):
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc2"][i]))+"\n")
         for i in self.data["hvdc"].index.tolist():
-            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["costc2"][i]))+"\n")
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(0))+"\n")
         f.write(';\n')
         f.write('param c1:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc1"][i]))+"\n")
         for i in self.data["hvdc"].index.tolist():
-            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["costc1"][i]))+"\n")
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(0))+"\n")
         f.write(';\n')
         f.write('param c0:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc0"][i]))+"\n")
         for i in self.data["hvdc"].index.tolist():
-            f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["costc0"][i]))+"\n")
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(0)+"\n")
         f.write(';\n')
         f.close()
     def printDCOPF(self):
@@ -336,6 +358,8 @@ class printdata(object):
         f.write('param BL:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            f.write(str(self.data["hvdc"]["name"][i])+" "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):

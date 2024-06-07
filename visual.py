@@ -13,8 +13,6 @@ def draw_nodes(data):
     for index, row in node_list.iterrows():
         if row["name"] in list(pd.read_excel(data, "demand")["busname"]):
             colour = "red"
-        elif row["name"] in list(pd.read_excel(data, "hvdc")["busname"]):
-            colour = "blue"
         elif row["name"] in list(pd.read_excel(data, "generator")["busname"]):
             colour = "green"
         else:
@@ -28,9 +26,16 @@ def draw_lines(data):
     for index, row in line_list.iterrows():
         start = node_list[node_list["name"] == row["from_busname"]]
         end = node_list[node_list["name"] == row["to_busname"]]
+        plt.plot([start["x"], end["x"]], [start["y"], end["y"]], color="black", linewidth=2) 
+
+    hvdc_lines = pd.read_excel(data, "hvdc")
+    for index, row in hvdc_lines.iterrows():
+        start = node_list[node_list["name"] == row["from_busname"]]
+        end = node_list[node_list["name"] == row["to_busname"]]
         # print("x: ", int(start["x"]), int(end["x"]))
         # print("y: ", int(start["y"]), int(end["y"]))
-        plt.plot([start["x"], end["x"]], [start["y"], end["y"]], color="black", linewidth=2) 
+        plt.plot([start["x"], end["x"]], [start["y"], end["y"]], color="blue", linewidth=3) 
+
 
 
 # load in coordinates for everything
