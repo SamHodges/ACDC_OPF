@@ -1,6 +1,6 @@
 #This is Python generated data file for Pyomo model DCLF.py
 #_author_:W. Bukhsh
-#Time stamp: 2024-06-05 15:57:19.631093
+#Time stamp: 2024-06-07 12:21:24.196742
 set B:=
 1
 2
@@ -12,12 +12,17 @@ set B:=
 8
 9
 10
+11
 ;
 set G:=
 G1
 G2
 G3
-HVDC
+HVDC_A
+HVDC_B
+;
+set HVDC_Pairs:=
+(HVDC_A, HVDC_B)
 ;
 set D:=
 D1
@@ -59,7 +64,8 @@ set Gbs:=
 1 G1
 2 G2
 3 G3
-10 HVDC
+10 HVDC_A
+11 HVDC_B
 ;
 set Dbs:=
 5 D1
@@ -79,7 +85,8 @@ L6-78 1 7
 L7-82 1 8
 L8-89 1 8
 L9-94 1 9
-HVDC_a 1 4
+HVDC_a 1 10
+HVDC_b 1 11
 L1-14 2 4
 L2-45 2 5
 L3-56 2 6
@@ -89,19 +96,22 @@ L6-78 2 8
 L7-82 2 2
 L8-89 2 9
 L9-94 2 4
+HVDC_a 2 4
 HVDC_b 2 6
 ;
 param PGmin:=
 G1 0.1
 G2 0.1
 G3 0.1
-HVDC -2400.0
+HVDC_A -24.0
+HVDC_B -24.0
 ;
 param PGmax:=
 G1 2.5
 G2 3.0
 G3 2.7
-HVDC 24.0
+HVDC_A 24.0
+HVDC_B 24.0
 ;
 param SLmax:=
 L1-14 2.5
@@ -120,19 +130,22 @@ param c2:=
 G1 0.0
 G2 0.0
 G3 0.0
-HVDC 0.0
+HVDC_A 0.0
+HVDC_B 0.0
 ;
 param c1:=
 G1 5.0
 G2 1.2
 G3 1.0
-HVDC 0.0
+HVDC_A 0.0
+HVDC_B 0.0
 ;
 param c0:=
 G1 0.0
 G2 0.0
 G3 0.0
-HVDC 0
+HVDC_A 0
+HVDC_B 0
 ;
 param BL:=
 L1-14 -17.36111111111111
@@ -157,5 +170,6 @@ L6-78 -13.88888888888889
 L7-82 -16.0
 L8-89 -6.211180124223603
 L9-94 -11.76470588235294
-HVDC -17.064846416382252
+HVDC_a -17.064846416382252
+HVDC_b -17.064846416382252
 ;

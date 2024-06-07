@@ -20,6 +20,7 @@ model = AbstractModel()
 # --- SETS ---
 model.B      = Set()  # set of buses
 model.G      = Set()  # set of generators
+model.HVDC_Pairs   = Set(dimen=2)  # set of HVDC
 model.WIND   = Set()  # set of wind generators
 model.D      = Set()  # set of demands
 model.DNeg   = Set()  # set of demands
@@ -124,11 +125,13 @@ def Real_Power_Max(model,g):
     return model.pG[g] <= model.PGmax[g]
 def Real_Power_Min(model,g):
     return model.pG[g] >= model.PGmin[g]
+def Equal_HVDC(model, g1, g2):
+    return model.pG[g1] == -model.pG[g2]
     
 
 model.PGmaxC = Constraint(model.G, rule=Real_Power_Max)
 model.PGminC = Constraint(model.G, rule=Real_Power_Min)
-# model.equalHVDC = Constraint(model.G, rule=Equal_HVDC)
+model.equalHVDC = Constraint(model.HVDC_Pairs, rule=Equal_HVDC)
 
 # # ---wind generator power limits ---
 def Wind_Real_Power_Max(model,w):
