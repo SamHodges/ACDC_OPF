@@ -1,7 +1,599 @@
 #This is Python generated data file for Pyomo model DCLF.py
 #_author_:W. Bukhsh
-#Time stamp: 2024-06-07 12:21:24.196742
+#Time stamp: 2024-07-03 13:23:07.981597
 set B:=
+Beauly
+Peterhead
+Errochty
+Denny/Bonnybridge
+Neilston
+Strathaven
+Torness
+Eccles
+Harker
+Stella West
+Penwortham
+Deeside
+Daines
+Th. Marsh/Stocksbridge
+Thornton/Drax/Eggborough
+Keadby
+Ratcliffe
+Feckenham
+Walpole
+Bramford
+Pelham
+Sundon/East Claydon
+Melksham
+Bramley
+London
+Kemsley
+Sellindge
+Lovedean
+S.W.Penisula
+Netherlands
+Belgium
+France1
+France2
+Ireland
+N. Ireland
+Western Link_HVDC_gen_A
+Western Link_HVDC_gen_B
+Netherla_HVDCnds_HVDC_gen_INT
+Belgium_HVDC_HVDC_gen_INT
+France1_HVDC_HVDC_gen_INT
+France2_HVDC_HVDC_gen_INT
+Ireland_HVDC_HVDC_gen_INT
+N. Ireland_HVDC_HVDC_gen_INT
+;
+set G:=
+Keadby
+Walpole
+Melksham
+Melksham
+Penwortham
+Kemsley
+Pelham
+Lovedean
+Thornton/Drax/Eggborough
+Daines
+Th. Marsh/Stocksbridge
+Keadby
+Keadby
+S.W.Penisula
+Ratcliffe
+Daines
+Harker
+Deeside
+Kemsley
+Walpole
+Lovedean
+Bramley
+Bramford
+Sundon/East Claydon
+Melksham
+Ratcliffe
+Melksham
+Peterhead
+Keadby
+Kemsley
+Keadby
+Keadby
+London
+Kemsley
+Keadby
+Deeside
+Melksham
+Thornton/Drax/Eggborough
+Walpole
+Stella West
+S.W.Penisula
+London
+Thornton/Drax/Eggborough
+Beauly
+Neilston
+Stella West
+Thornton/Drax/Eggborough
+Denny/Bonnybridge
+Penwortham
+Harker
+Sundon/East Claydon
+Melksham
+Daines
+Denny/Bonnybridge
+S.W.Penisula
+Keadby
+Walpole
+Bramford
+London
+Kemsley
+Melksham
+Stella West
+Th. Marsh/Stocksbridge
+Stella West
+Melksham
+London
+Bramford
+Daines
+S.W.Penisula
+Beauly
+London
+Keadby
+Kemsley
+Denny/Bonnybridge
+Th. Marsh/Stocksbridge
+Th. Marsh/Stocksbridge
+Denny/Bonnybridge
+Sellindge
+Thornton/Drax/Eggborough
+Keadby
+Sundon/East Claydon
+Bramford
+Beauly
+Deeside
+Thornton/Drax/Eggborough
+Harker
+Peterhead
+Ratcliffe
+Torness
+Thornton/Drax/Eggborough
+Sundon/East Claydon
+Ratcliffe
+Deeside
+Errochty
+Keadby
+Peterhead
+Neilston
+Th. Marsh/Stocksbridge
+Walpole
+Ratcliffe
+Melksham
+Keadby
+Deeside
+Th. Marsh/Stocksbridge
+Feckenham
+Deeside
+Feckenham
+Bramford
+Thornton/Drax/Eggborough
+Strathaven
+Walpole
+Melksham
+Melksham
+Penwortham
+Kemsley
+Pelham
+Lovedean
+Thornton/Drax/Eggborough
+Daines
+Th. Marsh/Stocksbridge
+Keadby
+Keadby
+S.W.Penisula
+Ratcliffe
+Daines
+Harker
+Deeside
+Kemsley
+Walpole
+Lovedean
+Bramley
+Bramford
+Sundon/East Claydon
+Melksham
+Ratcliffe
+Melksham
+Peterhead
+Keadby
+Kemsley
+Keadby
+Keadby
+London
+Kemsley
+Keadby
+Deeside
+Walpole
+Melksham
+Melksham
+Penwortham
+Kemsley
+Pelham
+Lovedean
+Thornton/Drax/Eggborough
+Daines
+Th. Marsh/Stocksbridge
+Keadby
+Keadby
+S.W.Penisula
+Ratcliffe
+Daines
+Harker
+Deeside
+Kemsley
+Walpole
+Lovedean
+Bramley
+Bramford
+Sundon/East Claydon
+Melksham
+Ratcliffe
+Melksham
+Peterhead
+Keadby
+Kemsley
+Keadby
+Keadby
+London
+Kemsley
+Keadby
+Deeside
+Walpole
+Keadby
+London
+London
+Stella West
+Bramley
+S.W.Penisula
+Melksham
+Deeside
+Keadby
+Sellindge
+Stella West
+Penwortham
+Penwortham
+S.W.Penisula
+Neilston
+Torness
+Bramford
+Melksham
+Thornton/Drax/Eggborough
+Keadby
+Keadby
+Kemsley
+Lovedean
+Sundon/East Claydon
+Sundon/East Claydon
+Peterhead
+Bramley
+Beauly
+Beauly
+Neilston
+Peterhead
+Beauly
+Beauly
+Neilston
+S.W.Penisula
+Kemsley
+Lovedean
+Thornton/Drax/Eggborough
+Thornton/Drax/Eggborough
+Feckenham
+Feckenham
+Daines
+Feckenham
+Stella West
+London
+Bramley
+Lovedean
+Th. Marsh/Stocksbridge
+Keadby
+Th. Marsh/Stocksbridge
+London
+London
+Denny/Bonnybridge
+Kemsley
+Feckenham
+Daines
+Daines
+Lovedean
+Th. Marsh/Stocksbridge
+Walpole
+Deeside
+Feckenham
+S.W.Penisula
+Melksham
+Melksham
+Keadby
+Stella West
+Stella West
+Deeside
+Thornton/Drax/Eggborough
+S.W.Penisula
+S.W.Penisula
+London
+Kemsley
+Thornton/Drax/Eggborough
+Sundon/East Claydon
+Sundon/East Claydon
+Sundon/East Claydon
+Torness
+Bramford
+Melksham
+Deeside
+Feckenham
+Melksham
+Lovedean
+Lovedean
+London
+Stella West
+Stella West
+London
+Torness
+Ratcliffe
+Walpole
+Melksham
+Melksham
+Penwortham
+Kemsley
+Pelham
+Lovedean
+Thornton/Drax/Eggborough
+Daines
+Th. Marsh/Stocksbridge
+Keadby
+Keadby
+S.W.Penisula
+Ratcliffe
+Daines
+Harker
+Deeside
+Kemsley
+Walpole
+Lovedean
+Bramley
+Bramford
+Sundon/East Claydon
+Melksham
+Ratcliffe
+Melksham
+Peterhead
+Keadby
+Kemsley
+Keadby
+Keadby
+London
+Kemsley
+Keadby
+Deeside
+Beauly
+Peterhead
+Errochty
+Denny/Bonnybridge
+Neilston
+Strathaven
+Torness
+Eccles
+Harker
+Stella West
+Penwortham
+Deeside
+Daines
+Th. Marsh/Stocksbridge
+Thornton/Drax/Eggborough
+Keadby
+Ratcliffe
+Feckenham
+Walpole
+Bramford
+Pelham
+Sundon/East Claydon
+Melksham
+Bramley
+London
+Kemsley
+Sellindge
+Lovedean
+S.W.Penisula
+Keadby
+Peterhead
+Deeside
+Bramford
+Walpole
+Kemsley
+Harker
+Sellindge
+Penwortham
+Stella West
+Lovedean
+Torness
+Beauly
+Neilston
+Keadby
+Peterhead
+Deeside
+Bramford
+Walpole
+Kemsley
+Harker
+Sellindge
+Penwortham
+Stella West
+Torness
+Beauly
+Neilston
+Melksham
+Pelham
+Thornton/Drax/Eggborough
+Daines
+Th. Marsh/Stocksbridge
+S.W.Penisula
+Ratcliffe
+Bramley
+Sundon/East Claydon
+London
+Denny/Bonnybridge
+Errochty
+Feckenham
+Strathaven
+Eccles
+Keadby
+Peterhead
+Deeside
+Bramford
+Walpole
+Kemsley
+Harker
+Sellindge
+Penwortham
+Stella West
+Lovedean
+Torness
+Beauly
+Neilston
+Melksham
+Pelham
+Thornton/Drax/Eggborough
+Daines
+Th. Marsh/Stocksbridge
+S.W.Penisula
+Ratcliffe
+Bramley
+Sundon/East Claydon
+London
+Denny/Bonnybridge
+Errochty
+Feckenham
+Strathaven
+Deeside
+Harker
+Beauly
+Neilston
+Errochty
+Strathaven
+Deeside
+Stella West
+Beauly
+Neilston
+Ratcliffe
+Denny/Bonnybridge
+Errochty
+Feckenham
+Deeside
+Melksham
+S.W.Penisula
+Peterhead
+Deeside
+Lovedean
+Beauly
+Neilston
+S.W.Penisula
+Beauly
+Melksham
+Western Link_A
+Western Link_B
+Netherla_HVDCnds_INT
+Belgium_HVDC_INT
+France1_HVDC_INT
+France2_HVDC_INT
+Ireland_HVDC_INT
+N. Ireland_HVDC_INT
+;
+set HVDC_Pairs:=
+(Western Link_A, Western Link_B)
+;
+set D:=
+D1
+D2
+D3
+D4
+D5
+D6
+D7
+D8
+D9
+D10
+D11
+D12
+D13
+D14
+D15
+D16
+D17
+D18
+D19
+D20
+D21
+D22
+D23
+D24
+D25
+D26
+D27
+D28
+D29
+;
+param PD:=
+D1 3.16094
+D2 4.45692
+D3 1.5715299999999999
+D4 11.714030000000001
+D5 13.83577
+D6 4.02267
+D7 3.56719
+D8 1.02748
+D9 4.8466000000000005
+D10 29.34953
+D11 14.89103
+D12 31.89678
+D13 32.38207
+D14 25.83729
+D15 23.53355
+D16 8.44336
+D17 20.40054
+D18 41.52415
+D19 11.38509
+D20 14.266300000000001
+D21 8.68317
+D22 29.19641
+D23 42.789080000000006
+D24 13.39963
+D25 92.03967
+D26 16.0537
+D27 8.22733
+D28 22.20415
+D29 26.961529999999996
+;
+set DNeg:=
+;
+param VOLL:=
+D1 100000.0
+D2 100000.0
+D3 100000.0
+D4 100000.0
+D5 100000.0
+D6 100000.0
+D7 100000.0
+D8 100000.0
+D9 100000.0
+D10 100000.0
+D11 100000.0
+D12 100000.0
+D13 100000.0
+D14 100000.0
+D15 100000.0
+D16 100000.0
+D17 100000.0
+D18 100000.0
+D19 100000.0
+D20 100000.0
+D21 100000.0
+D22 100000.0
+D23 100000.0
+D24 100000.0
+D25 100000.0
+D26 100000.0
+D27 100000.0
+D28 100000.0
+D29 100000.0
+;
+param baseMVA:=
+100
+;
+set LE:=
+ 1 
+ 2;
+set L:=
+0
 1
 2
 3
@@ -13,163 +605,582 @@ set B:=
 9
 10
 11
-;
-set G:=
-G1
-G2
-G3
-HVDC_A
-HVDC_B
-;
-set HVDC_Pairs:=
-(HVDC_A, HVDC_B)
-;
-set D:=
-D1
-D2
-D3
-;
-param PD:=
-D1 0.9
-D2 1.0
-D3 1.25
-;
-set DNeg:=
-;
-param VOLL:=
-D1 100000.0
-D2 100000.0
-D3 100000.0
-;
-param baseMVA:=
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
 100
-;
-set LE:=
- 1 
- 2;
-set L:=
-L1-14
-L2-45
-L3-56
-L4-36
-L5-67
-L6-78
-L7-82
-L8-89
-L9-94
-HVDC_a
-HVDC_b
+101
+102
+103
+104
+Western Link_a
+Western Link_b
+Netherla_HVDCnds_int
+Belgium_HVDC_int
+France1_HVDC_int
+France2_HVDC_int
+Ireland_HVDC_int
+N. Ireland_HVDC_int
 ;
 set Gbs:=
-1 G1
-2 G2
-3 G3
-10 HVDC_A
-11 HVDC_B
+Keadby Keadby
+Walpole Walpole
+Melksham Melksham
+Melksham Melksham
+Penwortham Penwortham
+Kemsley Kemsley
+Pelham Pelham
+Lovedean Lovedean
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Daines Daines
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Keadby Keadby
+Keadby Keadby
+S.W.Penisula S.W.Penisula
+Ratcliffe Ratcliffe
+Daines Daines
+Harker Harker
+Deeside Deeside
+Kemsley Kemsley
+Walpole Walpole
+Lovedean Lovedean
+Bramley Bramley
+Bramford Bramford
+Sundon/East Claydon Sundon/East Claydon
+Melksham Melksham
+Ratcliffe Ratcliffe
+Melksham Melksham
+Peterhead Peterhead
+Keadby Keadby
+Kemsley Kemsley
+Keadby Keadby
+Keadby Keadby
+London London
+Kemsley Kemsley
+Keadby Keadby
+Deeside Deeside
+Melksham Melksham
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Walpole Walpole
+Stella West Stella West
+S.W.Penisula S.W.Penisula
+London London
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Beauly Beauly
+Neilston Neilston
+Stella West Stella West
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Denny/Bonnybridge Denny/Bonnybridge
+Penwortham Penwortham
+Harker Harker
+Sundon/East Claydon Sundon/East Claydon
+Melksham Melksham
+Daines Daines
+Denny/Bonnybridge Denny/Bonnybridge
+S.W.Penisula S.W.Penisula
+Keadby Keadby
+Walpole Walpole
+Bramford Bramford
+London London
+Kemsley Kemsley
+Melksham Melksham
+Stella West Stella West
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Stella West Stella West
+Melksham Melksham
+London London
+Bramford Bramford
+Daines Daines
+S.W.Penisula S.W.Penisula
+Beauly Beauly
+London London
+Keadby Keadby
+Kemsley Kemsley
+Denny/Bonnybridge Denny/Bonnybridge
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Denny/Bonnybridge Denny/Bonnybridge
+Sellindge Sellindge
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Keadby Keadby
+Sundon/East Claydon Sundon/East Claydon
+Bramford Bramford
+Beauly Beauly
+Deeside Deeside
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Harker Harker
+Peterhead Peterhead
+Ratcliffe Ratcliffe
+Torness Torness
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Sundon/East Claydon Sundon/East Claydon
+Ratcliffe Ratcliffe
+Deeside Deeside
+Errochty Errochty
+Keadby Keadby
+Peterhead Peterhead
+Neilston Neilston
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Walpole Walpole
+Ratcliffe Ratcliffe
+Melksham Melksham
+Keadby Keadby
+Deeside Deeside
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Feckenham Feckenham
+Deeside Deeside
+Feckenham Feckenham
+Bramford Bramford
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Strathaven Strathaven
+Walpole Walpole
+Melksham Melksham
+Melksham Melksham
+Penwortham Penwortham
+Kemsley Kemsley
+Pelham Pelham
+Lovedean Lovedean
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Daines Daines
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Keadby Keadby
+Keadby Keadby
+S.W.Penisula S.W.Penisula
+Ratcliffe Ratcliffe
+Daines Daines
+Harker Harker
+Deeside Deeside
+Kemsley Kemsley
+Walpole Walpole
+Lovedean Lovedean
+Bramley Bramley
+Bramford Bramford
+Sundon/East Claydon Sundon/East Claydon
+Melksham Melksham
+Ratcliffe Ratcliffe
+Melksham Melksham
+Peterhead Peterhead
+Keadby Keadby
+Kemsley Kemsley
+Keadby Keadby
+Keadby Keadby
+London London
+Kemsley Kemsley
+Keadby Keadby
+Deeside Deeside
+Walpole Walpole
+Melksham Melksham
+Melksham Melksham
+Penwortham Penwortham
+Kemsley Kemsley
+Pelham Pelham
+Lovedean Lovedean
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Daines Daines
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Keadby Keadby
+Keadby Keadby
+S.W.Penisula S.W.Penisula
+Ratcliffe Ratcliffe
+Daines Daines
+Harker Harker
+Deeside Deeside
+Kemsley Kemsley
+Walpole Walpole
+Lovedean Lovedean
+Bramley Bramley
+Bramford Bramford
+Sundon/East Claydon Sundon/East Claydon
+Melksham Melksham
+Ratcliffe Ratcliffe
+Melksham Melksham
+Peterhead Peterhead
+Keadby Keadby
+Kemsley Kemsley
+Keadby Keadby
+Keadby Keadby
+London London
+Kemsley Kemsley
+Keadby Keadby
+Deeside Deeside
+Walpole Walpole
+Keadby Keadby
+London London
+London London
+Stella West Stella West
+Bramley Bramley
+S.W.Penisula S.W.Penisula
+Melksham Melksham
+Deeside Deeside
+Keadby Keadby
+Sellindge Sellindge
+Stella West Stella West
+Penwortham Penwortham
+Penwortham Penwortham
+S.W.Penisula S.W.Penisula
+Neilston Neilston
+Torness Torness
+Bramford Bramford
+Melksham Melksham
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Keadby Keadby
+Keadby Keadby
+Kemsley Kemsley
+Lovedean Lovedean
+Sundon/East Claydon Sundon/East Claydon
+Sundon/East Claydon Sundon/East Claydon
+Peterhead Peterhead
+Bramley Bramley
+Beauly Beauly
+Beauly Beauly
+Neilston Neilston
+Peterhead Peterhead
+Beauly Beauly
+Beauly Beauly
+Neilston Neilston
+S.W.Penisula S.W.Penisula
+Kemsley Kemsley
+Lovedean Lovedean
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Feckenham Feckenham
+Feckenham Feckenham
+Daines Daines
+Feckenham Feckenham
+Stella West Stella West
+London London
+Bramley Bramley
+Lovedean Lovedean
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Keadby Keadby
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+London London
+London London
+Denny/Bonnybridge Denny/Bonnybridge
+Kemsley Kemsley
+Feckenham Feckenham
+Daines Daines
+Daines Daines
+Lovedean Lovedean
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Walpole Walpole
+Deeside Deeside
+Feckenham Feckenham
+S.W.Penisula S.W.Penisula
+Melksham Melksham
+Melksham Melksham
+Keadby Keadby
+Stella West Stella West
+Stella West Stella West
+Deeside Deeside
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+S.W.Penisula S.W.Penisula
+S.W.Penisula S.W.Penisula
+London London
+Kemsley Kemsley
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Sundon/East Claydon Sundon/East Claydon
+Sundon/East Claydon Sundon/East Claydon
+Sundon/East Claydon Sundon/East Claydon
+Torness Torness
+Bramford Bramford
+Melksham Melksham
+Deeside Deeside
+Feckenham Feckenham
+Melksham Melksham
+Lovedean Lovedean
+Lovedean Lovedean
+London London
+Stella West Stella West
+Stella West Stella West
+London London
+Torness Torness
+Ratcliffe Ratcliffe
+Walpole Walpole
+Melksham Melksham
+Melksham Melksham
+Penwortham Penwortham
+Kemsley Kemsley
+Pelham Pelham
+Lovedean Lovedean
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Daines Daines
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Keadby Keadby
+Keadby Keadby
+S.W.Penisula S.W.Penisula
+Ratcliffe Ratcliffe
+Daines Daines
+Harker Harker
+Deeside Deeside
+Kemsley Kemsley
+Walpole Walpole
+Lovedean Lovedean
+Bramley Bramley
+Bramford Bramford
+Sundon/East Claydon Sundon/East Claydon
+Melksham Melksham
+Ratcliffe Ratcliffe
+Melksham Melksham
+Peterhead Peterhead
+Keadby Keadby
+Kemsley Kemsley
+Keadby Keadby
+Keadby Keadby
+London London
+Kemsley Kemsley
+Keadby Keadby
+Deeside Deeside
+Beauly Beauly
+Peterhead Peterhead
+Errochty Errochty
+Denny/Bonnybridge Denny/Bonnybridge
+Neilston Neilston
+Strathaven Strathaven
+Torness Torness
+Eccles Eccles
+Harker Harker
+Stella West Stella West
+Penwortham Penwortham
+Deeside Deeside
+Daines Daines
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Keadby Keadby
+Ratcliffe Ratcliffe
+Feckenham Feckenham
+Walpole Walpole
+Bramford Bramford
+Pelham Pelham
+Sundon/East Claydon Sundon/East Claydon
+Melksham Melksham
+Bramley Bramley
+London London
+Kemsley Kemsley
+Sellindge Sellindge
+Lovedean Lovedean
+S.W.Penisula S.W.Penisula
+Keadby Keadby
+Peterhead Peterhead
+Deeside Deeside
+Bramford Bramford
+Walpole Walpole
+Kemsley Kemsley
+Harker Harker
+Sellindge Sellindge
+Penwortham Penwortham
+Stella West Stella West
+Lovedean Lovedean
+Torness Torness
+Beauly Beauly
+Neilston Neilston
+Keadby Keadby
+Peterhead Peterhead
+Deeside Deeside
+Bramford Bramford
+Walpole Walpole
+Kemsley Kemsley
+Harker Harker
+Sellindge Sellindge
+Penwortham Penwortham
+Stella West Stella West
+Torness Torness
+Beauly Beauly
+Neilston Neilston
+Melksham Melksham
+Pelham Pelham
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Daines Daines
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+S.W.Penisula S.W.Penisula
+Ratcliffe Ratcliffe
+Bramley Bramley
+Sundon/East Claydon Sundon/East Claydon
+London London
+Denny/Bonnybridge Denny/Bonnybridge
+Errochty Errochty
+Feckenham Feckenham
+Strathaven Strathaven
+Eccles Eccles
+Keadby Keadby
+Peterhead Peterhead
+Deeside Deeside
+Bramford Bramford
+Walpole Walpole
+Kemsley Kemsley
+Harker Harker
+Sellindge Sellindge
+Penwortham Penwortham
+Stella West Stella West
+Lovedean Lovedean
+Torness Torness
+Beauly Beauly
+Neilston Neilston
+Melksham Melksham
+Pelham Pelham
+Thornton/Drax/Eggborough Thornton/Drax/Eggborough
+Daines Daines
+Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
+S.W.Penisula S.W.Penisula
+Ratcliffe Ratcliffe
+Bramley Bramley
+Sundon/East Claydon Sundon/East Claydon
+London London
+Denny/Bonnybridge Denny/Bonnybridge
+Errochty Errochty
+Feckenham Feckenham
+Strathaven Strathaven
+Deeside Deeside
+Harker Harker
+Beauly Beauly
+Neilston Neilston
+Errochty Errochty
+Strathaven Strathaven
+Deeside Deeside
+Stella West Stella West
+Beauly Beauly
+Neilston Neilston
+Ratcliffe Ratcliffe
+Denny/Bonnybridge Denny/Bonnybridge
+Errochty Errochty
+Feckenham Feckenham
+Deeside Deeside
+Melksham Melksham
+S.W.Penisula S.W.Penisula
+Peterhead Peterhead
+Deeside Deeside
+Lovedean Lovedean
+Beauly Beauly
+Neilston Neilston
+S.W.Penisula S.W.Penisula
+Beauly Beauly
+Melksham Melksham
+Western Link_HVDC_gen_A Western Link_A
+Western Link_HVDC_gen_B Western Link_A
+Netherla_HVDCnds_HVDC_gen_INT Netherla_HVDCnds_INT
+Belgium_HVDC_HVDC_gen_INT Belgium_HVDC_INT
+France1_HVDC_HVDC_gen_INT France1_HVDC_INT
+France2_HVDC_HVDC_gen_INT France2_HVDC_INT
+Ireland_HVDC_HVDC_gen_INT Ireland_HVDC_INT
+N. Ireland_HVDC_HVDC_gen_INT N. Ireland_HVDC_INT
 ;
 set Dbs:=
-5 D1
-7 D2
-9 D3
+Beauly D1
+Peterhead D2
+Errochty D3
+Denny/Bonnybridge D4
+Neilston D5
+Strathaven D6
+Torness D7
+Eccles D8
+Harker D9
+Stella West D10
+Penwortham D11
+Deeside D12
+Daines D13
+Th. Marsh/Stocksbridge D14
+Thornton/Drax/Eggborough D15
+Keadby D16
+Ratcliffe D17
+Feckenham D18
+Walpole D19
+Bramford D20
+Pelham D21
+Sundon/East Claydon D22
+Melksham D23
+Bramley D24
+London D25
+Kemsley D26
+Sellindge D27
+Lovedean D28
+S.W.Penisula D29
 ;
 set b0:=
-1
+Keadby
 ;
 param A:=
-L1-14 1 1
-L2-45 1 4
-L3-56 1 5
-L4-36 1 3
-L5-67 1 6
-L6-78 1 7
-L7-82 1 8
-L8-89 1 8
-L9-94 1 9
-HVDC_a 1 10
-HVDC_b 1 11
-L1-14 2 4
-L2-45 2 5
-L3-56 2 6
-L4-36 2 6
-L5-67 2 7
-L6-78 2 8
-L7-82 2 2
-L8-89 2 9
-L9-94 2 4
-HVDC_a 2 4
-HVDC_b 2 6
-;
-param PGmin:=
-G1 0.1
-G2 0.1
-G3 0.1
-HVDC_A -24.0
-HVDC_B -24.0
-;
-param PGmax:=
-G1 2.5
-G2 3.0
-G3 2.7
-HVDC_A 24.0
-HVDC_B 24.0
-;
-param SLmax:=
-L1-14 2.5
-L2-45 2.5
-L3-56 1.5
-L4-36 3.0
-L5-67 1.5
-L6-78 2.5
-L7-82 2.5
-L8-89 2.5
-L9-94 2.5
-HVDC_a 22.0
-HVDC_b 22.0
-;
-param c2:=
-G1 0.0
-G2 0.0
-G3 0.0
-HVDC_A 0.0
-HVDC_B 0.0
-;
-param c1:=
-G1 5.0
-G2 1.2
-G3 1.0
-HVDC_A 0.0
-HVDC_B 0.0
-;
-param c0:=
-G1 0.0
-G2 0.0
-G3 0.0
-HVDC_A 0
-HVDC_B 0
-;
-param BL:=
-L1-14 -17.36111111111111
-L2-45 -10.869565217391305
-L3-56 -5.88235294117647
-L4-36 -17.064846416382252
-L5-67 -9.920634920634921
-L6-78 -13.88888888888889
-L7-82 -16.0
-L8-89 -6.211180124223603
-L9-94 -11.76470588235294
-HVDC_a -17.064846416382252
-HVDC_b -17.064846416382252
-;
-param BL:=
-L1-14 -17.36111111111111
-L2-45 -10.869565217391305
-L3-56 -5.88235294117647
-L4-36 -17.064846416382252
-L5-67 -9.920634920634921
-L6-78 -13.88888888888889
-L7-82 -16.0
-L8-89 -6.211180124223603
-L9-94 -11.76470588235294
-HVDC_a -17.064846416382252
-HVDC_b -17.064846416382252
-;
