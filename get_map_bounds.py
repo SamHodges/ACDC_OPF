@@ -22,10 +22,10 @@ def reload_image(file_path=os.path.join(".", "data", "case9 - Copy.xlsx")):
 
     line_info = []
     line_list = pd.read_excel(data, "branch")
-    # for index, row in line_list.iterrows():
-    #     start = bus_list[bus_list["name"] == row["from_busname"]]
-    #     end = bus_list[bus_list["name"] == row["to_busname"]]
-    #     line_info.append([[start["x"].iloc[0], start["y"].iloc[0]], [end["x"].iloc[0], end["y"].iloc[0]]])
+    for index, row in line_list.iterrows():
+        start = bus_list[bus_list["name"] == row["from_busname"]]
+        end = bus_list[bus_list["name"] == row["to_busname"]]
+        line_info.append([[start["x"].iloc[0], start["y"].iloc[0]], [end["x"].iloc[0], end["y"].iloc[0]]])
 
     hvdc_lines = pd.read_excel(data, "hvdc")
     for index, row in hvdc_lines.iterrows():
@@ -43,8 +43,8 @@ def reload_image(file_path=os.path.join(".", "data", "case9 - Copy.xlsx")):
     
     print("URL!!!", request_url)
     image = requests.get(request_url)
-    with open(os.path.join("data", "image2.png"), 'wb') as f:
-        f.write(image.content)
+    # with open(os.path.join("data", "image2.png"), 'wb') as f:
+    #     f.write(image.content)
 
 
 def bbox_corners(bus_list):

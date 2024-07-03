@@ -14,7 +14,7 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     #options
     opt=({'neos':neos,\
     'solver':solver,'out':out})
-    testcase = os.path.join(".", "data", "case9 - Copy.xlsx")
+    testcase = os.path.join(".", "data", "case9.xlsx")
     model ='DCOPF'
     # ==log==
     runcase(testcase,model,opt)
@@ -167,10 +167,10 @@ class printdata(object):
             f.write(str(self.data["bus"]["name"][i])+"\n")
         for i in self.data["hvdc"].index.tolist():
             if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_A" +"\n")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_B" +"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_A" +"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_B" +"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_INT" +"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_INT" +"\n")
         f.write(';\n')
         #---set of generators---
         f.write('set G:=\n')
@@ -178,10 +178,10 @@ class printdata(object):
             f.write(str(self.data["generator"]["name"][i])+"\n")
         for i in self.data["hvdc"].index.tolist():
             if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_B" + "\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_A" +"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_B" +"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_INT" +"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_INT" +"\n")
         f.write(';\n')
         #---set of hvdc-----
         f.write('set HVDC_Pairs:=\n')
@@ -248,10 +248,10 @@ class printdata(object):
 
         for i in self.data["hvdc"].index.tolist():
             if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_A "+str(self.data["hvdc"]["name"][i])+ "_A" + "\n")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_B "+str(self.data["hvdc"]["name"][i])+ "_A" + "\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "A "+str(self.data["hvdc"]["name"][i])+ "_HVDC_gen_A" + "\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "B "+str(self.data["hvdc"]["name"][i])+ "_HVDC_gen_B" + "\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_INT "+str(self.data["hvdc"]["name"][i])+ "_INT" + "\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + "INT "+str(self.data["hvdc"]["name"][i])+ "_HVDC_gen_INT" + "\n")
         f.write(';\n')
         #---set of wind generator-bus mapping (windgen_bus, gen_ind)---
         if not(self.data["wind"].empty):
@@ -271,25 +271,23 @@ class printdata(object):
             f.write(str(i)+""+"\n")
         f.write(';\n')
         #---param defining system topolgy---
-        f.write('param A:=\n')
         for i in self.data["branch"].index.tolist():
-            print(str(self.data["branch"]["from_busname"][i]))
-           
-            f.write(str(self.data["branch"]["name"][i])+" "+"1"+" "+str(self.data["bus"]["name"].index(str(self.data["branch"]["from_busname"][i]))))
+            f.write(str(self.data["branch"]["name"][i])+" "+"1"+" "+str(self.data["branch"]["from_busname"][i])+"\n")
         for i in self.data["hvdc"].index.tolist():
             if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+str(self.data["bus"]["name"].index(self.data["hvdc"]["name"][i]))+"_HVDC_gen_A \n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_b "+"1"+" "+str(self.data["bus"]["name"].index(self.data["hvdc"]["name"][i]))+"_HVDC_gen_B \n")
+                f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+  str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_A" +"\n")
+                f.write(str(self.data["hvdc"]["name"][i])+"_b "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_B"  +"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_int "+"1"+" "+str( self.data["bus"]["name"].index(self.data["hvdc"]["name"][i]))+"_HVDC_gen_INT \n")
+                f.write(str(self.data["hvdc"]["name"][i])+"_int "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_INT"  +"\n")
         for i in self.data["branch"].index.tolist():
-            f.write(str(self.data["branch"]["name"][i])+" "+"2"+" "+str( self.data["bus"]["name"].index(self.data["branch"]["to_busname"][i]))+"\n")
-        # for i in self.data["hvdc"].index.tolist():
-            # if str(self.data["hvdc"]["type"][i]) == "GB":
-            #     f.write(str(self.data["hvdc"]["name"][i])+"_a "+"2"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
-            #     f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
-            # else:
-            #     f.write(str(self.data["hvdc"]["name"][i])+"_int "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
+            f.write(str(self.data["branch"]["name"][i])+" "+"2"+" "+str(self.data["branch"]["to_busname"][i])+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            if str(self.data["hvdc"]["type"][i]) == "GB":
+                f.write(str(self.data["hvdc"]["name"][i])+"_a "+"2"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
+                f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_int "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
+
         f.write(';\n')
         #---Transformers---
         if not(self.data["transformer"].empty):

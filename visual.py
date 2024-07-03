@@ -5,7 +5,7 @@ import pandas as pd
 import opf_intro
 from get_map_bounds import reload_image, coordinate_map
 
-data = pd.ExcelFile(os.path.join(".", "data", "case9 - Copy.xlsx"))
+data = pd.ExcelFile(os.path.join(".", "data", "case9.xlsx"))
 # reload_image(data)
 map = image.imread(os.path.join("data", "image.png")) 
 
