@@ -1,495 +1,79 @@
 #This is Python generated data file for Pyomo model DCLF.py
 #_author_:W. Bukhsh
-#Time stamp: 2024-07-03 16:36:23.444399
+#Time stamp: 2024-07-05 14:47:18.044933
 set B:=
-Beauly
-Peterhead
-Errochty
-Denny/Bonnybridge
-Neilston
-Strathaven
-Torness
-Eccles
-Harker
-Stella West
-Penwortham
-Deeside
-Daines
-Th. Marsh/Stocksbridge
-Thornton/Drax/Eggborough
-Keadby
-Ratcliffe
-Feckenham
-Walpole
-Bramford
-Pelham
-Sundon/East Claydon
-Melksham
-Bramley
-London
-Kemsley
-Sellindge
-Lovedean
-S.W.Penisula
-Netherlands
-Belgium
-France1
-France2
-Ireland
-N. Ireland
-Western Link_HVDC_A
-Western Link_HVDC_B
-Netherla_HVDCnds_HVDC_INT
-Belgium_HVDC_HVDC_INT
-France1_HVDC_HVDC_INT
-France2_HVDC_HVDC_INT
-Ireland_HVDC_HVDC_INT
-N. Ireland_HVDC_HVDC_INT
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+Western_Link_A
+Western_Link_B
 ;
 set G:=
-Keadby
-Walpole
-Melksham
-Melksham
-Penwortham
-Kemsley
-Pelham
-Lovedean
-Thornton/Drax/Eggborough
-Daines
-Th. Marsh/Stocksbridge
-Keadby
-Keadby
-S.W.Penisula
-Ratcliffe
-Daines
-Harker
-Deeside
-Kemsley
-Walpole
-Lovedean
-Bramley
-Bramford
-Sundon/East Claydon
-Melksham
-Ratcliffe
-Melksham
-Peterhead
-Keadby
-Kemsley
-Keadby
-Keadby
-London
-Kemsley
-Keadby
-Deeside
-Melksham
-Thornton/Drax/Eggborough
-Walpole
-Stella West
-S.W.Penisula
-London
-Thornton/Drax/Eggborough
-Beauly
-Neilston
-Stella West
-Thornton/Drax/Eggborough
-Denny/Bonnybridge
-Penwortham
-Harker
-Sundon/East Claydon
-Melksham
-Daines
-Denny/Bonnybridge
-S.W.Penisula
-Keadby
-Walpole
-Bramford
-London
-Kemsley
-Melksham
-Stella West
-Th. Marsh/Stocksbridge
-Stella West
-Melksham
-London
-Bramford
-Daines
-S.W.Penisula
-Beauly
-London
-Keadby
-Kemsley
-Denny/Bonnybridge
-Th. Marsh/Stocksbridge
-Th. Marsh/Stocksbridge
-Denny/Bonnybridge
-Sellindge
-Thornton/Drax/Eggborough
-Keadby
-Sundon/East Claydon
-Bramford
-Beauly
-Deeside
-Thornton/Drax/Eggborough
-Harker
-Peterhead
-Ratcliffe
-Torness
-Thornton/Drax/Eggborough
-Sundon/East Claydon
-Ratcliffe
-Deeside
-Errochty
-Keadby
-Peterhead
-Neilston
-Th. Marsh/Stocksbridge
-Walpole
-Ratcliffe
-Melksham
-Keadby
-Deeside
-Th. Marsh/Stocksbridge
-Feckenham
-Deeside
-Feckenham
-Bramford
-Thornton/Drax/Eggborough
-Strathaven
-Walpole
-Melksham
-Melksham
-Penwortham
-Kemsley
-Pelham
-Lovedean
-Thornton/Drax/Eggborough
-Daines
-Th. Marsh/Stocksbridge
-Keadby
-Keadby
-S.W.Penisula
-Ratcliffe
-Daines
-Harker
-Deeside
-Kemsley
-Walpole
-Lovedean
-Bramley
-Bramford
-Sundon/East Claydon
-Melksham
-Ratcliffe
-Melksham
-Peterhead
-Keadby
-Kemsley
-Keadby
-Keadby
-London
-Kemsley
-Keadby
-Deeside
-Walpole
-Melksham
-Melksham
-Penwortham
-Kemsley
-Pelham
-Lovedean
-Thornton/Drax/Eggborough
-Daines
-Th. Marsh/Stocksbridge
-Keadby
-Keadby
-S.W.Penisula
-Ratcliffe
-Daines
-Harker
-Deeside
-Kemsley
-Walpole
-Lovedean
-Bramley
-Bramford
-Sundon/East Claydon
-Melksham
-Ratcliffe
-Melksham
-Peterhead
-Keadby
-Kemsley
-Keadby
-Keadby
-London
-Kemsley
-Keadby
-Deeside
-Walpole
-Keadby
-London
-London
-Stella West
-Bramley
-S.W.Penisula
-Melksham
-Deeside
-Keadby
-Sellindge
-Stella West
-Penwortham
-Penwortham
-S.W.Penisula
-Neilston
-Torness
-Bramford
-Melksham
-Thornton/Drax/Eggborough
-Keadby
-Keadby
-Kemsley
-Lovedean
-Sundon/East Claydon
-Sundon/East Claydon
-Peterhead
-Bramley
-Beauly
-Beauly
-Neilston
-Peterhead
-Beauly
-Beauly
-Neilston
-S.W.Penisula
-Kemsley
-Lovedean
-Thornton/Drax/Eggborough
-Thornton/Drax/Eggborough
-Feckenham
-Feckenham
-Daines
-Feckenham
-Stella West
-London
-Bramley
-Lovedean
-Th. Marsh/Stocksbridge
-Keadby
-Th. Marsh/Stocksbridge
-London
-London
-Denny/Bonnybridge
-Kemsley
-Feckenham
-Daines
-Daines
-Lovedean
-Th. Marsh/Stocksbridge
-Walpole
-Deeside
-Feckenham
-S.W.Penisula
-Melksham
-Melksham
-Keadby
-Stella West
-Stella West
-Deeside
-Thornton/Drax/Eggborough
-S.W.Penisula
-S.W.Penisula
-London
-Kemsley
-Thornton/Drax/Eggborough
-Sundon/East Claydon
-Sundon/East Claydon
-Sundon/East Claydon
-Torness
-Bramford
-Melksham
-Deeside
-Feckenham
-Melksham
-Lovedean
-Lovedean
-London
-Stella West
-Stella West
-London
-Torness
-Ratcliffe
-Walpole
-Melksham
-Melksham
-Penwortham
-Kemsley
-Pelham
-Lovedean
-Thornton/Drax/Eggborough
-Daines
-Th. Marsh/Stocksbridge
-Keadby
-Keadby
-S.W.Penisula
-Ratcliffe
-Daines
-Harker
-Deeside
-Kemsley
-Walpole
-Lovedean
-Bramley
-Bramford
-Sundon/East Claydon
-Melksham
-Ratcliffe
-Melksham
-Peterhead
-Keadby
-Kemsley
-Keadby
-Keadby
-London
-Kemsley
-Keadby
-Deeside
-Beauly
-Peterhead
-Errochty
-Denny/Bonnybridge
-Neilston
-Strathaven
-Torness
-Eccles
-Harker
-Stella West
-Penwortham
-Deeside
-Daines
-Th. Marsh/Stocksbridge
-Thornton/Drax/Eggborough
-Keadby
-Ratcliffe
-Feckenham
-Walpole
-Bramford
-Pelham
-Sundon/East Claydon
-Melksham
-Bramley
-London
-Kemsley
-Sellindge
-Lovedean
-S.W.Penisula
-Keadby
-Peterhead
-Deeside
-Bramford
-Walpole
-Kemsley
-Harker
-Sellindge
-Penwortham
-Stella West
-Lovedean
-Torness
-Beauly
-Neilston
-Keadby
-Peterhead
-Deeside
-Bramford
-Walpole
-Kemsley
-Harker
-Sellindge
-Penwortham
-Stella West
-Torness
-Beauly
-Neilston
-Melksham
-Pelham
-Thornton/Drax/Eggborough
-Daines
-Th. Marsh/Stocksbridge
-S.W.Penisula
-Ratcliffe
-Bramley
-Sundon/East Claydon
-London
-Denny/Bonnybridge
-Errochty
-Feckenham
-Strathaven
-Eccles
-Keadby
-Peterhead
-Deeside
-Bramford
-Walpole
-Kemsley
-Harker
-Sellindge
-Penwortham
-Stella West
-Lovedean
-Torness
-Beauly
-Neilston
-Melksham
-Pelham
-Thornton/Drax/Eggborough
-Daines
-Th. Marsh/Stocksbridge
-S.W.Penisula
-Ratcliffe
-Bramley
-Sundon/East Claydon
-London
-Denny/Bonnybridge
-Errochty
-Feckenham
-Strathaven
-Deeside
-Harker
-Beauly
-Neilston
-Errochty
-Strathaven
-Deeside
-Stella West
-Beauly
-Neilston
-Ratcliffe
-Denny/Bonnybridge
-Errochty
-Feckenham
-Deeside
-Melksham
-S.W.Penisula
-Peterhead
-Deeside
-Lovedean
-Beauly
-Neilston
-S.W.Penisula
-Beauly
-Melksham
-Western Link_HVDC_gen_A
-Western Link_HVDC_gen_B
-Netherla_HVDCnds_HVDC_gen_INT
-Belgium_HVDC_HVDC_gen_INT
-France1_HVDC_HVDC_gen_INT
-France2_HVDC_HVDC_gen_INT
-Ireland_HVDC_HVDC_gen_INT
-N. Ireland_HVDC_HVDC_gen_INT
+G1 
+G2 
+G3 
+G4 
+G5 
+G6 
+G7 
+G8 
+G9 
+G10 
+G11 
+G12 
+G13 
+G14 
+G15 
+G16 
+G17 
+G18 
+G19 
+G20 
+G21 
+G22 
+G23 
+G24 
+G25 
+G26 
+G27 
+G28 
+Western_Link_gen_A
+Western_Link_gen_B
 ;
 set HVDC_Pairs:=
-(Western Link_A, Western Link_B)
+(Western_Link_gen_A, Western_Link_gen_B)
 ;
 set D:=
 D1
@@ -698,1601 +282,354 @@ L101
 L102
 L103
 L104
-Western Link_a
-Western Link_b
-Netherla_HVDCnds_int
-Belgium_HVDC_int
-France1_HVDC_int
-France2_HVDC_int
-Ireland_HVDC_int
-N. Ireland_HVDC_int
+Western_Link_a
+Western_Link_b
 ;
 set Gbs:=
-Keadby Keadby
-Walpole Walpole
-Melksham Melksham
-Melksham Melksham
-Penwortham Penwortham
-Kemsley Kemsley
-Pelham Pelham
-Lovedean Lovedean
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Daines Daines
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Keadby Keadby
-Keadby Keadby
-S.W.Penisula S.W.Penisula
-Ratcliffe Ratcliffe
-Daines Daines
-Harker Harker
-Deeside Deeside
-Kemsley Kemsley
-Walpole Walpole
-Lovedean Lovedean
-Bramley Bramley
-Bramford Bramford
-Sundon/East Claydon Sundon/East Claydon
-Melksham Melksham
-Ratcliffe Ratcliffe
-Melksham Melksham
-Peterhead Peterhead
-Keadby Keadby
-Kemsley Kemsley
-Keadby Keadby
-Keadby Keadby
-London London
-Kemsley Kemsley
-Keadby Keadby
-Deeside Deeside
-Melksham Melksham
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Walpole Walpole
-Stella West Stella West
-S.W.Penisula S.W.Penisula
-London London
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Beauly Beauly
-Neilston Neilston
-Stella West Stella West
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Denny/Bonnybridge Denny/Bonnybridge
-Penwortham Penwortham
-Harker Harker
-Sundon/East Claydon Sundon/East Claydon
-Melksham Melksham
-Daines Daines
-Denny/Bonnybridge Denny/Bonnybridge
-S.W.Penisula S.W.Penisula
-Keadby Keadby
-Walpole Walpole
-Bramford Bramford
-London London
-Kemsley Kemsley
-Melksham Melksham
-Stella West Stella West
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Stella West Stella West
-Melksham Melksham
-London London
-Bramford Bramford
-Daines Daines
-S.W.Penisula S.W.Penisula
-Beauly Beauly
-London London
-Keadby Keadby
-Kemsley Kemsley
-Denny/Bonnybridge Denny/Bonnybridge
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Denny/Bonnybridge Denny/Bonnybridge
-Sellindge Sellindge
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Keadby Keadby
-Sundon/East Claydon Sundon/East Claydon
-Bramford Bramford
-Beauly Beauly
-Deeside Deeside
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Harker Harker
-Peterhead Peterhead
-Ratcliffe Ratcliffe
-Torness Torness
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Sundon/East Claydon Sundon/East Claydon
-Ratcliffe Ratcliffe
-Deeside Deeside
-Errochty Errochty
-Keadby Keadby
-Peterhead Peterhead
-Neilston Neilston
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Walpole Walpole
-Ratcliffe Ratcliffe
-Melksham Melksham
-Keadby Keadby
-Deeside Deeside
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Feckenham Feckenham
-Deeside Deeside
-Feckenham Feckenham
-Bramford Bramford
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Strathaven Strathaven
-Walpole Walpole
-Melksham Melksham
-Melksham Melksham
-Penwortham Penwortham
-Kemsley Kemsley
-Pelham Pelham
-Lovedean Lovedean
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Daines Daines
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Keadby Keadby
-Keadby Keadby
-S.W.Penisula S.W.Penisula
-Ratcliffe Ratcliffe
-Daines Daines
-Harker Harker
-Deeside Deeside
-Kemsley Kemsley
-Walpole Walpole
-Lovedean Lovedean
-Bramley Bramley
-Bramford Bramford
-Sundon/East Claydon Sundon/East Claydon
-Melksham Melksham
-Ratcliffe Ratcliffe
-Melksham Melksham
-Peterhead Peterhead
-Keadby Keadby
-Kemsley Kemsley
-Keadby Keadby
-Keadby Keadby
-London London
-Kemsley Kemsley
-Keadby Keadby
-Deeside Deeside
-Walpole Walpole
-Melksham Melksham
-Melksham Melksham
-Penwortham Penwortham
-Kemsley Kemsley
-Pelham Pelham
-Lovedean Lovedean
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Daines Daines
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Keadby Keadby
-Keadby Keadby
-S.W.Penisula S.W.Penisula
-Ratcliffe Ratcliffe
-Daines Daines
-Harker Harker
-Deeside Deeside
-Kemsley Kemsley
-Walpole Walpole
-Lovedean Lovedean
-Bramley Bramley
-Bramford Bramford
-Sundon/East Claydon Sundon/East Claydon
-Melksham Melksham
-Ratcliffe Ratcliffe
-Melksham Melksham
-Peterhead Peterhead
-Keadby Keadby
-Kemsley Kemsley
-Keadby Keadby
-Keadby Keadby
-London London
-Kemsley Kemsley
-Keadby Keadby
-Deeside Deeside
-Walpole Walpole
-Keadby Keadby
-London London
-London London
-Stella West Stella West
-Bramley Bramley
-S.W.Penisula S.W.Penisula
-Melksham Melksham
-Deeside Deeside
-Keadby Keadby
-Sellindge Sellindge
-Stella West Stella West
-Penwortham Penwortham
-Penwortham Penwortham
-S.W.Penisula S.W.Penisula
-Neilston Neilston
-Torness Torness
-Bramford Bramford
-Melksham Melksham
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Keadby Keadby
-Keadby Keadby
-Kemsley Kemsley
-Lovedean Lovedean
-Sundon/East Claydon Sundon/East Claydon
-Sundon/East Claydon Sundon/East Claydon
-Peterhead Peterhead
-Bramley Bramley
-Beauly Beauly
-Beauly Beauly
-Neilston Neilston
-Peterhead Peterhead
-Beauly Beauly
-Beauly Beauly
-Neilston Neilston
-S.W.Penisula S.W.Penisula
-Kemsley Kemsley
-Lovedean Lovedean
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Feckenham Feckenham
-Feckenham Feckenham
-Daines Daines
-Feckenham Feckenham
-Stella West Stella West
-London London
-Bramley Bramley
-Lovedean Lovedean
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Keadby Keadby
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-London London
-London London
-Denny/Bonnybridge Denny/Bonnybridge
-Kemsley Kemsley
-Feckenham Feckenham
-Daines Daines
-Daines Daines
-Lovedean Lovedean
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Walpole Walpole
-Deeside Deeside
-Feckenham Feckenham
-S.W.Penisula S.W.Penisula
-Melksham Melksham
-Melksham Melksham
-Keadby Keadby
-Stella West Stella West
-Stella West Stella West
-Deeside Deeside
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-S.W.Penisula S.W.Penisula
-S.W.Penisula S.W.Penisula
-London London
-Kemsley Kemsley
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Sundon/East Claydon Sundon/East Claydon
-Sundon/East Claydon Sundon/East Claydon
-Sundon/East Claydon Sundon/East Claydon
-Torness Torness
-Bramford Bramford
-Melksham Melksham
-Deeside Deeside
-Feckenham Feckenham
-Melksham Melksham
-Lovedean Lovedean
-Lovedean Lovedean
-London London
-Stella West Stella West
-Stella West Stella West
-London London
-Torness Torness
-Ratcliffe Ratcliffe
-Walpole Walpole
-Melksham Melksham
-Melksham Melksham
-Penwortham Penwortham
-Kemsley Kemsley
-Pelham Pelham
-Lovedean Lovedean
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Daines Daines
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Keadby Keadby
-Keadby Keadby
-S.W.Penisula S.W.Penisula
-Ratcliffe Ratcliffe
-Daines Daines
-Harker Harker
-Deeside Deeside
-Kemsley Kemsley
-Walpole Walpole
-Lovedean Lovedean
-Bramley Bramley
-Bramford Bramford
-Sundon/East Claydon Sundon/East Claydon
-Melksham Melksham
-Ratcliffe Ratcliffe
-Melksham Melksham
-Peterhead Peterhead
-Keadby Keadby
-Kemsley Kemsley
-Keadby Keadby
-Keadby Keadby
-London London
-Kemsley Kemsley
-Keadby Keadby
-Deeside Deeside
-Beauly Beauly
-Peterhead Peterhead
-Errochty Errochty
-Denny/Bonnybridge Denny/Bonnybridge
-Neilston Neilston
-Strathaven Strathaven
-Torness Torness
-Eccles Eccles
-Harker Harker
-Stella West Stella West
-Penwortham Penwortham
-Deeside Deeside
-Daines Daines
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Keadby Keadby
-Ratcliffe Ratcliffe
-Feckenham Feckenham
-Walpole Walpole
-Bramford Bramford
-Pelham Pelham
-Sundon/East Claydon Sundon/East Claydon
-Melksham Melksham
-Bramley Bramley
-London London
-Kemsley Kemsley
-Sellindge Sellindge
-Lovedean Lovedean
-S.W.Penisula S.W.Penisula
-Keadby Keadby
-Peterhead Peterhead
-Deeside Deeside
-Bramford Bramford
-Walpole Walpole
-Kemsley Kemsley
-Harker Harker
-Sellindge Sellindge
-Penwortham Penwortham
-Stella West Stella West
-Lovedean Lovedean
-Torness Torness
-Beauly Beauly
-Neilston Neilston
-Keadby Keadby
-Peterhead Peterhead
-Deeside Deeside
-Bramford Bramford
-Walpole Walpole
-Kemsley Kemsley
-Harker Harker
-Sellindge Sellindge
-Penwortham Penwortham
-Stella West Stella West
-Torness Torness
-Beauly Beauly
-Neilston Neilston
-Melksham Melksham
-Pelham Pelham
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Daines Daines
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-S.W.Penisula S.W.Penisula
-Ratcliffe Ratcliffe
-Bramley Bramley
-Sundon/East Claydon Sundon/East Claydon
-London London
-Denny/Bonnybridge Denny/Bonnybridge
-Errochty Errochty
-Feckenham Feckenham
-Strathaven Strathaven
-Eccles Eccles
-Keadby Keadby
-Peterhead Peterhead
-Deeside Deeside
-Bramford Bramford
-Walpole Walpole
-Kemsley Kemsley
-Harker Harker
-Sellindge Sellindge
-Penwortham Penwortham
-Stella West Stella West
-Lovedean Lovedean
-Torness Torness
-Beauly Beauly
-Neilston Neilston
-Melksham Melksham
-Pelham Pelham
-Thornton/Drax/Eggborough Thornton/Drax/Eggborough
-Daines Daines
-Th. Marsh/Stocksbridge Th. Marsh/Stocksbridge
-S.W.Penisula S.W.Penisula
-Ratcliffe Ratcliffe
-Bramley Bramley
-Sundon/East Claydon Sundon/East Claydon
-London London
-Denny/Bonnybridge Denny/Bonnybridge
-Errochty Errochty
-Feckenham Feckenham
-Strathaven Strathaven
-Deeside Deeside
-Harker Harker
-Beauly Beauly
-Neilston Neilston
-Errochty Errochty
-Strathaven Strathaven
-Deeside Deeside
-Stella West Stella West
-Beauly Beauly
-Neilston Neilston
-Ratcliffe Ratcliffe
-Denny/Bonnybridge Denny/Bonnybridge
-Errochty Errochty
-Feckenham Feckenham
-Deeside Deeside
-Melksham Melksham
-S.W.Penisula S.W.Penisula
-Peterhead Peterhead
-Deeside Deeside
-Lovedean Lovedean
-Beauly Beauly
-Neilston Neilston
-S.W.Penisula S.W.Penisula
-Beauly Beauly
-Melksham Melksham
-Western LinkA Western Link_HVDC_gen_A
-Western LinkB Western Link_HVDC_gen_B
-Netherla_HVDCndsINT Netherla_HVDCnds_HVDC_gen_INT
-Belgium_HVDCINT Belgium_HVDC_HVDC_gen_INT
-France1_HVDCINT France1_HVDC_HVDC_gen_INT
-France2_HVDCINT France2_HVDC_HVDC_gen_INT
-Ireland_HVDCINT Ireland_HVDC_HVDC_gen_INT
-N. Ireland_HVDCINT N. Ireland_HVDC_HVDC_gen_INT
+0 G1 
+19 G2 
+23 G3 
+12 G4 
+11 G5 
+3 G6 
+2 G7 
+17 G8 
+8 G9 
+15 G10 
+25 G11 
+24 G12 
+27 G13 
+22 G14 
+4 G15 
+20 G16 
+10 G17 
+1 G18 
+16 G19 
+28 G20 
+26 G21 
+9 G22 
+5 G23 
+21 G24 
+13 G25 
+14 G26 
+6 G27 
+18 G28 
+Western_Link_A Western_Link_gen_A
+Western_Link_B Western_Link_gen_B
 ;
 set Dbs:=
-Beauly D1
-Peterhead D2
-Errochty D3
-Denny/Bonnybridge D4
-Neilston D5
-Strathaven D6
-Torness D7
-Eccles D8
-Harker D9
-Stella West D10
-Penwortham D11
-Deeside D12
-Daines D13
-Th. Marsh/Stocksbridge D14
-Thornton/Drax/Eggborough D15
-Keadby D16
-Ratcliffe D17
-Feckenham D18
-Walpole D19
-Bramford D20
-Pelham D21
-Sundon/East Claydon D22
-Melksham D23
-Bramley D24
-London D25
-Kemsley D26
-Sellindge D27
-Lovedean D28
-S.W.Penisula D29
+0 D1
+1 D2
+2 D3
+3 D4
+4 D5
+5 D6
+6 D7
+7 D8
+8 D9
+9 D10
+10 D11
+11 D12
+12 D13
+13 D14
+14 D15
+15 D16
+16 D17
+17 D18
+18 D19
+19 D20
+20 D21
+21 D22
+22 D23
+23 D24
+24 D25
+25 D26
+26 D27
+27 D28
+28 D29
 ;
 set b0:=
-Keadby
+0
 ;
-L0 1 Beauly
-L1 1 Beauly
-L2 1 Beauly
-L3 1 Beauly
-L4 1 Peterhead
-L5 1 Peterhead
-L6 1 Errochty
-L7 1 Errochty
-L8 1 Denny/Bonnybridge
-L9 1 Denny/Bonnybridge
-L10 1 Denny/Bonnybridge
-L11 1 Denny/Bonnybridge
-L12 1 Denny/Bonnybridge
-L13 1 Denny/Bonnybridge
-L14 1 Neilston
-L15 1 Neilston
-L16 1 Neilston
-L17 1 Strathaven
-L18 1 Strathaven
-L19 1 Torness
-L20 1 Torness
-L21 1 Torness
-L22 1 Torness
-L23 1 Eccles
-L24 1 Eccles
-L25 1 Harker
-L26 1 Harker
-L27 1 Harker
-L28 1 Harker
-L29 1 Stella West
-L30 1 Stella West
-L31 1 Penwortham
-L32 1 Penwortham
-L33 1 Penwortham
-L34 1 Penwortham
-L35 1 Penwortham
-L36 1 Penwortham
-L37 1 Deeside
-L38 1 Deeside
-L39 1 Deeside
-L40 1 Deeside
-L41 1 Daines
-L42 1 Daines
-L43 1 Daines
-L44 1 Daines
-L45 1 Daines
-L46 1 Daines
-L47 1 Th. Marsh/Stocksbridge
-L48 1 Th. Marsh/Stocksbridge
-L49 1 Thornton/Drax/Eggborough
-L50 1 Thornton/Drax/Eggborough
-L51 1 Thornton/Drax/Eggborough
-L52 1 Thornton/Drax/Eggborough
-L53 1 Keadby
-L54 1 Keadby
-L55 1 Ratcliffe
-L56 1 Ratcliffe
-L57 1 Ratcliffe
-L58 1 Ratcliffe
-L59 1 Feckenham
-L60 1 Feckenham
-L61 1 Feckenham
-L62 1 Feckenham
-L63 1 Bramford
-L64 1 Bramford
-L65 1 Bramford
-L66 1 Bramford
-L67 1 Pelham
-L68 1 Pelham
-L69 1 Pelham
-L70 1 Pelham
-L71 1 Pelham
-L72 1 Pelham
-L73 1 Pelham
-L74 1 Pelham
-L75 1 Sundon/East Claydon
-L76 1 Sundon/East Claydon
-L77 1 Sundon/East Claydon
-L78 1 Sundon/East Claydon
-L79 1 Sundon/East Claydon
-L80 1 Sundon/East Claydon
-L81 1 Melksham
-L82 1 Melksham
-L83 1 Melksham
-L84 1 Melksham
-L85 1 Melksham
-L86 1 Melksham
-L87 1 Bramley
-L88 1 Bramley
-L89 1 Bramley
-L90 1 Bramley
-L91 1 London
-L92 1 London
-L93 1 Sellindge
-L94 1 Sellindge
-L95 1 Lovedean
-L96 1 Lovedean
-L97 1 S.W.Penisula
-L98 1 S.W.Penisula
-L99 1 Netherlands
-L100 1 Ireland
-L101 1 N. Ireland
-L102 1 Belgium
-L103 1 France1
-L104 1 France2
-Western Link_a 1 Western Link_HVDC_gen_A
-Western Link_b 1 Western Link_HVDC_gen_B
-Netherla_HVDCnds_int 1 Netherla_HVDCnds_HVDC_gen_INT
-Belgium_HVDC_int 1 Belgium_HVDC_HVDC_gen_INT
-France1_HVDC_int 1 France1_HVDC_HVDC_gen_INT
-France2_HVDC_int 1 France2_HVDC_HVDC_gen_INT
-Ireland_HVDC_int 1 Ireland_HVDC_HVDC_gen_INT
-N. Ireland_HVDC_int 1 N. Ireland_HVDC_HVDC_gen_INT
-L0 2 Peterhead
-L1 2 Errochty
-L2 2 Peterhead
-L3 2 Errochty
-L4 2 Denny/Bonnybridge
-L5 2 Denny/Bonnybridge
-L6 2 Denny/Bonnybridge
-L7 2 Denny/Bonnybridge
-L8 2 Torness
-L9 2 Strathaven
-L10 2 Strathaven
-L11 2 Neilston
-L12 2 Neilston
-L13 2 Torness
-L14 2 Strathaven
-L15 2 Strathaven
-L16 2 Deeside
-L17 2 Harker
-L18 2 Harker
-L19 2 Eccles
-L20 2 Eccles
-L21 2 Strathaven
-L22 2 Strathaven
-L23 2 Stella West
-L24 2 Stella West
-L25 2 Penwortham
-L26 2 Penwortham
-L27 2 Stella West
-L28 2 Stella West
-L29 2 Thornton/Drax/Eggborough
-L30 2 Thornton/Drax/Eggborough
-L31 2 Thornton/Drax/Eggborough
-L32 2 Thornton/Drax/Eggborough
-L33 2 Daines
-L34 2 Daines
-L35 2 Deeside
-L36 2 Deeside
-L37 2 Daines
-L38 2 Feckenham
-L39 2 Feckenham
-L40 2 Daines
-L41 2 Feckenham
-L42 2 Feckenham
-L43 2 Thornton/Drax/Eggborough
-L44 2 Thornton/Drax/Eggborough
-L45 2 Th. Marsh/Stocksbridge
-L46 2 Th. Marsh/Stocksbridge
-L47 2 Keadby
-L48 2 Keadby
-L49 2 Keadby
-L50 2 Keadby
-L51 2 Th. Marsh/Stocksbridge
-L52 2 Th. Marsh/Stocksbridge
-L53 2 Feckenham
-L54 2 Feckenham
-L55 2 Keadby
-L56 2 Keadby
-L57 2 Sundon/East Claydon
-L58 2 Sundon/East Claydon
-L59 2 Ratcliffe
-L60 2 Ratcliffe
-L61 2 Melksham
-L62 2 Melksham
-L63 2 Kemsley
-L64 2 Kemsley
-L65 2 Walpole
-L66 2 Walpole
-L67 2 Keadby
-L68 2 Keadby
-L69 2 London
-L70 2 London
-L71 2 Bramford
-L72 2 Bramford
-L73 2 Walpole
-L74 2 Walpole
-L75 2 Keadby
-L76 2 Keadby
-L77 2 London
-L78 2 London
-L79 2 Pelham
-L80 2 Pelham
-L81 2 S.W.Penisula
-L82 2 Bramley
-L83 2 Bramley
-L84 2 Sundon/East Claydon
-L85 2 Sundon/East Claydon
-L86 2 S.W.Penisula
-L87 2 Lovedean
-L88 2 London
-L89 2 London
-L90 2 Lovedean
-L91 2 Kemsley
-L92 2 Kemsley
-L93 2 Kemsley
-L94 2 Kemsley
-L95 2 Sellindge
-L96 2 Sellindge
-L97 2 Lovedean
-L98 2 Lovedean
-L99 2 Kemsley
-L100 2 Deeside
-L101 2 Neilston
-L102 2 Sellindge
-L103 2 Sellindge
-L104 2 Lovedean
-Western Link_a 2 Neilston
-Western Link_b 2 Deeside
-Netherla_HVDCnds_int 2 Kemsley
-Belgium_HVDC_int 2 Sellindge
-France1_HVDC_int 2 Sellindge
-France2_HVDC_int 2 Lovedean
-Ireland_HVDC_int 2 Deeside
-N. Ireland_HVDC_int 2 Neilston
+param A:=
+L0 1 0
+L1 1 0
+L2 1 0
+L3 1 0
+L4 1 1
+L5 1 1
+L6 1 2
+L7 1 2
+L8 1 3
+L9 1 3
+L10 1 3
+L11 1 3
+L12 1 3
+L13 1 3
+L14 1 4
+L15 1 4
+L16 1 4
+L17 1 5
+L18 1 5
+L19 1 6
+L20 1 6
+L21 1 6
+L22 1 6
+L23 1 7
+L24 1 7
+L25 1 8
+L26 1 8
+L27 1 8
+L28 1 8
+L29 1 9
+L30 1 9
+L31 1 10
+L32 1 10
+L33 1 10
+L34 1 10
+L35 1 10
+L36 1 10
+L37 1 11
+L38 1 11
+L39 1 11
+L40 1 11
+L41 1 12
+L42 1 12
+L43 1 12
+L44 1 12
+L45 1 12
+L46 1 12
+L47 1 13
+L48 1 13
+L49 1 14
+L50 1 14
+L51 1 14
+L52 1 14
+L53 1 15
+L54 1 15
+L55 1 16
+L56 1 16
+L57 1 16
+L58 1 16
+L59 1 17
+L60 1 17
+L61 1 17
+L62 1 17
+L63 1 19
+L64 1 19
+L65 1 19
+L66 1 19
+L67 1 20
+L68 1 20
+L69 1 20
+L70 1 20
+L71 1 20
+L72 1 20
+L73 1 20
+L74 1 20
+L75 1 21
+L76 1 21
+L77 1 21
+L78 1 21
+L79 1 21
+L80 1 21
+L81 1 22
+L82 1 22
+L83 1 22
+L84 1 22
+L85 1 22
+L86 1 22
+L87 1 23
+L88 1 23
+L89 1 23
+L90 1 23
+L91 1 24
+L92 1 24
+L93 1 26
+L94 1 26
+L95 1 27
+L96 1 27
+L97 1 28
+L98 1 28
+L99 1 29
+L100 1 33
+L101 1 34
+L102 1 30
+L103 1 31
+L104 1 32
+Western_Link_a 1 Western_Link_A
+Western_Link_b 1 Western_Link_B
+L0 2 1
+L1 2 2
+L2 2 1
+L3 2 2
+L4 2 3
+L5 2 3
+L6 2 3
+L7 2 3
+L8 2 6
+L9 2 5
+L10 2 5
+L11 2 4
+L12 2 4
+L13 2 6
+L14 2 5
+L15 2 5
+L16 2 11
+L17 2 8
+L18 2 8
+L19 2 7
+L20 2 7
+L21 2 5
+L22 2 5
+L23 2 9
+L24 2 9
+L25 2 10
+L26 2 10
+L27 2 9
+L28 2 9
+L29 2 14
+L30 2 14
+L31 2 14
+L32 2 14
+L33 2 12
+L34 2 12
+L35 2 11
+L36 2 11
+L37 2 12
+L38 2 17
+L39 2 17
+L40 2 12
+L41 2 17
+L42 2 17
+L43 2 14
+L44 2 14
+L45 2 13
+L46 2 13
+L47 2 15
+L48 2 15
+L49 2 15
+L50 2 15
+L51 2 13
+L52 2 13
+L53 2 17
+L54 2 17
+L55 2 15
+L56 2 15
+L57 2 21
+L58 2 21
+L59 2 16
+L60 2 16
+L61 2 22
+L62 2 22
+L63 2 25
+L64 2 25
+L65 2 18
+L66 2 18
+L67 2 15
+L68 2 15
+L69 2 24
+L70 2 24
+L71 2 19
+L72 2 19
+L73 2 18
+L74 2 18
+L75 2 15
+L76 2 15
+L77 2 24
+L78 2 24
+L79 2 20
+L80 2 20
+L81 2 28
+L82 2 23
+L83 2 23
+L84 2 21
+L85 2 21
+L86 2 28
+L87 2 27
+L88 2 24
+L89 2 24
+L90 2 27
+L91 2 25
+L92 2 25
+L93 2 25
+L94 2 25
+L95 2 26
+L96 2 26
+L97 2 27
+L98 2 27
+L99 2 25
+L100 2 11
+L101 2 4
+L102 2 26
+L103 2 26
+L104 2 27
+Western_Link_a 2 4
+Western_Link_b 2 11
 ;
 param PGmin:=
-Keadby 0.1
-Walpole 0.1
-Melksham 0.1
-Melksham 0.1
-Penwortham 0.1
-Kemsley 0.1
-Pelham 0.1
-Lovedean 0.1
-Thornton/Drax/Eggborough 0.1
-Daines 0.1
-Th. Marsh/Stocksbridge 0.1
-Keadby 0.1
-Keadby 0.1
-S.W.Penisula 0.1
-Ratcliffe 0.1
-Daines 0.1
-Harker 0.1
-Deeside 0.1
-Kemsley 0.1
-Walpole 0.1
-Lovedean 0.1
-Bramley 0.1
-Bramford 0.1
-Sundon/East Claydon 0.1
-Melksham 0.1
-Ratcliffe 0.1
-Melksham 0.1
-Peterhead 0.1
-Keadby 0.1
-Kemsley 0.1
-Keadby 0.1
-Keadby 0.1
-London 0.1
-Kemsley 0.1
-Keadby 0.1
-Deeside 0.1
-Melksham 0.1
-Thornton/Drax/Eggborough 0.1
-Walpole 0.1
-Stella West 0.1
-S.W.Penisula 0.1
-London 0.1
-Thornton/Drax/Eggborough 0.1
-Beauly 0.1
-Neilston 0.1
-Stella West 0.1
-Thornton/Drax/Eggborough 0.1
-Denny/Bonnybridge 0.1
-Penwortham 0.1
-Harker 0.1
-Sundon/East Claydon 0.1
-Melksham 0.1
-Daines 0.1
-Denny/Bonnybridge 0.1
-S.W.Penisula 0.1
-Keadby 0.1
-Walpole 0.1
-Bramford 0.1
-London 0.1
-Kemsley 0.1
-Melksham 0.1
-Stella West 0.1
-Th. Marsh/Stocksbridge 0.1
-Stella West 0.1
-Melksham 0.1
-London 0.1
-Bramford 0.1
-Daines 0.1
-S.W.Penisula 0.1
-Beauly 0.1
-London 0.1
-Keadby 0.1
-Kemsley 0.1
-Denny/Bonnybridge 0.1
-Th. Marsh/Stocksbridge 0.1
-Th. Marsh/Stocksbridge 0.1
-Denny/Bonnybridge 0.1
-Sellindge 0.1
-Thornton/Drax/Eggborough 0.1
-Keadby 0.1
-Sundon/East Claydon 0.1
-Bramford 0.1
-Beauly 0.1
-Deeside 0.1
-Thornton/Drax/Eggborough 0.1
-Harker 0.1
-Peterhead 0.1
-Ratcliffe 0.1
-Torness 0.1
-Thornton/Drax/Eggborough 0.1
-Sundon/East Claydon 0.1
-Ratcliffe 0.1
-Deeside 0.1
-Errochty 0.1
-Keadby 0.1
-Peterhead 0.1
-Neilston 0.1
-Th. Marsh/Stocksbridge 0.1
-Walpole 0.1
-Ratcliffe 0.1
-Melksham 0.1
-Keadby 0.1
-Deeside 0.1
-Th. Marsh/Stocksbridge 0.1
-Feckenham 0.1
-Deeside 0.1
-Feckenham 0.1
-Bramford 0.1
-Thornton/Drax/Eggborough 0.1
-Strathaven 0.1
-Walpole 0.1
-Melksham 0.1
-Melksham 0.1
-Penwortham 0.1
-Kemsley 0.1
-Pelham 0.1
-Lovedean 0.1
-Thornton/Drax/Eggborough 0.1
-Daines 0.1
-Th. Marsh/Stocksbridge 0.1
-Keadby 0.1
-Keadby 0.1
-S.W.Penisula 0.1
-Ratcliffe 0.1
-Daines 0.1
-Harker 0.1
-Deeside 0.1
-Kemsley 0.1
-Walpole 0.1
-Lovedean 0.1
-Bramley 0.1
-Bramford 0.1
-Sundon/East Claydon 0.1
-Melksham 0.1
-Ratcliffe 0.1
-Melksham 0.1
-Peterhead 0.1
-Keadby 0.1
-Kemsley 0.1
-Keadby 0.1
-Keadby 0.1
-London 0.1
-Kemsley 0.1
-Keadby 0.1
-Deeside 0.1
-Walpole 0.1
-Melksham 0.1
-Melksham 0.1
-Penwortham 0.1
-Kemsley 0.1
-Pelham 0.1
-Lovedean 0.1
-Thornton/Drax/Eggborough 0.1
-Daines 0.1
-Th. Marsh/Stocksbridge 0.1
-Keadby 0.1
-Keadby 0.1
-S.W.Penisula 0.1
-Ratcliffe 0.1
-Daines 0.1
-Harker 0.1
-Deeside 0.1
-Kemsley 0.1
-Walpole 0.1
-Lovedean 0.1
-Bramley 0.1
-Bramford 0.1
-Sundon/East Claydon 0.1
-Melksham 0.1
-Ratcliffe 0.1
-Melksham 0.1
-Peterhead 0.1
-Keadby 0.1
-Kemsley 0.1
-Keadby 0.1
-Keadby 0.1
-London 0.1
-Kemsley 0.1
-Keadby 0.1
-Deeside 0.1
-Walpole 0.1
-Keadby 0.1
-London 0.1
-London 0.1
-Stella West 0.1
-Bramley 0.1
-S.W.Penisula 0.1
-Melksham 0.1
-Deeside 0.1
-Keadby 0.1
-Sellindge 0.1
-Stella West 0.1
-Penwortham 0.1
-Penwortham 0.1
-S.W.Penisula 0.1
-Neilston 0.1
-Torness 0.1
-Bramford 0.1
-Melksham 0.1
-Thornton/Drax/Eggborough 0.1
-Keadby 0.1
-Keadby 0.1
-Kemsley 0.1
-Lovedean 0.1
-Sundon/East Claydon 0.1
-Sundon/East Claydon 0.1
-Peterhead 0.1
-Bramley 0.1
-Beauly 0.1
-Beauly 0.1
-Neilston 0.1
-Peterhead 0.1
-Beauly 0.1
-Beauly 0.1
-Neilston 0.1
-S.W.Penisula 0.1
-Kemsley 0.1
-Lovedean 0.1
-Thornton/Drax/Eggborough 0.1
-Thornton/Drax/Eggborough 0.1
-Feckenham 0.1
-Feckenham 0.1
-Daines 0.1
-Feckenham 0.1
-Stella West 0.1
-London 0.1
-Bramley 0.1
-Lovedean 0.1
-Th. Marsh/Stocksbridge 0.1
-Keadby 0.1
-Th. Marsh/Stocksbridge 0.1
-London 0.1
-London 0.1
-Denny/Bonnybridge 0.1
-Kemsley 0.1
-Feckenham 0.1
-Daines 0.1
-Daines 0.1
-Lovedean 0.1
-Th. Marsh/Stocksbridge 0.1
-Walpole 0.1
-Deeside 0.1
-Feckenham 0.1
-S.W.Penisula 0.1
-Melksham 0.1
-Melksham 0.1
-Keadby 0.1
-Stella West 0.1
-Stella West 0.1
-Deeside 0.1
-Thornton/Drax/Eggborough 0.1
-S.W.Penisula 0.1
-S.W.Penisula 0.1
-London 0.1
-Kemsley 0.1
-Thornton/Drax/Eggborough 0.1
-Sundon/East Claydon 0.1
-Sundon/East Claydon 0.1
-Sundon/East Claydon 0.1
-Torness 0.1
-Bramford 0.1
-Melksham 0.1
-Deeside 0.1
-Feckenham 0.1
-Melksham 0.1
-Lovedean 0.1
-Lovedean 0.1
-London 0.1
-Stella West 0.1
-Stella West 0.1
-London 0.1
-Torness 0.1
-Ratcliffe 0.1
-Walpole 0.1
-Melksham 0.1
-Melksham 0.1
-Penwortham 0.1
-Kemsley 0.1
-Pelham 0.1
-Lovedean 0.1
-Thornton/Drax/Eggborough 0.1
-Daines 0.1
-Th. Marsh/Stocksbridge 0.1
-Keadby 0.1
-Keadby 0.1
-S.W.Penisula 0.1
-Ratcliffe 0.1
-Daines 0.1
-Harker 0.1
-Deeside 0.1
-Kemsley 0.1
-Walpole 0.1
-Lovedean 0.1
-Bramley 0.1
-Bramford 0.1
-Sundon/East Claydon 0.1
-Melksham 0.1
-Ratcliffe 0.1
-Melksham 0.1
-Peterhead 0.1
-Keadby 0.1
-Kemsley 0.1
-Keadby 0.1
-Keadby 0.1
-London 0.1
-Kemsley 0.1
-Keadby 0.1
-Deeside 0.1
-Beauly 0.1
-Peterhead 0.1
-Errochty 0.1
-Denny/Bonnybridge 0.1
-Neilston 0.1
-Strathaven 0.1
-Torness 0.1
-Eccles 0.1
-Harker 0.1
-Stella West 0.1
-Penwortham 0.1
-Deeside 0.1
-Daines 0.1
-Th. Marsh/Stocksbridge 0.1
-Thornton/Drax/Eggborough 0.1
-Keadby 0.1
-Ratcliffe 0.1
-Feckenham 0.1
-Walpole 0.1
-Bramford 0.1
-Pelham 0.1
-Sundon/East Claydon 0.1
-Melksham 0.1
-Bramley 0.1
-London 0.1
-Kemsley 0.1
-Sellindge 0.1
-Lovedean 0.1
-S.W.Penisula 0.1
-Keadby 0.1
-Peterhead 0.1
-Deeside 0.1
-Bramford 0.1
-Walpole 0.1
-Kemsley 0.1
-Harker 0.1
-Sellindge 0.1
-Penwortham 0.1
-Stella West 0.1
-Lovedean 0.1
-Torness 0.1
-Beauly 0.1
-Neilston 0.1
-Keadby 0.1
-Peterhead 0.1
-Deeside 0.1
-Bramford 0.1
-Walpole 0.1
-Kemsley 0.1
-Harker 0.1
-Sellindge 0.1
-Penwortham 0.1
-Stella West 0.1
-Torness 0.1
-Beauly 0.1
-Neilston 0.1
-Melksham 0.1
-Pelham 0.1
-Thornton/Drax/Eggborough 0.1
-Daines 0.1
-Th. Marsh/Stocksbridge 0.1
-S.W.Penisula 0.1
-Ratcliffe 0.1
-Bramley 0.1
-Sundon/East Claydon 0.1
-London 0.1
-Denny/Bonnybridge 0.1
-Errochty 0.1
-Feckenham 0.1
-Strathaven 0.1
-Eccles 0.1
-Keadby 0.1
-Peterhead 0.1
-Deeside 0.1
-Bramford 0.1
-Walpole 0.1
-Kemsley 0.1
-Harker 0.1
-Sellindge 0.1
-Penwortham 0.1
-Stella West 0.1
-Lovedean 0.1
-Torness 0.1
-Beauly 0.1
-Neilston 0.1
-Melksham 0.1
-Pelham 0.1
-Thornton/Drax/Eggborough 0.1
-Daines 0.1
-Th. Marsh/Stocksbridge 0.1
-S.W.Penisula 0.1
-Ratcliffe 0.1
-Bramley 0.1
-Sundon/East Claydon 0.1
-London 0.1
-Denny/Bonnybridge 0.1
-Errochty 0.1
-Feckenham 0.1
-Strathaven 0.1
-Deeside 0.1
-Harker 0.1
-Beauly 0.1
-Neilston 0.1
-Errochty 0.1
-Strathaven 0.1
-Deeside 0.1
-Stella West 0.1
-Beauly 0.1
-Neilston 0.1
-Ratcliffe 0.1
-Denny/Bonnybridge 0.1
-Errochty 0.1
-Feckenham 0.1
-Deeside 0.1
-Melksham 0.1
-S.W.Penisula 0.1
-Peterhead 0.1
-Deeside 0.1
-Lovedean 0.1
-Beauly 0.1
-Neilston 0.1
-S.W.Penisula 0.1
-Beauly 0.1
-Melksham 0.1
-Western Link_A -24.0
-Western Link_B -24.0
-Netherla_HVDCnds_INT -11.0
-Belgium_HVDC_INT -6.0
-France1_HVDC_INT -6.0
-France2_HVDC_INT -11.0
-Ireland_HVDC_INT -21.0
-N. Ireland_HVDC_INT -11.0
+G1 0.1
+G2 0.1
+G3 0.1
+G4 0.1
+G5 0.1
+G6 0.1
+G7 0.1
+G8 0.1
+G9 0.1
+G10 0.1
+G11 0.1
+G12 0.1
+G13 0.1
+G14 0.1
+G15 0.1
+G16 0.1
+G17 0.1
+G18 0.1
+G19 0.1
+G20 0.1
+G21 0.1
+G22 0.1
+G23 0.1
+G24 0.1
+G25 0.1
+G26 0.1
+G27 0.1
+G28 0.1
+Western_Link_gen_A -24.0
+Western_Link_gen_B -24.0
 ;
 param PGmax:=
-Keadby 0.0
-Walpole 1.16671401977539
-Melksham 0.7407707977294921
-Melksham 1.21087539672851
-Penwortham 0.0854735565185546
-Kemsley 1.1467701721191401
-Pelham 1.0185598754882799
-Lovedean 0.598314895629882
-Thornton/Drax/Eggborough 0.0797753190994262
-Daines 0.0797753190994262
-Th. Marsh/Stocksbridge 0.0712279653549194
-Keadby 1.8975129699707
-Keadby 1.9445234680175698
-S.W.Penisula 1.28922607421875
-Ratcliffe 0.579795608520507
-Daines 1.29634887695312
-Harker 0.220806694030761
-Deeside 1.1538929748535098
-Kemsley 1.13964744567871
-Walpole 1.3533312988281199
-Lovedean 1.2792542266845701
-Bramley 2.06561096191406
-Bramford 0.598314895629882
-Sundon/East Claydon 1.02995635986328
-Melksham 3.1326058959960896
-Ratcliffe 2.52431900024414
-Melksham 1.75790618896484
-Peterhead 1.6809799194335902
-Keadby 1.04705108642578
-Kemsley 1.07554222106933
-Keadby 1.70947113037109
-Keadby 0.633928871154785
-London 0.581220169067382
-Kemsley 2.16105636596679
-Keadby 1.7835481262207
-Deeside 1.96589172363281
-Melksham 0.038499999046325596
-Thornton/Drax/Eggborough 0.709499969482421
-Walpole 0.37567739064163597
-Stella West 0.175641373597465
-S.W.Penisula 0.0146367815737383
-London 0.0780628315350078
-Thornton/Drax/Eggborough 0.0195157078837519
-Beauly 0.022517854917993598
-Neilston 0.11709283874070801
-Stella West 0.343476458754034
-Thornton/Drax/Eggborough 0.0195157078837519
-Denny/Bonnybridge 0.06755356231367421
-Penwortham 0.0878206867987325
-Harker 0.47813483389898204
-Sundon/East Claydon 0.15612566307001502
-Melksham 0.136609952542566
-Daines 0.0253704189270288
-Denny/Bonnybridge 0.056294636074830706
-S.W.Penisula 0.0146367815737383
-Keadby 0.011709424730251099
-Walpole 0.390314168249828
-Bramford 0.139537318638994
-London 0.0292735631474766
-Kemsley 0.243946349868748
-Melksham 0.390314168249828
-Stella West 4.09829874547362
-Th. Marsh/Stocksbridge 0.0634260486394208
-Stella West 0.270292570713073
-Melksham 0.0204914926170152
-London 0.0175641370953767
-Bramford 0.0448861268107808
-Daines 0.405926702832461
-S.W.Penisula 0.0312251326140031
-Beauly 0.0373796402864106
-London 0.18539921828640002
-Keadby 0.390314168249828
-Kemsley 0.41958772346621304
-Denny/Bonnybridge 0.29273211149361
-Th. Marsh/Stocksbridge 0.409829857627699
-Th. Marsh/Stocksbridge 0.292735615612582
-Denny/Bonnybridge 0.0247696406538237
-Sellindge 0.15612566307001502
-Thornton/Drax/Eggborough 6.29381555589909
-Keadby 0.0878206867987325
-Sundon/East Claydon 0.01853992182864
-Bramford 0.431297145552767
-Beauly 0.056294636074830706
-Deeside 0.195157084124914
-Thornton/Drax/Eggborough 6.29381555589909
-Harker 0.491795854532733
-Peterhead 0.00540428503390007
-Ratcliffe 0.390314168249828
-Torness 0.029273209685177003
-Thornton/Drax/Eggborough 0.175641373597465
-Sundon/East Claydon 0.00975785394187597
-Ratcliffe 0.066353409448454
-Deeside 0.0312251326140031
-Errochty 0.025219996824867003
-Keadby 0.214672794652363
-Peterhead 0.0157624977105035
-Neilston 0.011709283630040099
-Th. Marsh/Stocksbridge 0.0878206867987325
-Walpole 0.141488885461823
-Ratcliffe 0.198084418496973
-Melksham 0.0878206867987325
-Keadby 0.117094252589906
-Deeside 0.0292735631474766
-Th. Marsh/Stocksbridge 0.0780628315350078
-Feckenham 0.035128274190753504
-Deeside 0.010733639336063501
-Feckenham 0.0156125663070015
-Bramford 0.0253704189270288
-Thornton/Drax/Eggborough 6.29381555589909
-Strathaven 0.0765607052569944
-Walpole 0.775961837768554
-Melksham 0.492674179077148
-Melksham 0.805332794189453
-Penwortham 0.0568470191955566
-Kemsley 0.762697525024414
-Pelham 0.677426986694336
-Lovedean 0.39792915344238206
-Thornton/Drax/Eggborough 0.0530572175979614
-Daines 0.0530572175979614
-Th. Marsh/Stocksbridge 0.047372517585754406
-Keadby 1.26200386047363
-Keadby 1.2932696533203099
-S.W.Penisula 0.857442550659179
-Ratcliffe 0.38561229705810496
-Daines 0.862179794311523
-Harker 0.146854801177978
-Deeside 0.767434768676757
-Kemsley 0.75796028137207
-Walpole 0.9000778198242181
-Lovedean 0.8508103942871089
-Bramley 1.37380294799804
-Bramford 0.39792915344238206
-Sundon/East Claydon 0.685006561279296
-Melksham 2.08344329833984
-Ratcliffe 1.67888198852539
-Melksham 1.16915374755859
-Peterhead 1.11799140930175
-Keadby 0.696376037597656
-Kemsley 0.7153250122070309
-Keadby 1.13694038391113
-Keadby 0.421615409851074
-London 0.38655975341796794
-Kemsley 1.4372821044921802
-Keadby 1.18620780944824
-Deeside 1.3074815368652302
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Walpole 0.0
-Keadby 0.0
-London 0.0
-London 0.0
-Stella West 0.0
-Bramley 0.0
-S.W.Penisula 0.0
-Melksham 0.0
-Deeside 0.0
-Keadby 0.0
-Sellindge 13.1356487163503
-Stella West 14.280498159024901
-Penwortham 12.7741164625757
-Penwortham 14.943306752089299
-S.W.Penisula 11.6292670199011
-Neilston 0.0
-Torness 0.0
-Bramford 14.437162890058401
-Melksham 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Keadby 0.0
-Kemsley 0.0
-Lovedean 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Peterhead 0.0
-Bramley 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-Peterhead 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-S.W.Penisula 0.0
-Kemsley 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 1.015
-Thornton/Drax/Eggborough 0.985999984741211
-Feckenham 0.10730000495910601
-Feckenham 0.116000003814697
-Daines 0.20590000152587798
-Feckenham 0.435
-Stella West 0.29145000457763603
-London 0.725
-Bramley 0.116000003814697
-Lovedean 0.232000007629394
-Th. Marsh/Stocksbridge 0.137749996185302
-Keadby 0.046399998664855904
-Th. Marsh/Stocksbridge 0.0434999990463256
-London 1.04400001525878
-London 0.435
-Denny/Bonnybridge 0.120349998474121
-Kemsley 0.739499969482421
-Feckenham 0.0652500009536743
-Daines 0.485750007629394
-Daines 0.156599998474121
-Lovedean 0.265349998474121
-Th. Marsh/Stocksbridge 0.279849987030029
-Walpole 0.105850000381469
-Deeside 0.116000003814697
-Feckenham 0.33349998474121
-S.W.Penisula 0.29
-Melksham 0.464000015258789
-Melksham 0.435
-Keadby 0.23779998779296802
-Stella West 0.304500007629394
-Stella West 0.7105000305175779
-Deeside 1.45
-Thornton/Drax/Eggborough 0.168199996948242
-S.W.Penisula 0.188500003814697
-S.W.Penisula 0.32625
-London 0.377000007629394
-Kemsley 0.7235500335693359
-Thornton/Drax/Eggborough 0.39150001525878897
-Sundon/East Claydon 0.34799999237060497
-Sundon/East Claydon 0.318999996185302
-Sundon/East Claydon 0.0493000030517578
-Torness 0.371199989318847
-Bramford 0.29
-Melksham 0.210249996185302
-Deeside 0.232000007629394
-Feckenham 0.224750003814697
-Melksham 0.492999992370605
-Lovedean 0.124700002670288
-Lovedean 0.202999992370605
-London 0.7975
-Stella West 0.27840000152587796
-Stella West 0.145
-London 0.5075
-Torness 0.18125
-Ratcliffe 0.130500001907348
-Walpole 3.50815366136429
-Melksham 2.22739912594543
-Melksham 3.6409407795640196
-Penwortham 0.257007576839766
-Kemsley 3.4481850304337796
-Pelham 3.0626738361752
-Lovedean 1.79905315187907
-Thornton/Drax/Eggborough 0.23987374471715397
-Daines 0.23987374471715397
-Th. Marsh/Stocksbridge 0.214172987033178
-Keadby 5.705568471844461
-Keadby 5.84692266760651
-S.W.Penisula 3.8765310045001398
-Ratcliffe 1.74336805972972
-Daines 3.8979482424030696
-Harker 0.6639362750029459
-Deeside 3.46960226833672
-Kemsley 3.4267677925308404
-Walpole 4.06928675363038
-Lovedean 3.84654699303678
-Bramley 6.21101662396215
-Bramford 1.79905315187907
-Sundon/East Claydon 3.09694153842066
-Melksham 9.41932804267962
-Ratcliffe 7.59029087933719
-Melksham 5.285789271338519
-Peterhead 6.92879602422805
-Keadby 3.1483427877869503
-Kemsley 3.2340120434006003
-Keadby 5.14015168879627
-Keadby 1.90613964539566
-London 1.7476515985108798
-Kemsley 6.49800840226646
-Keadby 5.362891449389861
-Deeside 5.9111746853172304
-Beauly 9999999.99
-Peterhead 9999999.99
-Errochty 9999999.99
-Denny/Bonnybridge 9999999.99
-Neilston 9999999.99
-Strathaven 9999999.99
-Torness 9999999.99
-Eccles 9999999.99
-Harker 9999999.99
-Stella West 9999999.99
-Penwortham 9999999.99
-Deeside 9999999.99
-Daines 9999999.99
-Th. Marsh/Stocksbridge 9999999.99
-Thornton/Drax/Eggborough 9999999.99
-Keadby 9999999.99
-Ratcliffe 9999999.99
-Feckenham 9999999.99
-Walpole 9999999.99
-Bramford 9999999.99
-Pelham 9999999.99
-Sundon/East Claydon 9999999.99
-Melksham 9999999.99
-Bramley 9999999.99
-London 9999999.99
-Kemsley 9999999.99
-Sellindge 9999999.99
-Lovedean 9999999.99
-S.W.Penisula 9999999.99
-Keadby 31.270806836162002
-Peterhead 213.860456092096
-Deeside 23.9891761014557
-Bramford 166.31155259723297
-Walpole 148.36657652690002
-Kemsley 3.11591253831757
-Harker 3.8865145639230003
-Sellindge 6.70088717917759
-Penwortham 36.9933647598395
-Stella West 113.99549265808601
-Lovedean 8.93451623890345
-Torness 20.515351210222796
-Beauly 89.78821791113239
-Neilston 22.8468747865477
-Keadby 10.8537901104557
-Peterhead 26.601617382236398
-Deeside 14.316995111149799
-Bramford 1.22463146555463
-Walpole 10.438995512759199
-Kemsley 3.02207439160945
-Harker 14.4420918838821
-Sellindge 2.21552939216051
-Penwortham 7.683574846469989
-Stella West 12.6907372486002
-Torness 26.4718689798919
-Beauly 69.6715200469309
-Neilston 62.386160945041404
-Melksham 24.2951079954495
-Pelham 1.51432922792385
-Thornton/Drax/Eggborough 9.18802794433148
-Daines 1.82377909152292
-Th. Marsh/Stocksbridge 2.6270320203327704
-S.W.Penisula 7.83829975419454
-Ratcliffe 4.766845063768
-Bramley 0.0658404016327761
-Sundon/East Claydon 5.257356140194609
-London 0.447714731102877
-Denny/Bonnybridge 10.8274843372474
-Errochty 8.495261071440579
-Feckenham 2.0410524554310503
-Strathaven 53.4529990453399
-Eccles 3.38318340334504
-Keadby 22.7804143139505
-Peterhead 6.932018224023389
-Deeside 23.484372609400896
-Bramford 27.208802407610502
-Walpole 39.8227511533298
-Kemsley 21.6426215845866
-Harker 4.59209938424525
-Sellindge 13.931823792831102
-Penwortham 8.33290044303535
-Stella West 4.90315072054611
-Lovedean 36.049208150189905
-Torness 16.046338937806
-Beauly 0.128370706222748
-Neilston 3.2092677875612
-Melksham 125.271815585234
-Pelham 41.083327717592304
-Thornton/Drax/Eggborough 8.840405418263419
-Daines 5.3042431001343004
-Th. Marsh/Stocksbridge 11.263331184179599
-S.W.Penisula 130.862553501125
-Ratcliffe 42.34390399232699
-Bramley 28.9113991886961
-Sundon/East Claydon 41.2552243197628
-London 3.9699968103971703
-Denny/Bonnybridge 20.8602403287643
-Errochty 0.192556063733872
-Feckenham 29.0341822997753
-Strathaven 0.9627802746718589
-Deeside 1.87632255554199
-Harker 0.447016377449035
-Beauly 7.96720717906951
-Neilston 2.60759546279907
-Errochty 5.09254802703857
-Strathaven 1.04303819179534
-Deeside 0.12149675697088201
-Stella West 0.00916956663131714
-Beauly 0.992605558931827
-Neilston 0.37595221996307304
-Ratcliffe 0.0194853293895721
-Denny/Bonnybridge 0.08252609670162199
-Errochty 0.829845748841762
-Feckenham 0.0630407691001892
-Deeside 0.36
-Melksham 6.61
-S.W.Penisula 0.33
-Peterhead 1.54
-Deeside 0.33
-Lovedean 0.33
-Beauly 0.29
-Neilston 0.1
-S.W.Penisula 0.33
-Beauly 0.07
-Melksham 0.36
-Western Link_A 24.0
-Western Link_B 24.0
-Netherla_HVDCnds_INT 11.0
-Belgium_HVDC_INT 6.0
-France1_HVDC_INT 6.0
-France2_HVDC_INT 11.0
-Ireland_HVDC_INT 21.0
-N. Ireland_HVDC_INT 11.0
+G1 0.01659887589703356
+G2 1.8163551100939301
+G3 1.3952043625269932
+G4 0.592979255728549
+G5 1.0399917117718
+G6 0.11233998980201189
+G7 0.025219996824867003
+G8 0.1665676048476424
+G9 0.3335880764405667
+G10 1.20078546752948
+G11 1.26953811240673
+G12 0.43198320587179145
+G13 0.6854970582931572
+G14 1.2682298452289151
+G15 0.025760424474149623
+G16 1.189665174589454
+G17 4.029224579145372
+G18 1.218616766963474
+G19 1.273959985959805
+G20 1.424439642219642
+G21 6.645887189710157
+G22 1.899823395619416
+G23 0.0765607052569944
+G24 0.4760523241676193
+G25 0.1438123743707459
+G26 1.421189106556715
+G27 0.145430799751006
+G28 0.9836042950712083
+Western_Link_gen_A 24.0
+Western_Link_gen_B 24.0
 ;
 param SLmax:=
 L0 5.25
@@ -2400,1340 +737,104 @@ L101 6.0
 L102 10.0
 L103 20.0
 L104 10.0
-Western Link_a 22.0
-Western Link_b 22.0
-Netherla_HVDCnds_int 10.0
-Belgium_HVDC_int 5.0
-France1_HVDC_int 5.0
-France2_HVDC_int 10.0
-Ireland_HVDC_int 20.0
-N. Ireland_HVDC_int 10.0
+Western_Link_a 22.0
+Western_Link_b 22.0
 ;
 param c2:=
-Keadby 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Melksham 0.0
-Thornton/Drax/Eggborough 0.0
-Walpole 0.0
-Stella West 0.0
-S.W.Penisula 0.0
-London 0.0
-Thornton/Drax/Eggborough 0.0
-Beauly 0.0
-Neilston 0.0
-Stella West 0.0
-Thornton/Drax/Eggborough 0.0
-Denny/Bonnybridge 0.0
-Penwortham 0.0
-Harker 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Daines 0.0
-Denny/Bonnybridge 0.0
-S.W.Penisula 0.0
-Keadby 0.0
-Walpole 0.0
-Bramford 0.0
-London 0.0
-Kemsley 0.0
-Melksham 0.0
-Stella West 0.0
-Th. Marsh/Stocksbridge 0.0
-Stella West 0.0
-Melksham 0.0
-London 0.0
-Bramford 0.0
-Daines 0.0
-S.W.Penisula 0.0
-Beauly 0.0
-London 0.0
-Keadby 0.0
-Kemsley 0.0
-Denny/Bonnybridge 0.0
-Th. Marsh/Stocksbridge 0.0
-Th. Marsh/Stocksbridge 0.0
-Denny/Bonnybridge 0.0
-Sellindge 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Sundon/East Claydon 0.0
-Bramford 0.0
-Beauly 0.0
-Deeside 0.0
-Thornton/Drax/Eggborough 0.0
-Harker 0.0
-Peterhead 0.0
-Ratcliffe 0.0
-Torness 0.0
-Thornton/Drax/Eggborough 0.0
-Sundon/East Claydon 0.0
-Ratcliffe 0.0
-Deeside 0.0
-Errochty 0.0
-Keadby 0.0
-Peterhead 0.0
-Neilston 0.0
-Th. Marsh/Stocksbridge 0.0
-Walpole 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Keadby 0.0
-Deeside 0.0
-Th. Marsh/Stocksbridge 0.0
-Feckenham 0.0
-Deeside 0.0
-Feckenham 0.0
-Bramford 0.0
-Thornton/Drax/Eggborough 0.0
-Strathaven 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Walpole 0.0
-Keadby 0.0
-London 0.0
-London 0.0
-Stella West 0.0
-Bramley 0.0
-S.W.Penisula 0.0
-Melksham 0.0
-Deeside 0.0
-Keadby 0.0
-Sellindge 0.0
-Stella West 0.0
-Penwortham 0.0
-Penwortham 0.0
-S.W.Penisula 0.0
-Neilston 0.0
-Torness 0.0
-Bramford 0.0
-Melksham 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Keadby 0.0
-Kemsley 0.0
-Lovedean 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Peterhead 0.0
-Bramley 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-Peterhead 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-S.W.Penisula 0.0
-Kemsley 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Thornton/Drax/Eggborough 0.0
-Feckenham 0.0
-Feckenham 0.0
-Daines 0.0
-Feckenham 0.0
-Stella West 0.0
-London 0.0
-Bramley 0.0
-Lovedean 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Th. Marsh/Stocksbridge 0.0
-London 0.0
-London 0.0
-Denny/Bonnybridge 0.0
-Kemsley 0.0
-Feckenham 0.0
-Daines 0.0
-Daines 0.0
-Lovedean 0.0
-Th. Marsh/Stocksbridge 0.0
-Walpole 0.0
-Deeside 0.0
-Feckenham 0.0
-S.W.Penisula 0.0
-Melksham 0.0
-Melksham 0.0
-Keadby 0.0
-Stella West 0.0
-Stella West 0.0
-Deeside 0.0
-Thornton/Drax/Eggborough 0.0
-S.W.Penisula 0.0
-S.W.Penisula 0.0
-London 0.0
-Kemsley 0.0
-Thornton/Drax/Eggborough 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Torness 0.0
-Bramford 0.0
-Melksham 0.0
-Deeside 0.0
-Feckenham 0.0
-Melksham 0.0
-Lovedean 0.0
-Lovedean 0.0
-London 0.0
-Stella West 0.0
-Stella West 0.0
-London 0.0
-Torness 0.0
-Ratcliffe 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Beauly 0.0
-Peterhead 0.0
-Errochty 0.0
-Denny/Bonnybridge 0.0
-Neilston 0.0
-Strathaven 0.0
-Torness 0.0
-Eccles 0.0
-Harker 0.0
-Stella West 0.0
-Penwortham 0.0
-Deeside 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Ratcliffe 0.0
-Feckenham 0.0
-Walpole 0.0
-Bramford 0.0
-Pelham 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Bramley 0.0
-London 0.0
-Kemsley 0.0
-Sellindge 0.0
-Lovedean 0.0
-S.W.Penisula 0.0
-Keadby 0.0
-Peterhead 0.0
-Deeside 0.0
-Bramford 0.0
-Walpole 0.0
-Kemsley 0.0
-Harker 0.0
-Sellindge 0.0
-Penwortham 0.0
-Stella West 0.0
-Lovedean 0.0
-Torness 0.0
-Beauly 0.0
-Neilston 0.0
-Keadby 0.0
-Peterhead 0.0
-Deeside 0.0
-Bramford 0.0
-Walpole 0.0
-Kemsley 0.0
-Harker 0.0
-Sellindge 0.0
-Penwortham 0.0
-Stella West 0.0
-Torness 0.0
-Beauly 0.0
-Neilston 0.0
-Melksham 0.0
-Pelham 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Bramley 0.0
-Sundon/East Claydon 0.0
-London 0.0
-Denny/Bonnybridge 0.0
-Errochty 0.0
-Feckenham 0.0
-Strathaven 0.0
-Eccles 0.0
-Keadby 0.0
-Peterhead 0.0
-Deeside 0.0
-Bramford 0.0
-Walpole 0.0
-Kemsley 0.0
-Harker 0.0
-Sellindge 0.0
-Penwortham 0.0
-Stella West 0.0
-Lovedean 0.0
-Torness 0.0
-Beauly 0.0
-Neilston 0.0
-Melksham 0.0
-Pelham 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Bramley 0.0
-Sundon/East Claydon 0.0
-London 0.0
-Denny/Bonnybridge 0.0
-Errochty 0.0
-Feckenham 0.0
-Strathaven 0.0
-Deeside 0.0
-Harker 0.0
-Beauly 0.0
-Neilston 0.0
-Errochty 0.0
-Strathaven 0.0
-Deeside 0.0
-Stella West 0.0
-Beauly 0.0
-Neilston 0.0
-Ratcliffe 0.0
-Denny/Bonnybridge 0.0
-Errochty 0.0
-Feckenham 0.0
-Deeside 0.0
-Melksham 0.0
-S.W.Penisula 0.0
-Peterhead 0.0
-Deeside 0.0
-Lovedean 0.0
-Beauly 0.0
-Neilston 0.0
-S.W.Penisula 0.0
-Beauly 0.0
-Melksham 0.0
-Western Link_A 0.0
-Western Link_B 0.0
-Netherla_HVDCnds_INT 0.0
-Belgium_HVDC_INT 0.0
-France1_HVDC_INT 0.0
-France2_HVDC_INT 0.0
-Ireland_HVDC_INT 0.0
-N. Ireland_HVDC_INT 0.0
+G1 0.0
+G2 0.0
+G3 0.0
+G4 0.0
+G5 0.0
+G6 0.0
+G7 0.0
+G8 0.0
+G9 0.0
+G10 0.0
+G11 0.0
+G12 0.0
+G13 0.0
+G14 0.0
+G15 0.0
+G16 0.0
+G17 0.0
+G18 0.0
+G19 0.0
+G20 0.0
+G21 0.0
+G22 0.0
+G23 0.0
+G24 0.0
+G25 0.0
+G26 0.0
+G27 0.0
+G28 0.0
+Western_Link_gen_A 0.0
+Western_Link_gen_B 0.0
 ;
 param c1:=
-Keadby 0.0
-Walpole 100.0
-Melksham 100.0
-Melksham 100.0
-Penwortham 100.0
-Kemsley 100.0
-Pelham 100.0
-Lovedean 100.0
-Thornton/Drax/Eggborough 100.0
-Daines 100.0
-Th. Marsh/Stocksbridge 100.0
-Keadby 100.0
-Keadby 100.0
-S.W.Penisula 100.0
-Ratcliffe 100.0
-Daines 100.0
-Harker 100.0
-Deeside 100.0
-Kemsley 100.0
-Walpole 100.0
-Lovedean 100.0
-Bramley 100.0
-Bramford 100.0
-Sundon/East Claydon 100.0
-Melksham 100.0
-Ratcliffe 100.0
-Melksham 100.0
-Peterhead 100.0
-Keadby 100.0
-Kemsley 100.0
-Keadby 100.0
-Keadby 100.0
-London 100.0
-Kemsley 100.0
-Keadby 100.0
-Deeside 100.0
-Melksham 44.0
-Thornton/Drax/Eggborough 44.0
-Walpole 44.0
-Stella West 44.0
-S.W.Penisula 44.0
-London 44.0
-Thornton/Drax/Eggborough 44.0
-Beauly 44.0
-Neilston 44.0
-Stella West 44.0
-Thornton/Drax/Eggborough 44.0
-Denny/Bonnybridge 44.0
-Penwortham 44.0
-Harker 44.0
-Sundon/East Claydon 44.0
-Melksham 44.0
-Daines 44.0
-Denny/Bonnybridge 44.0
-S.W.Penisula 44.0
-Keadby 44.0
-Walpole 44.0
-Bramford 44.0
-London 44.0
-Kemsley 44.0
-Melksham 44.0
-Stella West 44.0
-Th. Marsh/Stocksbridge 44.0
-Stella West 44.0
-Melksham 44.0
-London 44.0
-Bramford 44.0
-Daines 44.0
-S.W.Penisula 44.0
-Beauly 44.0
-London 44.0
-Keadby 44.0
-Kemsley 44.0
-Denny/Bonnybridge 44.0
-Th. Marsh/Stocksbridge 44.0
-Th. Marsh/Stocksbridge 44.0
-Denny/Bonnybridge 44.0
-Sellindge 44.0
-Thornton/Drax/Eggborough 44.0
-Keadby 44.0
-Sundon/East Claydon 44.0
-Bramford 44.0
-Beauly 44.0
-Deeside 44.0
-Thornton/Drax/Eggborough 44.0
-Harker 44.0
-Peterhead 44.0
-Ratcliffe 44.0
-Torness 44.0
-Thornton/Drax/Eggborough 44.0
-Sundon/East Claydon 44.0
-Ratcliffe 44.0
-Deeside 44.0
-Errochty 44.0
-Keadby 44.0
-Peterhead 44.0
-Neilston 44.0
-Th. Marsh/Stocksbridge 44.0
-Walpole 44.0
-Ratcliffe 44.0
-Melksham 44.0
-Keadby 44.0
-Deeside 44.0
-Th. Marsh/Stocksbridge 44.0
-Feckenham 44.0
-Deeside 44.0
-Feckenham 44.0
-Bramford 44.0
-Thornton/Drax/Eggborough 44.0
-Strathaven 44.0
-Walpole 120.0
-Melksham 120.0
-Melksham 120.0
-Penwortham 120.0
-Kemsley 120.0
-Pelham 120.0
-Lovedean 120.0
-Thornton/Drax/Eggborough 120.0
-Daines 120.0
-Th. Marsh/Stocksbridge 120.0
-Keadby 120.0
-Keadby 120.0
-S.W.Penisula 120.0
-Ratcliffe 120.0
-Daines 120.0
-Harker 120.0
-Deeside 120.0
-Kemsley 120.0
-Walpole 120.0
-Lovedean 120.0
-Bramley 120.0
-Bramford 120.0
-Sundon/East Claydon 120.0
-Melksham 120.0
-Ratcliffe 120.0
-Melksham 120.0
-Peterhead 120.0
-Keadby 120.0
-Kemsley 120.0
-Keadby 120.0
-Keadby 120.0
-London 120.0
-Kemsley 120.0
-Keadby 120.0
-Deeside 120.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Walpole 0.0
-Keadby 0.0
-London 0.0
-London 0.0
-Stella West 0.0
-Bramley 0.0
-S.W.Penisula 0.0
-Melksham 0.0
-Deeside 0.0
-Keadby 0.0
-Sellindge 5.0
-Stella West 5.0
-Penwortham 5.0
-Penwortham 5.0
-S.W.Penisula 5.0
-Neilston 5.0
-Torness 5.0
-Bramford 5.0
-Melksham 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Keadby 0.0
-Kemsley 0.0
-Lovedean 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Peterhead 0.0
-Bramley 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-Peterhead 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-S.W.Penisula 0.0
-Kemsley 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Thornton/Drax/Eggborough 0.0
-Feckenham 0.0
-Feckenham 0.0
-Daines 0.0
-Feckenham 0.0
-Stella West 0.0
-London 0.0
-Bramley 0.0
-Lovedean 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Th. Marsh/Stocksbridge 0.0
-London 0.0
-London 0.0
-Denny/Bonnybridge 0.0
-Kemsley 0.0
-Feckenham 0.0
-Daines 0.0
-Daines 0.0
-Lovedean 0.0
-Th. Marsh/Stocksbridge 0.0
-Walpole 0.0
-Deeside 0.0
-Feckenham 0.0
-S.W.Penisula 0.0
-Melksham 0.0
-Melksham 0.0
-Keadby 0.0
-Stella West 0.0
-Stella West 0.0
-Deeside 0.0
-Thornton/Drax/Eggborough 0.0
-S.W.Penisula 0.0
-S.W.Penisula 0.0
-London 0.0
-Kemsley 0.0
-Thornton/Drax/Eggborough 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Torness 0.0
-Bramford 0.0
-Melksham 0.0
-Deeside 0.0
-Feckenham 0.0
-Melksham 0.0
-Lovedean 0.0
-Lovedean 0.0
-London 0.0
-Stella West 0.0
-Stella West 0.0
-London 0.0
-Torness 0.0
-Ratcliffe 0.0
-Walpole 80.0
-Melksham 80.0
-Melksham 80.0
-Penwortham 80.0
-Kemsley 80.0
-Pelham 80.0
-Lovedean 80.0
-Thornton/Drax/Eggborough 80.0
-Daines 80.0
-Th. Marsh/Stocksbridge 80.0
-Keadby 80.0
-Keadby 80.0
-S.W.Penisula 80.0
-Ratcliffe 80.0
-Daines 80.0
-Harker 80.0
-Deeside 80.0
-Kemsley 80.0
-Walpole 80.0
-Lovedean 80.0
-Bramley 80.0
-Bramford 80.0
-Sundon/East Claydon 80.0
-Melksham 80.0
-Ratcliffe 80.0
-Melksham 80.0
-Peterhead 80.0
-Keadby 80.0
-Kemsley 80.0
-Keadby 80.0
-Keadby 80.0
-London 80.0
-Kemsley 80.0
-Keadby 80.0
-Deeside 80.0
-Beauly 999999999.0
-Peterhead 999999999.0
-Errochty 999999999.0
-Denny/Bonnybridge 999999999.0
-Neilston 999999999.0
-Strathaven 999999999.0
-Torness 999999999.0
-Eccles 999999999.0
-Harker 999999999.0
-Stella West 999999999.0
-Penwortham 999999999.0
-Deeside 999999999.0
-Daines 999999999.0
-Th. Marsh/Stocksbridge 999999999.0
-Thornton/Drax/Eggborough 999999999.0
-Keadby 999999999.0
-Ratcliffe 999999999.0
-Feckenham 999999999.0
-Walpole 999999999.0
-Bramford 999999999.0
-Pelham 999999999.0
-Sundon/East Claydon 999999999.0
-Melksham 999999999.0
-Bramley 999999999.0
-London 999999999.0
-Kemsley 999999999.0
-Sellindge 999999999.0
-Lovedean 999999999.0
-S.W.Penisula 999999999.0
-Keadby -1.0
-Peterhead -1.0
-Deeside -1.0
-Bramford -1.0
-Walpole -1.0
-Kemsley -1.0
-Harker -1.0
-Sellindge -1.0
-Penwortham -1.0
-Stella West -1.0
-Lovedean -1.0
-Torness -1.0
-Beauly -1.0
-Neilston -1.0
-Keadby -1.0
-Peterhead -1.0
-Deeside -1.0
-Bramford -1.0
-Walpole -1.0
-Kemsley -1.0
-Harker -1.0
-Sellindge -1.0
-Penwortham -1.0
-Stella West -1.0
-Torness -1.0
-Beauly -1.0
-Neilston -1.0
-Melksham -1.0
-Pelham -1.0
-Thornton/Drax/Eggborough -1.0
-Daines -1.0
-Th. Marsh/Stocksbridge -1.0
-S.W.Penisula -1.0
-Ratcliffe -1.0
-Bramley -1.0
-Sundon/East Claydon -1.0
-London -1.0
-Denny/Bonnybridge -1.0
-Errochty -1.0
-Feckenham -1.0
-Strathaven -1.0
-Eccles -1.0
-Keadby -1.0
-Peterhead -1.0
-Deeside -1.0
-Bramford -1.0
-Walpole -1.0
-Kemsley -1.0
-Harker -1.0
-Sellindge -1.0
-Penwortham -1.0
-Stella West -1.0
-Lovedean -1.0
-Torness -1.0
-Beauly -1.0
-Neilston -1.0
-Melksham -1.0
-Pelham -1.0
-Thornton/Drax/Eggborough -1.0
-Daines -1.0
-Th. Marsh/Stocksbridge -1.0
-S.W.Penisula -1.0
-Ratcliffe -1.0
-Bramley -1.0
-Sundon/East Claydon -1.0
-London -1.0
-Denny/Bonnybridge -1.0
-Errochty -1.0
-Feckenham -1.0
-Strathaven -1.0
-Deeside -1.0
-Harker -1.0
-Beauly -1.0
-Neilston -1.0
-Errochty -1.0
-Strathaven -1.0
-Deeside -1.0
-Stella West -1.0
-Beauly -1.0
-Neilston -1.0
-Ratcliffe -1.0
-Denny/Bonnybridge -1.0
-Errochty -1.0
-Feckenham -1.0
-Deeside -1.0
-Melksham -1.0
-S.W.Penisula -1.0
-Peterhead -1.0
-Deeside -1.0
-Lovedean -1.0
-Beauly -1.0
-Neilston -1.0
-S.W.Penisula -1.0
-Beauly -1.0
-Melksham -1.0
-Western Link_A 0.0
-Western Link_B 0.0
-Netherla_HVDCnds_INT 0.0
-Belgium_HVDC_INT 0.0
-France1_HVDC_INT 0.0
-France2_HVDC_INT 0.0
-Ireland_HVDC_INT 0.0
-N. Ireland_HVDC_INT 0.0
+G1 18.85714285714286
+G2 48.1
+G3 42.85714285714285
+G4 52.92307692307692
+G5 48.5
+G6 35.2
+G7 44.0
+G8 11.0
+G9 64.66666666666667
+G10 56.11111111111111
+G11 58.54545454545455
+G12 29.75
+G13 42.85714285714285
+G14 52.5925925925926
+G15 18.6
+G16 75.0
+G17 50.57142857142857
+G18 48.5
+G19 61.0
+G20 33.61538461538461
+G21 24.5
+G22 16.45454545454545
+G23 44.0
+G24 36.0
+G25 43.33333333333334
+G26 38.0
+G27 12.25
+G28 56.30769230769231
+Western_Link_gen_A 0.0
+Western_Link_gen_B 0.0
 ;
 param c0:=
-Keadby 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Melksham 0.0
-Thornton/Drax/Eggborough 0.0
-Walpole 0.0
-Stella West 0.0
-S.W.Penisula 0.0
-London 0.0
-Thornton/Drax/Eggborough 0.0
-Beauly 0.0
-Neilston 0.0
-Stella West 0.0
-Thornton/Drax/Eggborough 0.0
-Denny/Bonnybridge 0.0
-Penwortham 0.0
-Harker 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Daines 0.0
-Denny/Bonnybridge 0.0
-S.W.Penisula 0.0
-Keadby 0.0
-Walpole 0.0
-Bramford 0.0
-London 0.0
-Kemsley 0.0
-Melksham 0.0
-Stella West 0.0
-Th. Marsh/Stocksbridge 0.0
-Stella West 0.0
-Melksham 0.0
-London 0.0
-Bramford 0.0
-Daines 0.0
-S.W.Penisula 0.0
-Beauly 0.0
-London 0.0
-Keadby 0.0
-Kemsley 0.0
-Denny/Bonnybridge 0.0
-Th. Marsh/Stocksbridge 0.0
-Th. Marsh/Stocksbridge 0.0
-Denny/Bonnybridge 0.0
-Sellindge 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Sundon/East Claydon 0.0
-Bramford 0.0
-Beauly 0.0
-Deeside 0.0
-Thornton/Drax/Eggborough 0.0
-Harker 0.0
-Peterhead 0.0
-Ratcliffe 0.0
-Torness 0.0
-Thornton/Drax/Eggborough 0.0
-Sundon/East Claydon 0.0
-Ratcliffe 0.0
-Deeside 0.0
-Errochty 0.0
-Keadby 0.0
-Peterhead 0.0
-Neilston 0.0
-Th. Marsh/Stocksbridge 0.0
-Walpole 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Keadby 0.0
-Deeside 0.0
-Th. Marsh/Stocksbridge 0.0
-Feckenham 0.0
-Deeside 0.0
-Feckenham 0.0
-Bramford 0.0
-Thornton/Drax/Eggborough 0.0
-Strathaven 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Walpole 0.0
-Keadby 0.0
-London 0.0
-London 0.0
-Stella West 0.0
-Bramley 0.0
-S.W.Penisula 0.0
-Melksham 0.0
-Deeside 0.0
-Keadby 0.0
-Sellindge 0.0
-Stella West 0.0
-Penwortham 0.0
-Penwortham 0.0
-S.W.Penisula 0.0
-Neilston 0.0
-Torness 0.0
-Bramford 0.0
-Melksham 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Keadby 0.0
-Kemsley 0.0
-Lovedean 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Peterhead 0.0
-Bramley 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-Peterhead 0.0
-Beauly 0.0
-Beauly 0.0
-Neilston 0.0
-S.W.Penisula 0.0
-Kemsley 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Thornton/Drax/Eggborough 0.0
-Feckenham 0.0
-Feckenham 0.0
-Daines 0.0
-Feckenham 0.0
-Stella West 0.0
-London 0.0
-Bramley 0.0
-Lovedean 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Th. Marsh/Stocksbridge 0.0
-London 0.0
-London 0.0
-Denny/Bonnybridge 0.0
-Kemsley 0.0
-Feckenham 0.0
-Daines 0.0
-Daines 0.0
-Lovedean 0.0
-Th. Marsh/Stocksbridge 0.0
-Walpole 0.0
-Deeside 0.0
-Feckenham 0.0
-S.W.Penisula 0.0
-Melksham nan
-Melksham 0.0
-Keadby 0.0
-Stella West 0.0
-Stella West 0.0
-Deeside 0.0
-Thornton/Drax/Eggborough 0.0
-S.W.Penisula 0.0
-S.W.Penisula 0.0
-London 0.0
-Kemsley 0.0
-Thornton/Drax/Eggborough 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Sundon/East Claydon 0.0
-Torness 0.0
-Bramford 0.0
-Melksham 0.0
-Deeside 0.0
-Feckenham 0.0
-Melksham 0.0
-Lovedean 0.0
-Lovedean 0.0
-London 0.0
-Stella West 0.0
-Stella West 0.0
-London 0.0
-Torness 0.0
-Ratcliffe 0.0
-Walpole 0.0
-Melksham 0.0
-Melksham 0.0
-Penwortham 0.0
-Kemsley 0.0
-Pelham 0.0
-Lovedean 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Keadby 0.0
-Keadby 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Daines 0.0
-Harker 0.0
-Deeside 0.0
-Kemsley 0.0
-Walpole 0.0
-Lovedean 0.0
-Bramley 0.0
-Bramford 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Ratcliffe 0.0
-Melksham 0.0
-Peterhead 0.0
-Keadby 0.0
-Kemsley 0.0
-Keadby 0.0
-Keadby 0.0
-London 0.0
-Kemsley 0.0
-Keadby 0.0
-Deeside 0.0
-Beauly 0.0
-Peterhead 0.0
-Errochty 0.0
-Denny/Bonnybridge 0.0
-Neilston 0.0
-Strathaven 0.0
-Torness 0.0
-Eccles 0.0
-Harker 0.0
-Stella West 0.0
-Penwortham 0.0
-Deeside 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-Thornton/Drax/Eggborough 0.0
-Keadby 0.0
-Ratcliffe 0.0
-Feckenham 0.0
-Walpole 0.0
-Bramford 0.0
-Pelham 0.0
-Sundon/East Claydon 0.0
-Melksham 0.0
-Bramley 0.0
-London 0.0
-Kemsley 0.0
-Sellindge 0.0
-Lovedean 0.0
-S.W.Penisula 0.0
-Keadby 0.0
-Peterhead 0.0
-Deeside 0.0
-Bramford 0.0
-Walpole 0.0
-Kemsley 0.0
-Harker 0.0
-Sellindge 0.0
-Penwortham 0.0
-Stella West 0.0
-Lovedean 0.0
-Torness 0.0
-Beauly 0.0
-Neilston 0.0
-Keadby 0.0
-Peterhead 0.0
-Deeside 0.0
-Bramford 0.0
-Walpole 0.0
-Kemsley 0.0
-Harker 0.0
-Sellindge 0.0
-Penwortham 0.0
-Stella West 0.0
-Torness 0.0
-Beauly 0.0
-Neilston 0.0
-Melksham 0.0
-Pelham 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Bramley 0.0
-Sundon/East Claydon 0.0
-London 0.0
-Denny/Bonnybridge 0.0
-Errochty 0.0
-Feckenham 0.0
-Strathaven 0.0
-Eccles 0.0
-Keadby 0.0
-Peterhead 0.0
-Deeside 0.0
-Bramford 0.0
-Walpole 0.0
-Kemsley 0.0
-Harker 0.0
-Sellindge 0.0
-Penwortham 0.0
-Stella West 0.0
-Lovedean 0.0
-Torness 0.0
-Beauly 0.0
-Neilston 0.0
-Melksham 0.0
-Pelham 0.0
-Thornton/Drax/Eggborough 0.0
-Daines 0.0
-Th. Marsh/Stocksbridge 0.0
-S.W.Penisula 0.0
-Ratcliffe 0.0
-Bramley 0.0
-Sundon/East Claydon 0.0
-London 0.0
-Denny/Bonnybridge 0.0
-Errochty 0.0
-Feckenham 0.0
-Strathaven 0.0
-Deeside 0.0
-Harker 0.0
-Beauly 0.0
-Neilston 0.0
-Errochty 0.0
-Strathaven 0.0
-Deeside 0.0
-Stella West 0.0
-Beauly 0.0
-Neilston 0.0
-Ratcliffe 0.0
-Denny/Bonnybridge 0.0
-Errochty 0.0
-Feckenham 0.0
-Deeside 0.0
-Melksham 0.0
-S.W.Penisula 0.0
-Peterhead 0.0
-Deeside 0.0
-Lovedean 0.0
-Beauly 0.0
-Neilston 0.0
-S.W.Penisula 0.0
-Beauly 0.0
-Melksham 0.0
-Western Link_A 0
-Western Link_B 0
-Netherla_HVDCnds_INT 0
-Belgium_HVDC_INT 0
-France1_HVDC_INT 0
-France2_HVDC_INT 0
-Ireland_HVDC_INT 0
-N. Ireland_HVDC_INT 0
+G1 0.0
+G2 0.0
+G3 0.0
+G4 0.0
+G5 0.0
+G6 0.0
+G7 0.0
+G8 0.0
+G9 0.0
+G10 0.0
+G11 0.0
+G12 0.0
+G13 0.0
+G14 0.0
+G15 0.0
+G16 0.0
+G17 0.0
+G18 0.0
+G19 0.0
+G20 0.0
+G21 0.0
+G22 0.0
+G23 0.0
+G24 0.0
+G25 0.0
+G26 0.0
+G27 0.0
+G28 0.0
+Western_Link_gen_A 0
+Western_Link_gen_B 0
 ;
 param BL:=
 L0 -50.0
@@ -3841,127 +942,6 @@ L101 -125.62814070351759
 L102 -125.62814070351759
 L103 -125.62814070351759
 L104 -125.62814070351759
-Western Link_a -17.064846416382252
-Western Link_b -17.064846416382252
-Netherla_HVDCnds_int -17.064846416382252
-Belgium_HVDC_int -17.064846416382252
-France1_HVDC_int -17.064846416382252
-France2_HVDC_int -17.064846416382252
-Ireland_HVDC_int -17.064846416382252
-N. Ireland_HVDC_int -17.064846416382252
-;
-param BL:=
-L0 -50.0
-L1 -6.666666666666667
-L2 -50.0
-L3 -6.666666666666667
-L4 -15.384615384615383
-L5 -15.384615384615383
-L6 -24.390243902439025
-L7 -24.390243902439025
-L8 -74.07407407407408
-L9 -43.47826086956522
-L10 -43.47826086956522
-L11 -41.666666666666664
-L12 -41.666666666666664
-L13 -74.07407407407408
-L14 -95.14747859181732
-L15 -61.996280223186616
-L16 -10000.0
-L17 -117.37089201877934
-L18 -117.37089201877934
-L19 -10000.0
-L20 -10000.0
-L21 -5.0
-L22 -5.0
-L23 -57.14285714285714
-L24 -57.14285714285714
-L25 -61.34969325153375
-L26 -61.34969325153375
-L27 -40.766408479412966
-L28 -29.15451895043732
-L29 -119.76047904191617
-L30 -158.73015873015873
-L31 -23.809523809523807
-L32 -23.809523809523807
-L33 -192.30769230769232
-L34 -192.30769230769232
-L35 -117.6470588235294
-L36 -117.6470588235294
-L37 -92.7643784786642
-L38 -111.11111111111111
-L39 -111.11111111111111
-L40 -92.7643784786642
-L41 -142.85714285714286
-L42 -142.85714285714286
-L43 -43.47826086956522
-L44 -43.47826086956522
-L45 -85.98452278589853
-L46 -83.26394671107411
-L47 -62.5
-L48 -55.55555555555556
-L49 -192.30769230769232
-L50 -581.3953488372093
-L51 -450.45045045045043
-L52 -450.45045045045043
-L53 -70.92198581560284
-L54 -70.92198581560284
-L55 -93.28358208955224
-L56 -93.28358208955224
-L57 -103.09278350515464
-L58 -103.09278350515464
-L59 -555.5555555555555
-L60 -555.5555555555555
-L61 -104.16666666666667
-L62 -104.16666666666667
-L63 -434.7826086956522
-L64 -434.7826086956522
-L65 -46.948356807511736
-L66 -69.93006993006993
-L67 -54.824561403508774
-L68 -54.824561403508774
-L69 -100.0
-L70 -100.0
-L71 -208.33333333333334
-L72 -208.33333333333334
-L73 -169.49152542372883
-L74 -169.49152542372883
-L75 -58.13953488372093
-L76 -58.13953488372093
-L77 -243.90243902439022
-L78 -243.90243902439022
-L79 -900.9009009009009
-L80 -163.93442622950818
-L81 -54.94505494505494
-L82 -1250.0
-L83 -1428.5714285714287
-L84 -333.3333333333333
-L85 -333.3333333333333
-L86 -54.94505494505494
-L87 -142.85714285714286
-L88 -109.89010989010988
-L89 -109.89010989010988
-L90 -142.85714285714286
-L91 -175.43859649122805
-L92 -175.43859649122805
-L93 -198.80715705765408
-L94 -198.80715705765408
-L95 -140.64697609001408
-L96 -140.64697609001408
-L97 -125.62814070351759
-L98 -125.62814070351759
-L99 -125.62814070351759
-L100 -125.62814070351759
-L101 -125.62814070351759
-L102 -125.62814070351759
-L103 -125.62814070351759
-L104 -125.62814070351759
-Western Link_a -17.064846416382252
-Western Link_b -17.064846416382252
-Netherla_HVDCnds_int -17.064846416382252
-Belgium_HVDC_int -17.064846416382252
-France1_HVDC_int -17.064846416382252
-France2_HVDC_int -17.064846416382252
-Ireland_HVDC_int -17.064846416382252
-N. Ireland_HVDC_int -17.064846416382252
+Western_Link_a -17.064846416382252
+Western_Link_b -17.064846416382252
 ;
