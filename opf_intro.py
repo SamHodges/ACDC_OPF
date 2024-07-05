@@ -167,8 +167,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_B" +"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_INT" +"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i]) + "_INT" +"\n")
         f.write(';\n')
         #---set of generators---
         f.write('set G:=\n')
@@ -178,8 +178,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i]) + "_gen_A" +"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B" +"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_INT" +"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i]) + "_gen_INT" +"\n")
         f.write(';\n')
         #---set of hvdc-----
         f.write('set HVDC_Pairs:=\n')
@@ -230,8 +230,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a" +"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b" +"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i]) + "_int" +"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i]) + "_int" +"\n")
         f.write(';\n')
         #set of transformers
         if not(self.data["transformer"].empty):
@@ -248,8 +248,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i]) + "_A "+str(self.data["hvdc"]["name"][i])+ "_gen_A" + "\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_B "+str(self.data["hvdc"]["name"][i])+ "_gen_B" + "\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i]) + "_INT "+str(self.data["hvdc"]["name"][i])+ "_HVDC_gen_INT" + "\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i]) + "_INT "+str(self.data["hvdc"]["name"][i])+ "_gen_INT" + "\n")
         f.write(';\n')
         #---set of wind generator-bus mapping (windgen_bus, gen_ind)---
         if not(self.data["wind"].empty):
@@ -277,16 +277,16 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+  str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_b "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_B"  +"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_HVDC_gen_INT"  +"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_int "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_INT"  +"\n")
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"2"+" "+str(self.data["branch"]["to_busname"][i])+"\n")
         for i in self.data["hvdc"].index.tolist():
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_a "+"2"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_int "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
 
         f.write(';\n')
         #---Transformers---
@@ -310,8 +310,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_INT "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         f.write('param PGmax:=\n')
         for i in self.data["generator"].index.tolist():
@@ -320,8 +320,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_INT "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
 
         f.write(';\n')
         #---Real power wind generation bounds---
@@ -342,8 +342,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -359,8 +359,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_INT "+str(float(0))+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(0))+"\n")
         f.write(';\n')
         f.write('param c1:=\n')
         for i in self.data["generator"].index.tolist():
@@ -369,8 +369,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_INT "+str(float(0))+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["marginal_cost"][i]))+"\n")
 
         f.write(';\n')
         f.write('param c0:=\n')
@@ -380,8 +380,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(0)+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(0)+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_INT "+str(0)+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(0)+"\n")
 
         f.write(';\n')
         f.close()
@@ -395,8 +395,8 @@ class printdata(object):
             if str(self.data["hvdc"]["type"][i]) == "GB":
                 f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):

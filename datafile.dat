@@ -1,6 +1,6 @@
 #This is Python generated data file for Pyomo model DCLF.py
 #_author_:W. Bukhsh
-#Time stamp: 2024-07-05 14:47:18.044933
+#Time stamp: 2024-07-05 15:11:59.559153
 set B:=
 0
 1
@@ -39,6 +39,12 @@ set B:=
 34
 Western_Link_A
 Western_Link_B
+Netherlands_HVDC_INT
+Belgium_HVDC_INT
+France1_HVDC_INT
+France2_HVDC_INT
+Ireland_HVDC_INT
+N_Ireland_HVDC_INT
 ;
 set G:=
 G1 
@@ -71,6 +77,12 @@ G27
 G28 
 Western_Link_gen_A
 Western_Link_gen_B
+Netherlands_HVDC_gen_INT
+Belgium_HVDC_gen_INT
+France1_HVDC_gen_INT
+France2_HVDC_gen_INT
+Ireland_HVDC_gen_INT
+N_Ireland_HVDC_gen_INT
 ;
 set HVDC_Pairs:=
 (Western_Link_gen_A, Western_Link_gen_B)
@@ -284,6 +296,12 @@ L103
 L104
 Western_Link_a
 Western_Link_b
+Netherlands_HVDC_int
+Belgium_HVDC_int
+France1_HVDC_int
+France2_HVDC_int
+Ireland_HVDC_int
+N_Ireland_HVDC_int
 ;
 set Gbs:=
 0 G1 
@@ -316,6 +334,12 @@ set Gbs:=
 18 G28 
 Western_Link_A Western_Link_gen_A
 Western_Link_B Western_Link_gen_B
+Netherlands_HVDC_INT Netherlands_HVDC_gen_INT
+Belgium_HVDC_INT Belgium_HVDC_gen_INT
+France1_HVDC_INT France1_HVDC_gen_INT
+France2_HVDC_INT France2_HVDC_gen_INT
+Ireland_HVDC_INT Ireland_HVDC_gen_INT
+N_Ireland_HVDC_INT N_Ireland_HVDC_gen_INT
 ;
 set Dbs:=
 0 D1
@@ -459,6 +483,12 @@ L103 1 31
 L104 1 32
 Western_Link_a 1 Western_Link_A
 Western_Link_b 1 Western_Link_B
+Netherlands_HVDC_int 1 Netherlands_HVDC_INT
+Belgium_HVDC_int 1 Belgium_HVDC_INT
+France1_HVDC_int 1 France1_HVDC_INT
+France2_HVDC_int 1 France2_HVDC_INT
+Ireland_HVDC_int 1 Ireland_HVDC_INT
+N_Ireland_HVDC_int 1 N_Ireland_HVDC_INT
 L0 2 1
 L1 2 2
 L2 2 1
@@ -566,6 +596,12 @@ L103 2 26
 L104 2 27
 Western_Link_a 2 4
 Western_Link_b 2 11
+Netherlands_HVDC_int 2 25
+Belgium_HVDC_int 2 26
+France1_HVDC_int 2 26
+France2_HVDC_int 2 27
+Ireland_HVDC_int 2 11
+N_Ireland_HVDC_int 2 4
 ;
 param PGmin:=
 G1 0.1
@@ -598,6 +634,12 @@ G27 0.1
 G28 0.1
 Western_Link_gen_A -24.0
 Western_Link_gen_B -24.0
+Netherlands_HVDC_gen_INT -11.0
+Belgium_HVDC_gen_INT -6.0
+France1_HVDC_gen_INT -6.0
+France2_HVDC_gen_INT -11.0
+Ireland_HVDC_gen_INT -21.0
+N_Ireland_HVDC_gen_INT -11.0
 ;
 param PGmax:=
 G1 0.01659887589703356
@@ -630,6 +672,12 @@ G27 0.145430799751006
 G28 0.9836042950712083
 Western_Link_gen_A 24.0
 Western_Link_gen_B 24.0
+Netherlands_HVDC_gen_INT 11.0
+Belgium_HVDC_gen_INT 6.0
+France1_HVDC_gen_INT 6.0
+France2_HVDC_gen_INT 11.0
+Ireland_HVDC_gen_INT 21.0
+N_Ireland_HVDC_gen_INT 11.0
 ;
 param SLmax:=
 L0 5.25
@@ -739,6 +787,12 @@ L103 20.0
 L104 10.0
 Western_Link_a 22.0
 Western_Link_b 22.0
+Netherlands_HVDC_int 10.0
+Belgium_HVDC_int 5.0
+France1_HVDC_int 5.0
+France2_HVDC_int 10.0
+Ireland_HVDC_int 20.0
+N_Ireland_HVDC_int 10.0
 ;
 param c2:=
 G1 0.0
@@ -771,6 +825,12 @@ G27 0.0
 G28 0.0
 Western_Link_gen_A 0.0
 Western_Link_gen_B 0.0
+Netherlands_HVDC_gen_INT 0.0
+Belgium_HVDC_gen_INT 0.0
+France1_HVDC_gen_INT 0.0
+France2_HVDC_gen_INT 0.0
+Ireland_HVDC_gen_INT 0.0
+N_Ireland_HVDC_gen_INT 0.0
 ;
 param c1:=
 G1 18.85714285714286
@@ -803,6 +863,12 @@ G27 12.25
 G28 56.30769230769231
 Western_Link_gen_A 0.0
 Western_Link_gen_B 0.0
+Netherlands_HVDC_gen_INT 20.0
+Belgium_HVDC_gen_INT 20.0
+France1_HVDC_gen_INT 15.0
+France2_HVDC_gen_INT 15.0
+Ireland_HVDC_gen_INT 7.0
+N_Ireland_HVDC_gen_INT 7.0
 ;
 param c0:=
 G1 0.0
@@ -835,6 +901,12 @@ G27 0.0
 G28 0.0
 Western_Link_gen_A 0
 Western_Link_gen_B 0
+Netherlands_HVDC_gen_INT 0
+Belgium_HVDC_gen_INT 0
+France1_HVDC_gen_INT 0
+France2_HVDC_gen_INT 0
+Ireland_HVDC_gen_INT 0
+N_Ireland_HVDC_gen_INT 0
 ;
 param BL:=
 L0 -50.0
@@ -944,4 +1016,10 @@ L103 -125.62814070351759
 L104 -125.62814070351759
 Western_Link_a -17.064846416382252
 Western_Link_b -17.064846416382252
+Netherlands_HVDC_int -17.064846416382252
+Belgium_HVDC_int -17.064846416382252
+France1_HVDC_int -17.064846416382252
+France2_HVDC_int -17.064846416382252
+Ireland_HVDC_int -17.064846416382252
+N_Ireland_HVDC_int -17.064846416382252
 ;
