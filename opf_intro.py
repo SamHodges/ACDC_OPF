@@ -8,6 +8,7 @@ from pyomo.environ import *
 from pyomo.opt import SolverFactory
 from pyomo.opt import SolverStatus, TerminationCondition
 import logging
+import math
 
 def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     
@@ -15,7 +16,8 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     opt=({'neos':neos,\
     'solver':solver,'out':out})
     testcase = os.path.join(".", "data", "case9.xlsx")
-    model ='DCOPF'
+    # model ='DCOPF'
+    model = "ACOPF"
     # ==log==
     runcase(testcase,model,opt)
     modelf = imp.load_source(model, 'model.py')
@@ -77,12 +79,17 @@ def runcase(testcase,mod,opt=None):
         r.printOPF()
     #'AC' or 'DC
 
+    print("check 0")
     r.printDCOPF()
+    print("check 1")
+    r.printACOPF
+    print("check 3")
 
 
 
 def selecttestcase(test):
     data_flags = {'storage':1,'ts':1,'shunt':1}
+    print(test)
     xl = pd.ExcelFile(test)
                       # ,engine='openpyxl')
 
@@ -95,7 +102,7 @@ def selecttestcase(test):
     df_baseMVA     = xl.parse("baseMVA")
     df_zone        = xl.parse("zone")
     df_zonalNTC    = xl.parse("zonalNTC")
-    df_hvdc        = xl.parse("hvdc")
+    # df_hvdc        = xl.parse("hvdc")
 
     data = {
     "bus": df_bus.dropna(how='all'),
@@ -107,7 +114,7 @@ def selecttestcase(test):
     "baseMVA": df_baseMVA.dropna(how='all'),
     "zone":df_zone.dropna(how='all'),
     "zonalNTC":df_zonalNTC.dropna(how='all'),
-    "hvdc":df_hvdc.dropna(how='all'),
+    # "hvdc":df_hvdc.dropna(how='all'),
     "flags":data_flags
     }
     try:
@@ -163,31 +170,31 @@ class printdata(object):
         f.write('set B:=\n')
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_B" +"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_INT" +"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_B" +"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_INT" +"\n")
         f.write(';\n')
         #---set of generators---
         f.write('set G:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" \n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i]) + "_gen_A" +"\n")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B" +"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_gen_INT" +"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_gen_A" +"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B" +"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_gen_INT" +"\n")
         f.write(';\n')
         #---set of hvdc-----
-        f.write('set HVDC_Pairs:=\n')
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write("(" + str(self.data["hvdc"]["name"][i]) + "_gen_A, ")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B)" + "\n")
-        f.write(';\n')
+        # f.write('set HVDC_Pairs:=\n')
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write("(" + str(self.data["hvdc"]["name"][i]) + "_gen_A, ")
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B)" + "\n")
+        # f.write(';\n')
         #---set of demands---
         f.write('set D:=\n')
         for i in self.data["demand"]["name"].unique():
@@ -226,12 +233,12 @@ class printdata(object):
         f.write('set L:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i]) + "_a" +"\n")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_b" +"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int" +"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_a" +"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_b" +"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_int" +"\n")
         f.write(';\n')
         #set of transformers
         if not(self.data["transformer"].empty):
@@ -244,12 +251,12 @@ class printdata(object):
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["busname"][i]) + " "+str(self.data["generator"]["name"][i])+" \n")
 
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i]) + "_A "+str(self.data["hvdc"]["name"][i])+ "_gen_A" + "\n")
-                f.write(str(self.data["hvdc"]["name"][i]) + "_B "+str(self.data["hvdc"]["name"][i])+ "_gen_B" + "\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_INT "+str(self.data["hvdc"]["name"][i])+ "_gen_INT" + "\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_A "+str(self.data["hvdc"]["name"][i])+ "_gen_A" + "\n")
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_B "+str(self.data["hvdc"]["name"][i])+ "_gen_B" + "\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i]) + "_INT "+str(self.data["hvdc"]["name"][i])+ "_gen_INT" + "\n")
         f.write(';\n')
         #---set of wind generator-bus mapping (windgen_bus, gen_ind)---
         if not(self.data["wind"].empty):
@@ -273,20 +280,20 @@ class printdata(object):
         f.write('param A:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"1"+" "+str(self.data["branch"]["from_busname"][i])+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+  str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_b "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_B"  +"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_int "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_INT"  +"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+  str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_b "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_B"  +"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_INT"  +"\n")
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"2"+" "+str(self.data["branch"]["to_busname"][i])+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_a "+"2"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_int "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_a "+"2"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
 
         f.write(';\n')
         #---Transformers---
@@ -306,22 +313,22 @@ class printdata(object):
         f.write('param PGmin:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(-float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         f.write('param PGmax:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["ShortTermRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
 
         f.write(';\n')
         #---Real power wind generation bounds---
@@ -338,12 +345,12 @@ class printdata(object):
         f.write('param SLmax:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(float(self.data["branch"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -355,48 +362,49 @@ class printdata(object):
         f.write('param c2:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc2"][i]))+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(0))+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(0))+"\n")
         f.write(';\n')
         f.write('param c1:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc1"][i]))+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["marginal_cost"][i]))+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["marginal_cost"][i]))+"\n")
 
         f.write(';\n')
         f.write('param c0:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc0"][i]))+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(0)+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(0)+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(0)+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(0)+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(0)+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(0)+"\n")
 
         f.write(';\n')
         f.close()
     def printDCOPF(self):
+        print("check 0.5")
         f = open(self.datfile, 'a')
         #---Tranmission line chracteristics---
         f.write('param BL:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -407,3 +415,151 @@ class printdata(object):
         f.close()
 
 
+    def printACOPF(self):
+        print("check 2")
+        f = open(self.datfile, 'a')
+        print("HERE IM HERE")
+
+        #set of shunts
+        if self.data["flags"]["shunt"] and not(self.data["shunt"].empty):
+            f.write('set SHUNT:=\n')
+            for i in self.data["shunt"].index.tolist():
+                f.write(str(self.data["shunt"]["name"][i])+"\n")
+            f.write(';\n')
+            f.write('set SHUNTbs:=\n')
+            for i in self.data["shunt"].index.tolist():
+                f.write(str(self.data["shunt"]["busname"][i])+" "+str(self.data["shunt"]["name"][i])+"\n")
+            f.write(';\n')
+            f.write('param GB:=\n')
+            for i in self.data["shunt"].index.tolist():
+                f.write(str(self.data["shunt"]["name"][i])+" "+str(float(self.data["shunt"]["GL"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            f.write(';\n')
+            f.write('param BB:=\n')
+            for i in self.data["shunt"].index.tolist():
+                f.write(str(self.data["shunt"]["name"][i])+" "+str(float(self.data["shunt"]["BL"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            f.write(';\n')
+        #---Reactive power demand---
+        f.write('param QD:=\n')
+        for i in self.data["demand"].index.tolist():
+            f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["reactive"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        f.write(';\n')
+
+        print("defining G11")
+        f.write('param G11:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
+        f.write(';\n')
+        f.write('param G12:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
+        f.write(';\n')
+        f.write('param G21:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
+        f.write(';\n')
+        f.write('param G22:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
+        f.write(';\n')
+        f.write('param B11:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
+        f.write(';\n')
+        f.write('param B12:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
+        f.write(';\n')
+        f.write('param B21:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
+        f.write(';\n')
+        f.write('param B22:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
+        f.write(';\n')
+
+        #derived transformer parameters
+        if not(self.data["transformer"].empty):
+            f.write('param G11T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                temp     = self.data["transformer"]["r"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+str(temp/(self.data["transformer"]["TapRatio"][i]**2))+"\n")
+            f.write(';\n')
+            f.write('param G12T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                tempG     = self.data["transformer"]["r"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                tempB     = -self.data["transformer"]["x"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+\
+                str(-1/(self.data["transformer"]["TapRatio"][i])*(tempG*math.cos(self.data["transformer"]["PhaseShift"][i])-\
+                tempB*math.sin(self.data["transformer"]["PhaseShift"][i])))+"\n")
+            f.write(';\n')
+            f.write('param G21T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                tempG     = self.data["transformer"]["r"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                tempB     = -self.data["transformer"]["x"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+\
+                str(-1/(self.data["transformer"]["TapRatio"][i])*(tempG*math.cos(self.data["transformer"]["PhaseShift"][i])+\
+                tempB*math.sin(self.data["transformer"]["PhaseShift"][i])))+"\n")
+            f.write(';\n')
+
+            f.write('param G22T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                temp     = self.data["transformer"]["r"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+str(temp)+"\n")
+            f.write(';\n')
+            f.write('param B11T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                temp     = -self.data["transformer"]["x"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+str(temp/(self.data["transformer"]["TapRatio"][i]**2))+"\n")
+            f.write(';\n')
+            f.write('param B12T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                tempG     = self.data["transformer"]["r"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                tempB     = -self.data["transformer"]["x"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+\
+                str(-1/(self.data["transformer"]["TapRatio"][i])*(tempB*math.cos(self.data["transformer"]["PhaseShift"][i])+\
+                tempG*math.sin(self.data["transformer"]["PhaseShift"][i])))+"\n")
+            f.write(';\n')
+            f.write('param B21T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                tempG     = self.data["transformer"]["r"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                tempB     = -self.data["transformer"]["x"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+\
+                str(-1/(self.data["transformer"]["TapRatio"][i])*(-tempG*math.sin(self.data["transformer"]["PhaseShift"][i])+\
+                tempB*math.cos(self.data["transformer"]["PhaseShift"][i])))+"\n")
+            f.write(';\n')
+            f.write('param B22T:=\n')
+            for i in self.data["transformer"].index.tolist():
+                temp     = -self.data["transformer"]["x"][i]/(self.data["transformer"]["r"][i]**2+self.data["transformer"]["x"][i]**2)
+                f.write(str(self.data["transformer"]["name"][i])+" "+str(temp)+"\n")
+            f.write(';\n')
+                    
+        #---Reactive power generation bounds---
+        f.write('param QGmin:=\n')
+        for i in self.data["generator"].index.tolist():
+            f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["QGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        f.write(';\n')
+        f.write('param QGmax:=\n')
+        for i in self.data["generator"].index.tolist():
+            f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["QGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+        f.write(';\n')
+        if not (self.data["wind"].empty):
+            f.write('param WGQmin:=\n')
+            for i in self.data["wind"].index.tolist():
+                f.write(str(self.data["wind"]["name"][i])+" "+str(float(self.data["wind"]["QGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            f.write(';\n')
+            f.write('param WGQmax:=\n')
+            for i in self.data["wind"].index.tolist():
+                f.write(str(self.data["wind"]["name"][i])+" "+str(float(self.data["wind"]["QGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            f.write(';\n')
+
+        #---Voltage bounds---
+        f.write('param Vmin:=\n')
+        for i in self.data["bus"].index.tolist():
+            f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNLB"][i])+"\n")
+        f.write(';\n')
+        f.write('param Vmax:=\n')
+        for i in self.data["bus"].index.tolist():
+            f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNUB"][i])+"\n")
+        f.write(';\n')
+        f.close()

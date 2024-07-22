@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import os
 import pandas as pd
 import opf_intro
-from get_map_bounds import reload_image, coordinate_map
+from organising_data.get_map_bounds import reload_image, coordinate_map
 
 data = pd.ExcelFile(os.path.join(".", "data", "case9.xlsx"))
 # reload_image(data)
