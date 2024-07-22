@@ -80,10 +80,8 @@ def runcase(testcase,mod,opt=None):
     #'AC' or 'DC
 
     print("check 0")
-    r.printDCOPF()
+    r.printACOPF()
     print("check 1")
-    r.printACOPF
-    print("check 3")
 
 
 
@@ -392,34 +390,10 @@ class printdata(object):
 
         f.write(';\n')
         f.close()
-    def printDCOPF(self):
+    def printACOPF(self):
         print("check 0.5")
         f = open(self.datfile, 'a')
-        #---Tranmission line chracteristics---
-        f.write('param BL:=\n')
-        for i in self.data["branch"].index.tolist():
-            f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
-        # for i in self.data["hvdc"].index.tolist():
-        #     if str(self.data["hvdc"]["type"][i]) == "GB":
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-        #     else:
-        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-        f.write(';\n')
-        #---Transformer chracteristics---
-        if not(self.data["transformer"].empty):
-            f.write('param BLT:=\n')
-            for i in self.data["transformer"].index.tolist():
-                f.write(str(self.data["transformer"]["name"][i])+" "+str(-float(1/self.data["transformer"]["x"][i]))+"\n")
-            f.write(';\n')
-        f.close()
-
-
-    def printACOPF(self):
-        print("check 2")
-        f = open(self.datfile, 'a')
-        print("HERE IM HERE")
-
+        
         #set of shunts
         if self.data["flags"]["shunt"] and not(self.data["shunt"].empty):
             f.write('set SHUNT:=\n')
@@ -562,4 +536,25 @@ class printdata(object):
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNUB"][i])+"\n")
         f.write(';\n')
+        f.close()
+    def printDCOPF(self):
+        print("check")
+        f = open(self.datfile, 'a')
+        #---Tranmission line chracteristics---
+        f.write('param BL:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
+        # for i in self.data["hvdc"].index.tolist():
+        #     if str(self.data["hvdc"]["type"][i]) == "GB":
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+        #     else:
+        #         f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
+        f.write(';\n')
+        #---Transformer chracteristics---
+        if not(self.data["transformer"].empty):
+            f.write('param BLT:=\n')
+            for i in self.data["transformer"].index.tolist():
+                f.write(str(self.data["transformer"]["name"][i])+" "+str(-float(1/self.data["transformer"]["x"][i]))+"\n")
+            f.write(';\n')
         f.close()
