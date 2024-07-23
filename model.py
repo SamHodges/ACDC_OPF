@@ -18,6 +18,7 @@ model = AbstractModel()
 model.B      = Set()  # set of buses
 model.G      = Set()  # set of generators
 model.HVDC_Pairs   = Set(dimen=2)  # set of HVDC
+model.HVDC_CONV = Set(within=model.G)
 model.WIND   = Set()  # set of wind generators
 model.D      = Set()  # set of demands
 model.DNeg   = Set()  # set of demands
@@ -219,11 +220,14 @@ def Reactive_Power_Min(model,g):
     return model.qG[g] >= model.QGmin[g]
 def Equal_HVDC(model, g1, g2):
     return model.pG[g1] == -model.pG[g2]
+def PQ_Circle(model, g):
+    return model.pG[g]**2 + model.qG[g]**2 <= model.PGmax[g]**2
 model.PGmaxC = Constraint(model.G, rule=Real_Power_Max)
 model.PGminC = Constraint(model.G, rule=Real_Power_Min)
 model.QGmaxC = Constraint(model.G, rule=Reactive_Power_Max)
 model.QGminC = Constraint(model.G, rule=Reactive_Power_Min)
 model.equalHVDC = Constraint(model.HVDC_Pairs, rule=Equal_HVDC)
+model.inside_PQ = Constraint(model.HVDC_CONV, rule=PQ_Circle)
 
 
 # ---wind generator power limits ---
