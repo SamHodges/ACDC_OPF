@@ -16,19 +16,15 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     #options
     opt=({'neos':neos,\
     'solver':solver,'out':out})
-    ac_results = run_opf(opt, "AC", tc, solver, neos, out)
-    dc_results = run_opf(opt, "DC", ac_results, tc, solver, neos, out)
-    
-    print(ac_results["pG"])
-    print("======================================")
-    print(dc_results["pG"])
+    results = run_opf(opt, tc, solver, neos, out)
+    print(results)
 
 
 
-def run_opf(opt, model, ac_results=None, tc='default',solver='ipopt',neos=True,out=0):
-    testcase = os.path.join(".", "data", "case24_ieee_rts_" + model + ".xlsx")
-    runcase(testcase,model,opt,ac_results)
-    modelf = imp.load_source(model, model + '_model.py')
+def run_opf(opt, tc='default',solver='ipopt',neos=True,out=0):
+    testcase = "case24_ieee_rts_"
+    runcase(testcase, opt)
+    modelf = imp.load_source(model, 'ACDC_model.py')
     model = modelf.model
     datfile = 'datafile.dat'
     instance       = model.create_instance(datfile)
@@ -50,27 +46,33 @@ def run_opf(opt, model, ac_results=None, tc='default',solver='ipopt',neos=True,o
 
 
 
-def runcase(testcase,mod,opt=None,ac_results=None):
+def runcase(testcase,opt=None,ac_results=None):
     oats_dir = os.path.dirname(os.path.realpath(__file__))
-    modelf = imp.load_source(mod, os.path.join('.', mod + '_model.py'))
+    modelf = imp.load_source(os.path.join('.', 'ACDC_model.py'))
     model = modelf.model
-    ac_mode=mod=="AC"
-    try:
-        ptc = selecttestcase(testcase,ac_mode) #read test case
-    except Exception:
-        raise
     datfile = 'datafile.dat'
-    r = printdata(datfile,ptc,mod,opt)
+
+    
+    ac_mode = True
+    testcase = os.path.join(".", "data", "case24_ieee_rts_AC.xlsx")
+    ptc = selecttestcase(testcase, ac_mode) #read test case
+    r = printdata(datfile,ptc,opt)
     r.reducedata()
     r.printheader()
     r.printkeysets(ac_mode)
     r.printnetwork(ac_mode)
-    r.printOPF(ac_mode, ac_results)
-
-    if mod == "AC":
-        r.printACOPF()
-    else:
-        r.printDCOPF()
+    r.printOPF(ac_mode)
+    r.printACOPF()
+    
+    ac_mode = False
+    testcase = os.path.join(".", "data", "case24_ieee_rts_DC.xlsx")
+    ptc = selecttestcase(testcase, ac_mode) #read test case
+    r = printdata(datfile,ptc,opt)
+    r.reducedata()
+    r.printkeysets(ac_mode)
+    r.printnetwork(ac_mode)
+    r.printOPF(ac_mode)
+    r.printDCOPF()
 
 
 
@@ -157,10 +159,14 @@ class printdata(object):
         f.write('#Time stamp: '+ str(datetime.datetime.now())+'\n')
         f.close()
     def printkeysets(self, ac_mode):
+        if ac_mode:
+            mode_add_on = "AC"
+        else:
+            mode_add_on = "DC"
         f = open(self.datfile, 'a')
         ##===sets===
         #---set of buses---
-        f.write('set B:=\n')
+        f.write('set B' + mode_add_on + ':=\n')
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+"\n")
         if ac_mode:
@@ -172,7 +178,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + "_INT" +"\n")
         f.write(';\n')
         #---set of generators---
-        f.write('set G:=\n')
+        f.write('set G' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" \n")
         if ac_mode:
@@ -203,41 +209,45 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + "_gen_INT" +"\n")
             f.write(';\n')
         #---set of demands---
-        f.write('set D:=\n')
+        f.write('set D' + mode_add_on + ':=\n')
         for i in self.data["demand"]["name"].unique():
             f.write(str(i)+"\n")
         f.write(';\n')
         #---set of wind generators---
         if not(self.data["wind"].empty):
-            f.write('set WIND:=\n')
+            f.write('set WIND' + mode_add_on + ':=\n')
             for i in self.data["wind"]["name"].unique():
                 f.write(str(i)+"\n")
             f.write(';\n')
         #===parameters===
         #---Real power demand---
-        f.write('param PD:=\n')
+        f.write('param PD' + mode_add_on + ':=\n')
         for i in self.data["demand"].index.tolist():
             f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["real"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         # set of negative demands
-        f.write('set DNeg:=\n')
+        f.write('set DNeg' + mode_add_on + ':=\n')
         for i in self.data["demand"].index.tolist():
             if float(self.data["demand"]["real"][i]) < 0:
                 f.write(str(self.data["demand"]["name"][i]) + "\n")
         f.write(';\n')
-        f.write('param VOLL:=\n')
+        f.write('param VOLL' + mode_add_on + ':=\n')
         for i in self.data["demand"].index.tolist():
             f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["VOLL"][i]))+"\n")
         f.write(';\n')
-        f.write('param baseMVA:=\n')
+        f.write('param baseMVA' + mode_add_on + ':=\n')
         f.write(str(self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         f.close()
     def printnetwork(self, ac_mode):
+        if ac_mode:
+            mode_add_on = "AC"
+        else:
+            mode_add_on = "DC"
         f = open(self.datfile, 'a')
-        f.write('set LE:=\n 1 \n 2\n;\n')
+        f.write('set LE' + mode_add_on + ':=\n 1 \n 2\n;\n')
         #set of transmission lines
-        f.write('set L:=\n')
+        f.write('set L:' + mode_add_on + '=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+"\n")
         if ac_mode:
@@ -250,12 +260,12 @@ class printdata(object):
         f.write(';\n')
         #set of transformers
         if not(self.data["transformer"].empty):
-            f.write('set TRANSF:= \n')
+            f.write('set TRANSF' + mode_add_on + ':= \n')
             for i in self.data["transformer"].index.tolist():
                 f.write(str(self.data["transformer"]["name"][i])+"\n")
             f.write(';\n')
         #---set of generator-bus mapping (gen_bus, gen_ind)---
-        f.write('set Gbs:=\n')
+        f.write('set Gbs' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["busname"][i]) + " "+str(self.data["generator"]["name"][i])+" \n")
 
@@ -273,24 +283,24 @@ class printdata(object):
         f.write(';\n')
         #---set of wind generator-bus mapping (windgen_bus, gen_ind)---
         if not(self.data["wind"].empty):
-            f.write('set Wbs:=\n')
+            f.write('set Wbs' + mode_add_on + ':=\n')
             for i in self.data["wind"].index.tolist():
                 f.write(str(self.data["wind"]["busname"][i]) + " "+str(self.data["wind"]["name"][i])+"\n")
             f.write(';\n')
         #---set of demand-bus mapping (demand_bus, demand_ind)---
-        f.write('set Dbs:=\n')
+        f.write('set Dbs' + mode_add_on + ':=\n')
         for i in self.data["demand"].index.tolist():
             f.write(str(self.data["demand"]["busname"][i]) + " "+str(self.data["demand"]["name"][i])+"\n")
         f.write(';\n')
         #---set of reference bus---
-        f.write('set b0:=\n')
+        f.write('set b0' + mode_add_on + ':=\n')
         slackbus = self.data["generator"]["busname"][self.data["generator"]["type"]==3].tolist()
         for i in slackbus:
             f.write(str(i)+""+"\n")
         f.write(';\n')
         #---param defining system topolgy---
        
-        f.write('param A:=\n')
+        f.write('param A' + mode_add_on + ':=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"1"+" "+str(self.data["branch"]["from_busname"][i])+"\n")
         if ac_mode:
@@ -313,7 +323,7 @@ class printdata(object):
         f.write(';\n')
         #---Transformers---
         if not(self.data["transformer"].empty):
-            f.write('param AT:= \n')
+            f.write('param AT' + mode_add_on + ':= \n')
             for i in self.data["transformer"].index.tolist():
                 f.write(str(self.data["transformer"]["name"][i])+" "+"1"+" "+str(self.data["transformer"]["from_busname"][i])+"\n")
             for i in self.data["transformer"].index.tolist():
@@ -324,8 +334,12 @@ class printdata(object):
     
     def printOPF(self, ac_mode=False, ac_results=None):
         f = open(self.datfile, 'a')
+        if ac_mode:
+            mode_add_on = "AC"
+        else:
+            mode_add_on = "DC"
         #---Real power generation bounds---
-        f.write('param PGmin:=\n')
+        f.write('param PGmin' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         if ac_mode:
@@ -337,10 +351,10 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(-float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
-                f.write(str(self.data["ac_links"]["name"][i])+" "+str(ac_results["pG"][str(self.data["ac_links"]["name"][i])]))
+                f.write(str(self.data["ac_links"]["name"][i])+" "+str(float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0]))
 
         f.write(';\n')
-        f.write('param PGmax:=\n')
+        f.write('param PGmax' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["PGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         if ac_mode:
@@ -352,21 +366,21 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
-                f.write(str(self.data["ac_links"]["name"][i])+" "+str(ac_results["pG"][str(self.data["ac_links"]["name"][i])]))
+                f.write(str(self.data["ac_links"]["name"][i])+" "+str(float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0]))
 
         f.write(';\n')
         #---Real power wind generation bounds---
         if not(self.data["wind"].empty):
-            f.write('param WGmin:=\n')
+            f.write('param WGmin' + mode_add_on + ':=\n')
             for i in self.data["wind"].index.tolist():
                 f.write(str(self.data["wind"]["name"][i])+" "+str(float(self.data["wind"]["PGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
-            f.write('param WGmax:=\n')
+            f.write('param WGmax' + mode_add_on + ':=\n')
             for i in self.data["wind"].index.tolist():
                 f.write(str(self.data["wind"]["name"][i])+" "+str(float(self.data["wind"]["PGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
         #---Tranmission line bounds---
-        f.write('param SLmax:=\n')
+        f.write('param SLmax' + mode_add_on + ':=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(float(self.data["branch"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         if ac_mode:
@@ -379,12 +393,12 @@ class printdata(object):
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
-            f.write('param SLmaxT:=\n')
+            f.write('param SLmaxT' + mode_add_on + ':=\n')
             for i in self.data["transformer"].index.tolist():
                 f.write(str(self.data["transformer"]["name"][i])+" "+str(float(self.data["transformer"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
         #---cost data---
-        f.write('param c2:=\n')
+        f.write('param c2' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc2"][i]))+"\n")
         if ac_mode:
@@ -398,7 +412,7 @@ class printdata(object):
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
         f.write(';\n')
-        f.write('param c1:=\n')
+        f.write('param c1' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc1"][i]))+"\n")
         if ac_mode:
@@ -412,7 +426,7 @@ class printdata(object):
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
         f.write(';\n')
-        f.write('param c0:=\n')
+        f.write('param c0' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["costc0"][i]))+"\n")
         if ac_mode:
@@ -433,24 +447,24 @@ class printdata(object):
         
         #set of shunts
         if self.data["flags"]["shunt"] and not(self.data["shunt"].empty):
-            f.write('set SHUNT:=\n')
+            f.write('set SHUNT_AC:=\n')
             for i in self.data["shunt"].index.tolist():
                 f.write(str(self.data["shunt"]["name"][i])+"\n")
             f.write(';\n')
-            f.write('set SHUNTbs:=\n')
+            f.write('set SHUNTbs_AC:=\n')
             for i in self.data["shunt"].index.tolist():
                 f.write(str(self.data["shunt"]["busname"][i])+" "+str(self.data["shunt"]["name"][i])+"\n")
             f.write(';\n')
-            f.write('param GB:=\n')
+            f.write('param GB_AC:=\n')
             for i in self.data["shunt"].index.tolist():
                 f.write(str(self.data["shunt"]["name"][i])+" "+str(float(self.data["shunt"]["GL"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
-            f.write('param BB:=\n')
+            f.write('param BB_AC:=\n')
             for i in self.data["shunt"].index.tolist():
                 f.write(str(self.data["shunt"]["name"][i])+" "+str(float(self.data["shunt"]["BL"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
         #---Reactive power demand---
-        f.write('param QD:=\n')
+        f.write('param QD_AC:=\n')
         for i in self.data["demand"].index.tolist():
             f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["reactive"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
@@ -593,7 +607,7 @@ class printdata(object):
             f.write(';\n')
                     
         #---Reactive power generation bounds---
-        f.write('param QGmin:=\n')
+        f.write('param QGmin_AC:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["QGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         for i in self.data["hvdc"].index.tolist():
@@ -603,7 +617,7 @@ class printdata(object):
             else:
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(0)+"\n")
         f.write(';\n')
-        f.write('param QGmax:=\n')
+        f.write('param QGmax_AC:=\n')
         for i in self.data["generator"].index.tolist():
             f.write(str(self.data["generator"]["name"][i])+" "+str(float(self.data["generator"]["QGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         for i in self.data["hvdc"].index.tolist():
@@ -614,17 +628,17 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         if not (self.data["wind"].empty):
-            f.write('param WGQmin:=\n')
+            f.write('param WGQmin_AC:=\n')
             for i in self.data["wind"].index.tolist():
                 f.write(str(self.data["wind"]["name"][i])+" "+str(float(self.data["wind"]["QGLB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
-            f.write('param WGQmax:=\n')
+            f.write('param WGQmax_AC:=\n')
             for i in self.data["wind"].index.tolist():
                 f.write(str(self.data["wind"]["name"][i])+" "+str(float(self.data["wind"]["QGUB"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
 
         #---Voltage bounds---
-        f.write('param Vmin:=\n')
+        f.write('param Vmin_AC:=\n')
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNLB"][i])+"\n")
         for i in self.data["hvdc"].index.tolist():
@@ -634,7 +648,7 @@ class printdata(object):
             else:
                 f.write(str(self.data["hvdc"]["name"][i]) + "_INT" + " " + str(0.9) +"\n")
         f.write(';\n')
-        f.write('param Vmax:=\n')
+        f.write('param Vmax_AC:=\n')
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNUB"][i])+"\n")
         for i in self.data["hvdc"].index.tolist():
@@ -648,13 +662,13 @@ class printdata(object):
     def printDCOPF(self):
         f = open(self.datfile, 'a')
         #---Tranmission line chracteristics---
-        f.write('param BL:=\n')
+        f.write('param BL_DC:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
-            f.write('param BLT:=\n')
+            f.write('param BLT_DC:=\n')
             for i in self.data["transformer"].index.tolist():
                 f.write(str(self.data["transformer"]["name"][i])+" "+str(-float(1/self.data["transformer"]["x"][i]))+"\n")
             f.write(';\n')
