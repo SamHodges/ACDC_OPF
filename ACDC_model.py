@@ -15,6 +15,8 @@ from pyomo.environ import *
 model = AbstractModel()
 # --- sets ---
 # buses, generators, loads, lines, sections
+model.ACDC_Links   = Set(dimen=2)  # set of HVDC
+
 model.B_AC      = Set()  # set of buses
 model.G_AC      = Set()  # set of generators
 model.HVDC_Pairs   = Set(dimen=2)  # set of HVDC
@@ -174,15 +176,15 @@ model.pLtoT_AC    = Var(model.TRANSF_AC, domain= Reals) # real power injected at
 model.qLfromT_AC  = Var(model.TRANSF_AC, domain= Reals) # reactive power injected at b onto transformer
 model.qLtoT_AC    = Var(model.TRANSF_AC, domain= Reals) # reactive power injected at b' onto transformer
 
-model.pG_DC    = Var(model.G,  domain= Reals)  #real power generation
-model.pW_DC    = Var(model.WIND, domain= Reals) #real power generation from wind
-model.pD_DC    = Var(model.D, domain= Reals) #real power demand delivered
-model.alpha_DC = Var(model.D, domain= NonNegativeReals) #propotion of real power demand delivered
-model.deltaL_DC  = Var(model.L, domain= Reals)      # angle difference across lines
-model.deltaLT_DC = Var(model.TRANSF, domain= Reals) # angle difference across transformers
-model.delta_DC   = Var(model.B, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
-model.pL_DC      = Var(model.L, domain= Reals) # real power injected at b onto line l, p.u.
-model.pLT_DC     = Var(model.TRANSF, domain= Reals) # real power injected at b onto transformer line l, 
+model.pG_DC    = Var(model.G_DC,  domain= Reals)  #real power generation
+model.pW_DC    = Var(model.WIND_DC, domain= Reals) #real power generation from wind
+model.pD_DC    = Var(model.D_DC, domain= Reals) #real power demand delivered
+model.alpha_DC = Var(model.D_DC, domain= NonNegativeReals) #propotion of real power demand delivered
+model.deltaL_DC  = Var(model.L_DC, domain= Reals)      # angle difference across lines
+model.deltaLT_DC = Var(model.TRANSF_DC, domain= Reals) # angle difference across transformers
+model.delta_DC   = Var(model.B_DC, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
+model.pL_DC      = Var(model.L_DC, domain= Reals) # real power injected at b onto line l, p.u.
+model.pLT_DC     = Var(model.TRANSF_DC, domain= Reals) # real power injected at b onto transformer line l, 
 
 #model.deltaL = Var(model.L, domain= Reals) # angle difference across lines
 model.delta_AC  = Var(model.B_AC, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
@@ -207,7 +209,7 @@ def KCL_real_def(model, b):
     sum(model.pLto_AC[l] for l in model.L_AC if model.A_AC[l,2]==b)+\
     sum(model.pLfromT_AC[l] for l in model.TRANSF_AC if model.AT_AC[l,1]==b)+ \
     sum(model.pLtoT_AC[l] for l in model.TRANSF_AC if model.AT_AC[l,2]==b)+\
-    sum(model.GB_AC[s]*model.v[b]**2 for s in model.SHUNT_AC if (b,s) in model.SHUNTbs_AC)
+    sum(model.GB_AC[s]*model.v_AC[b]**2 for s in model.SHUNT_AC if (b,s) in model.SHUNTbs_AC)
 def KCL_reactive_def(model, b):
     return sum(model.qG_AC[g] for g in model.G_AC if (b,g) in model.Gbs_AC) +\
     sum(model.qW_AC[w] for w in model.WIND_AC if (b,w) in model.Wbs_AC)== \
@@ -216,7 +218,7 @@ def KCL_reactive_def(model, b):
     sum(model.qLto_AC[l] for l in model.L_AC if model.A_AC[l,2]==b)+\
     sum(model.qLfromT_AC[l] for l in model.TRANSF_AC if model.AT_AC[l,1]==b)+ \
     sum(model.qLtoT_AC[l] for l in model.TRANSF_AC if model.AT_AC[l,2]==b)-\
-    sum(model.BB_AC[s]*model.v[b]**2 for s in model.SHUNT if (b,s) in model.SHUNTbs_AC)
+    sum(model.BB_AC[s]*model.v_AC[b]**2 for s in model.SHUNT_AC if (b,s) in model.SHUNTbs_AC)
 model.KCL_real     = Constraint(model.B_AC, rule=KCL_real_def)
 model.KCL_reactive = Constraint(model.B_AC, rule=KCL_reactive_def)
 
@@ -235,7 +237,7 @@ def KVL_reactive_fromend(model,l):
     model.delta_AC[model.A_AC[l,2]])-model.B12[l]*cos(model.delta_AC[model.A_AC[l,1]]-model.delta_AC[model.A_AC[l,2]]))
 def KVL_reactive_toend(model,l):
     return model.qLto_AC[l] == (-model.B22[l]*(model.v_AC[model.A_AC[l,2]]**2)+\
-    model.v_AC[model.A_AC[l,1]]*model.v_AC[model.A_AC[l,2]]*(model.G21[l]*sin(model.delta_AC[model.A[l,2]]-\
+    model.v_AC[model.A_AC[l,1]]*model.v_AC[model.A_AC[l,2]]*(model.G21[l]*sin(model.delta_AC[model.A_AC[l,2]]-\
     model.delta_AC[model.A_AC[l,1]])-model.B21[l]*cos(model.delta_AC[model.A_AC[l,2]]-model.delta_AC[model.A_AC[l,1]])))
 model.KVL_real_from     = Constraint(model.L_AC, rule=KVL_real_fromend)
 model.KVL_real_to       = Constraint(model.L_AC, rule=KVL_real_toend)
@@ -277,12 +279,15 @@ def Equal_HVDC(model, g1, g2):
     return model.pG_AC[g1] == -model.pG_AC[g2]
 def PQ_Circle(model, g):
     return model.pG_AC[g]**2 + model.qG_AC[g]**2 <= model.PGmax_AC[g]**2
+def ACDC_Link(model, g_AC, g_DC):
+    return model.pG_AC[g_AC] == model.pG_DC[g_DC]
 model.PGmaxC = Constraint(model.G_AC, rule=Real_Power_Max)
 model.PGminC = Constraint(model.G_AC, rule=Real_Power_Min)
 model.QGmaxC = Constraint(model.G_AC, rule=Reactive_Power_Max)
 model.QGminC = Constraint(model.G_AC, rule=Reactive_Power_Min)
 model.equalHVDC = Constraint(model.HVDC_Pairs, rule=Equal_HVDC)
 model.inside_PQ = Constraint(model.HVDC_CONV, rule=PQ_Circle)
+model.link_ACDC = Constraint(model.ACDC_Links, rule=ACDC_Link)
 
 
 # ---wind generator power limits ---
@@ -375,7 +380,7 @@ model.KVL_trans_const    = Constraint(model.TRANSF_DC, rule=KVL_trans_def)
 def demand_model(model,d):
     return model.pD_DC[d] == model.alpha_DC[d]*model.PD_DC[d]
 def demand_LS_bound_Max(model,d):
-    return model.alpha[d] <= 1
+    return model.alpha_DC[d] <= 1
 model.demandmodelC = Constraint(model.D_DC, rule=demand_model)
 model.demandalphaC = Constraint(model.D_DC, rule=demand_LS_bound_Max)
 

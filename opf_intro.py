@@ -16,12 +16,12 @@ def dcopf(tc='default',solver='ipopt',neos=True,out=0):
     #options
     opt=({'neos':neos,\
     'solver':solver,'out':out})
-    results = run_opf(opt, tc, solver, neos, out)
+    results = run_opf(opt, "ACDC", tc, solver, neos, out)
     print(results)
 
 
 
-def run_opf(opt, tc='default',solver='ipopt',neos=True,out=0):
+def run_opf(opt, model, tc='default',solver='ipopt',neos=True,out=0):
     testcase = "case24_ieee_rts_"
     runcase(testcase, opt)
     modelf = imp.load_source(model, 'ACDC_model.py')
@@ -48,31 +48,33 @@ def run_opf(opt, tc='default',solver='ipopt',neos=True,out=0):
 
 def runcase(testcase,opt=None,ac_results=None):
     oats_dir = os.path.dirname(os.path.realpath(__file__))
-    modelf = imp.load_source(os.path.join('.', 'ACDC_model.py'))
+    modelf = imp.load_source("ACDC", os.path.join('.', 'ACDC_model.py'))
     model = modelf.model
     datfile = 'datafile.dat'
 
     
     ac_mode = True
-    testcase = os.path.join(".", "data", "case24_ieee_rts_AC.xlsx")
-    ptc = selecttestcase(testcase, ac_mode) #read test case
-    r = printdata(datfile,ptc,opt)
-    r.reducedata()
-    r.printheader()
-    r.printkeysets(ac_mode)
-    r.printnetwork(ac_mode)
-    r.printOPF(ac_mode)
-    r.printACOPF()
+    testcase_ac = os.path.join(".", "data", "case24_ieee_rts_AC.xlsx")
+    ptc_ac = selecttestcase(testcase_ac, ac_mode) #read test case
+    r_ac = printdata(datfile,ptc_ac,opt)
+    r_ac.reducedata()
+    r_ac.printheader()
+    r_ac.printkeysets(ac_mode)
+    r_ac.printnetwork(ac_mode)
+    r_ac.printOPF(ac_mode)
+    r_ac.printACOPF()
     
     ac_mode = False
-    testcase = os.path.join(".", "data", "case24_ieee_rts_DC.xlsx")
-    ptc = selecttestcase(testcase, ac_mode) #read test case
-    r = printdata(datfile,ptc,opt)
-    r.reducedata()
-    r.printkeysets(ac_mode)
-    r.printnetwork(ac_mode)
-    r.printOPF(ac_mode)
-    r.printDCOPF()
+    testcase_dc = os.path.join(".", "data", "case24_ieee_rts_DC.xlsx")
+    ptc_dc = selecttestcase(testcase_dc, ac_mode) #read test case
+    r_dc = printdata(datfile,ptc_dc,opt)
+    r_dc.reducedata()
+    r_dc.printkeysets(ac_mode)
+    r_dc.printnetwork(ac_mode)
+    r_dc.printOPF(ac_mode)
+    r_dc.printDCOPF()
+    
+    connectACDC(ptc_ac, ptc_dc, datfile)
 
 
 
@@ -135,10 +137,10 @@ def selecttestcase(test, ac_mode):
 
 
 class printdata(object):
-    def __init__(self,datfile,data,model,options):
+    def __init__(self,datfile,data,options):
         self.datfile = datfile
         self.data    = data
-        self.model   = model
+        self.model   = "ACDC"
         self.options = options
 
     def reducedata(self):
@@ -160,9 +162,9 @@ class printdata(object):
         f.close()
     def printkeysets(self, ac_mode):
         if ac_mode:
-            mode_add_on = "AC"
+            mode_add_on = "_AC"
         else:
-            mode_add_on = "DC"
+            mode_add_on = "_DC"
         f = open(self.datfile, 'a')
         ##===sets===
         #---set of buses---
@@ -175,7 +177,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
                     f.write(str(self.data["hvdc"]["name"][i]) + "_B" +"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_INT" +"\n")
+                    f.write(str(self.data["hvdc"]["name"][i]) +"\n")
         f.write(';\n')
         #---set of generators---
         f.write('set G' + mode_add_on + ':=\n')
@@ -187,7 +189,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + "_gen_A" +"\n")
                     f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B" +"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_gen_INT" +"\n")
+                    f.write(str(self.data["hvdc"]["name"][i]) + "_gen" +"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i]) +"\n")
@@ -206,7 +208,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + "_gen_A" +"\n")
                     f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B" +"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_gen_INT" +"\n")
+                    f.write(str(self.data["hvdc"]["name"][i]) + "_gen" +"\n")
             f.write(';\n')
         #---set of demands---
         f.write('set D' + mode_add_on + ':=\n')
@@ -241,13 +243,13 @@ class printdata(object):
         f.close()
     def printnetwork(self, ac_mode):
         if ac_mode:
-            mode_add_on = "AC"
+            mode_add_on = "_AC"
         else:
-            mode_add_on = "DC"
+            mode_add_on = "_DC"
         f = open(self.datfile, 'a')
         f.write('set LE' + mode_add_on + ':=\n 1 \n 2\n;\n')
         #set of transmission lines
-        f.write('set L:' + mode_add_on + '=\n')
+        f.write('set L' + mode_add_on + ':=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+"\n")
         if ac_mode:
@@ -256,7 +258,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + "_a" +"\n")
                     f.write(str(self.data["hvdc"]["name"][i]) + "_b" +"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_int" +"\n")
+                    f.write(str(self.data["hvdc"]["name"][i]) +"\n")
         f.write(';\n')
         #set of transformers
         if not(self.data["transformer"].empty):
@@ -275,7 +277,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + "_A "+str(self.data["hvdc"]["name"][i])+ "_gen_A" + "\n")
                     f.write(str(self.data["hvdc"]["name"][i]) + "_B "+str(self.data["hvdc"]["name"][i])+ "_gen_B" + "\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_INT "+str(self.data["hvdc"]["name"][i])+ "_gen_INT" + "\n")
+                    f.write(str(self.data["hvdc"]["name"][i]) + " "+str(self.data["hvdc"]["name"][i])+ "_gen" + "\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["busname"][i]) + " "+str(self.data["ac_links"]["name"][i]) + "\n")
@@ -309,7 +311,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+  str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_b "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_B"  +"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_int "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_INT"  +"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+" "+"1"+" "+ str(self.data["hvdc"]["name"][i]) +"\n")
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"2"+" "+str(self.data["branch"]["to_busname"][i])+"\n")
         if ac_mode:
@@ -318,7 +320,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_a "+"2"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_int "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+" "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
 
         f.write(';\n')
         #---Transformers---
@@ -335,9 +337,9 @@ class printdata(object):
     def printOPF(self, ac_mode=False, ac_results=None):
         f = open(self.datfile, 'a')
         if ac_mode:
-            mode_add_on = "AC"
+            mode_add_on = "_AC"
         else:
-            mode_add_on = "DC"
+            mode_add_on = "_DC"
         #---Real power generation bounds---
         f.write('param PGmin' + mode_add_on + ':=\n')
         for i in self.data["generator"].index.tolist():
@@ -348,7 +350,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(-float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(-float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(-float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(-float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0]))
@@ -363,7 +365,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0]))
@@ -389,7 +391,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_int "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -407,7 +409,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(0))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(0))+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
@@ -421,7 +423,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["marginal_cost"][i]))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["marginal_cost"][i]))+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
@@ -435,7 +437,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(0)+"\n")
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(0)+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(0)+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(0)+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
@@ -477,7 +479,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
         f.write(';\n')
         f.write('param G12:=\n')
         for i in self.data["branch"].index.tolist():
@@ -487,7 +489,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
         f.write(';\n')
         f.write('param G21:=\n')
         for i in self.data["branch"].index.tolist():
@@ -497,7 +499,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
         f.write(';\n')
         f.write('param G22:=\n')
         for i in self.data["branch"].index.tolist():
@@ -507,7 +509,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
         f.write(';\n')
         f.write('param B11:=\n')
         for i in self.data["branch"].index.tolist():
@@ -517,7 +519,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
         f.write(';\n')
         f.write('param B12:=\n')
         for i in self.data["branch"].index.tolist():
@@ -527,7 +529,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
         f.write(';\n')
         f.write('param B21:=\n')
         for i in self.data["branch"].index.tolist():
@@ -537,7 +539,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
         f.write(';\n')
         f.write('param B22:=\n')
         for i in self.data["branch"].index.tolist():
@@ -547,7 +549,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_int " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
         f.write(';\n')
 
         #derived transformer parameters
@@ -615,7 +617,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(0)+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(0)+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(0)+"\n")
+                f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(0)+"\n")
         f.write(';\n')
         f.write('param QGmax_AC:=\n')
         for i in self.data["generator"].index.tolist():
@@ -625,7 +627,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
                 f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i])+"_gen_INT "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+                f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         if not (self.data["wind"].empty):
             f.write('param WGQmin_AC:=\n')
@@ -646,7 +648,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_A" + " " + str(0.9) + "\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_B" + " " + str(0.9) +"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_INT" + " " + str(0.9) +"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " + str(0.9) +"\n")
         f.write(';\n')
         f.write('param Vmax_AC:=\n')
         for i in self.data["bus"].index.tolist():
@@ -656,7 +658,7 @@ class printdata(object):
                 f.write(str(self.data["hvdc"]["name"][i]) + "_A" + " " + str(1.1) + "\n")
                 f.write(str(self.data["hvdc"]["name"][i]) + "_B" + " " + str(1.1) +"\n")
             else:
-                f.write(str(self.data["hvdc"]["name"][i]) + "_INT" + " " + str(1.1) +"\n")
+                f.write(str(self.data["hvdc"]["name"][i]) + " " + str(1.1) +"\n")
         f.write(';\n')
         f.close()
     def printDCOPF(self):
@@ -674,5 +676,14 @@ class printdata(object):
             f.write(';\n')
              
         f.close()
+        
+def connectACDC(ac_data, dc_data, datfile):
+    f = open(datfile, 'a')
+    f.write('set ACDC_Links:=\n')
+    for i in ac_data["hvdc"].index.tolist():
+        if str(ac_data["hvdc"]["type"][i]) == "MTDC":
+            f.write("(" + str(ac_data["hvdc"]["name"][i]) + "_gen,")
+            f.write(str(ac_data["hvdc"]["name"][i]) + ") \n")
+    f.write(';\n')
         
 dcopf()
