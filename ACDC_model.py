@@ -281,13 +281,13 @@ def PQ_Circle(model, g):
     return model.pG_AC[g]**2 + model.qG_AC[g]**2 <= model.PGmax_AC[g]**2
 def ACDC_Link(model, g_AC, g_DC):
     return model.pG_AC[g_AC] == model.pG_DC[g_DC]
-model.PGmaxC = Constraint(model.G_AC, rule=Real_Power_Max)
-model.PGminC = Constraint(model.G_AC, rule=Real_Power_Min)
+model.PGmaxC_DC = Constraint(model.G_AC, rule=Real_Power_Max)
+model.PGminC_DC = Constraint(model.G_AC, rule=Real_Power_Min)
 model.QGmaxC = Constraint(model.G_AC, rule=Reactive_Power_Max)
 model.QGminC = Constraint(model.G_AC, rule=Reactive_Power_Min)
 model.equalHVDC = Constraint(model.HVDC_Pairs, rule=Equal_HVDC)
 model.inside_PQ = Constraint(model.HVDC_CONV, rule=PQ_Circle)
-model.link_ACDC = Constraint(model.ACDC_Links, rule=ACDC_Link)
+# model.link_ACDC = Constraint(model.ACDC_Links, rule=ACDC_Link)
 
 
 # ---wind generator power limits ---
@@ -299,8 +299,8 @@ def Wind_Reactive_Power_Max(model,w):
     return model.qW_AC[w] <= model.WGQmax_AC[w]
 def Wind_Reactive_Power_Min(model,w):
     return model.qW_AC[w] >= model.WGQmin_AC[w]
-model.WGmaxC  = Constraint(model.WIND_AC, rule=Wind_Real_Power_Max)
-model.WGminC  = Constraint(model.WIND_AC, rule=Wind_Real_Power_Min)
+model.WGmaxC_AC  = Constraint(model.WIND_AC, rule=Wind_Real_Power_Max)
+model.WGminC_AC  = Constraint(model.WIND_AC, rule=Wind_Real_Power_Min)
 model.WGQmaxC = Constraint(model.WIND_AC, rule=Wind_Reactive_Power_Max)
 model.WGQminC = Constraint(model.WIND_AC, rule=Wind_Reactive_Power_Min)
 
@@ -329,16 +329,16 @@ def line_lim1_def(model,l):
     return model.pLfrom_AC[l]**2+model.qLfrom_AC[l]**2 <= model.SLmax_AC[l]**2
 def line_lim2_def(model,l):
     return model.pLto_AC[l]**2+model.qLto_AC[l]**2 <= model.SLmax_AC[l]**2
-model.line_lim1 = Constraint(model.L_AC, rule=line_lim1_def)
-model.line_lim2 = Constraint(model.L_AC, rule=line_lim2_def)
+model.line_lim1_AC = Constraint(model.L_AC, rule=line_lim1_def)
+model.line_lim2_AC = Constraint(model.L_AC, rule=line_lim2_def)
 
 # --- power flow limits on transformer lines---
 def transf_lim1_def(model,l):
     return model.pLfromT_AC[l]**2+model.qLfromT_AC[l]**2 <= model.SLmaxT_AC[l]**2
 def transf_lim2_def(model,l):
     return model.pLtoT_AC[l]**2+model.qLtoT_AC[l]**2 <= model.SLmaxT_AC[l]**2
-model.transf_lim1 = Constraint(model.TRANSF_AC, rule=transf_lim1_def)
-model.transf_lim2 = Constraint(model.TRANSF_AC, rule=transf_lim2_def)
+model.transf_lim1_AC = Constraint(model.TRANSF_AC, rule=transf_lim1_def)
+model.transf_lim2_AC = Constraint(model.TRANSF_AC, rule=transf_lim2_def)
 
 # --- voltage constraints ---
 def bus_max_voltage(model,b):
@@ -391,32 +391,32 @@ def Real_Power_Min(model,g):
     return model.pG_DC[g] >= model.PGmin_DC[g]
     
 
-model.PGmaxC = Constraint(model.G_DC, rule=Real_Power_Max)
-model.PGminC = Constraint(model.G_DC, rule=Real_Power_Min)
+model.PGmaxC_AC = Constraint(model.G_DC, rule=Real_Power_Max)
+model.PGminC_AC = Constraint(model.G_DC, rule=Real_Power_Min)
 
 # # ---wind generator power limits ---
 def Wind_Real_Power_Max(model,w):
     return model.pW[w] <= model.WGmax_DC[w]
 def Wind_Real_Power_Min(model,w):
     return model.pW[w] >= model.WGmin_DC[w]
-model.WGmaxC = Constraint(model.WIND_DC, rule=Wind_Real_Power_Max)
-model.WGminC = Constraint(model.WIND_DC, rule=Wind_Real_Power_Min)
+model.WGmaxC_DC = Constraint(model.WIND_DC, rule=Wind_Real_Power_Max)
+model.WGminC_DC = Constraint(model.WIND_DC, rule=Wind_Real_Power_Min)
 
 # # --- line power limits ---
 def line_lim1_def(model,l):
     return model.pL_DC[l] <= model.SLmax_DC[l]
 def line_lim2_def(model,l):
     return model.pL_DC[l] >= -model.SLmax_DC[l]
-model.line_lim1 = Constraint(model.L_DC, rule=line_lim1_def)
-model.line_lim2 = Constraint(model.L_DC, rule=line_lim2_def)
+model.line_lim1_DC = Constraint(model.L_DC, rule=line_lim1_def)
+model.line_lim2_DC = Constraint(model.L_DC, rule=line_lim2_def)
 
 # # --- power flow limits on transformer lines---
 def transf_lim1_def(model,l):
     return model.pLT_DC[l] <= model.SLmaxT_DC[l]
 def transf_lim2_def(model,l):
     return model.pLT_DC[l] >= -model.SLmaxT_DC[l]
-model.transf_lim1 = Constraint(model.TRANSF_DC, rule=transf_lim1_def)
-model.transf_lim2 = Constraint(model.TRANSF_DC, rule=transf_lim2_def)
+model.transf_lim1_DC = Constraint(model.TRANSF_DC, rule=transf_lim1_def)
+model.transf_lim2_DC = Constraint(model.TRANSF_DC, rule=transf_lim2_def)
 
 # # --- phase angle constraints ---
 def phase_angle_diff1(model,l):
@@ -427,4 +427,4 @@ model.phase_diff1 = Constraint(model.L_DC, rule=phase_angle_diff1)
 # # --- reference bus constraint ---
 def ref_bus_def(model,b):
     return model.delta_DC[b]==0
-model.refbus = Constraint(model.b0_DC, rule=ref_bus_def)
+model.refbus_DC = Constraint(model.b0_DC, rule=ref_bus_def)
