@@ -53,28 +53,30 @@ def runcase(testcase,opt=None,ac_results=None):
     datfile = 'datafile.dat'
 
     
-    ac_mode = True
-    testcase_ac = os.path.join(".", "data", "case24_ieee_rts_AC.xlsx")
-    ptc_ac = selecttestcase(testcase_ac, ac_mode) #read test case
-    r_ac = printdata(datfile,ptc_ac,opt)
-    r_ac.reducedata()
-    r_ac.printheader()
-    r_ac.printkeysets(ac_mode)
-    r_ac.printnetwork(ac_mode)
-    r_ac.printOPF(ac_mode)
-    r_ac.printACOPF()
+    # ac_mode = True
+    # testcase_ac = os.path.join(".", "data", "case24_ieee_rts_AC.xlsx")
+    # ptc_ac = selecttestcase(testcase_ac, ac_mode) #read test case
+    # r_ac = printdata(datfile,ptc_ac,opt)
+    # r_ac.reducedata()
+    # r_ac.printheader()
+    # r_ac.printkeysets(ac_mode)
+    # r_ac.printnetwork(ac_mode)
+    # r_ac.printOPF(ac_mode)
+    # r_ac.printACOPF()
     
     ac_mode = False
     testcase_dc = os.path.join(".", "data", "case24_ieee_rts_DC.xlsx")
     ptc_dc = selecttestcase(testcase_dc, ac_mode) #read test case
     r_dc = printdata(datfile,ptc_dc,opt)
     r_dc.reducedata()
+    
+    r_dc.printheader()
     r_dc.printkeysets(ac_mode)
     r_dc.printnetwork(ac_mode)
     r_dc.printOPF(ac_mode)
     r_dc.printDCOPF()
     
-    connectACDC(ptc_ac, ptc_dc, datfile)
+    # connectACDC(ptc_ac, ptc_dc, datfile)
 
 
 
@@ -168,6 +170,7 @@ class printdata(object):
         f = open(self.datfile, 'a')
         ##===sets===
         #---set of buses---
+        print("mode is ... ", mode_add_on)
         f.write('set B' + mode_add_on + ':=\n')
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+"\n")
@@ -225,6 +228,7 @@ class printdata(object):
         #---Real power demand---
         f.write('param PD' + mode_add_on + ':=\n')
         for i in self.data["demand"].index.tolist():
+            print("")
             f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["real"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         # set of negative demands
