@@ -57,16 +57,16 @@ def runcase(testcase,opt=None,ac_results=None):
     datfile = 'datafile.dat'
 
     
-    # ac_mode = True
-    # testcase_ac = os.path.join(".", "data", "case24_ieee_rts_AC.xlsx")
-    # ptc_ac = selecttestcase(testcase_ac, ac_mode) #read test case
-    # r_ac = printdata(datfile,ptc_ac,opt)
-    # r_ac.reducedata()
-    # r_ac.printheader()
-    # r_ac.printkeysets(ac_mode)
-    # r_ac.printnetwork(ac_mode)
-    # r_ac.printOPF(ac_mode)
-    # r_ac.printACOPF()
+    ac_mode = True
+    testcase_ac = os.path.join(".", "data", "case24_ieee_rts_AC.xlsx")
+    ptc_ac = selecttestcase(testcase_ac, ac_mode) #read test case
+    r_ac = printdata(datfile,ptc_ac,opt)
+    r_ac.reducedata()
+    r_ac.printheader()
+    r_ac.printkeysets(ac_mode)
+    r_ac.printnetwork(ac_mode)
+    r_ac.printOPF(ac_mode)
+    r_ac.printACOPF()
     
     ac_mode = False
     testcase_dc = os.path.join(".", "data", "case24_ieee_rts_DC.xlsx")
@@ -74,13 +74,13 @@ def runcase(testcase,opt=None,ac_results=None):
     r_dc = printdata(datfile,ptc_dc,opt)
     r_dc.reducedata()
     
-    r_dc.printheader()
+    # r_dc.printheader()
     r_dc.printkeysets(ac_mode)
     r_dc.printnetwork(ac_mode)
     r_dc.printOPF(ac_mode)
     r_dc.printDCOPF()
     
-    # connectACDC(ptc_ac, ptc_dc, datfile)
+    connectACDC(ptc_ac, ptc_dc, datfile)
 
 
 
