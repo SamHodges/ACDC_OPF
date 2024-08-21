@@ -42,6 +42,10 @@ def run_opf(opt, model, tc='default',solver='ipopt',neos=True,out=0):
             results[split_key[0]] = {}
             results[split_key[0]][split_key[1][:-1]] =  value(v)
             
+            
+    # with open("modelformulation.txt", "w") as outputfile:
+    #     solver_manager.instance.pprint(outputfile)
+            
     return results
 
 
@@ -357,7 +361,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(-float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
-                f.write(str(self.data["ac_links"]["name"][i])+" "+str(float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0]))
+                f.write(str(self.data["ac_links"]["name"][i])+" "+str(-float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
 
         f.write(';\n')
         f.write('param PGmax' + mode_add_on + ':=\n')
@@ -372,7 +376,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
-                f.write(str(self.data["ac_links"]["name"][i])+" "+str(float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0]))
+                f.write(str(self.data["ac_links"]["name"][i])+" "+str(float(self.data["ac_links"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
 
         f.write(';\n')
         #---Real power wind generation bounds---

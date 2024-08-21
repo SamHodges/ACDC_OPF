@@ -192,14 +192,7 @@ model.pLT_DC     = Var(model.TRANSF_DC, domain= Reals) # real power injected at 
 # model.v_AC      = Var(model.B_AC, domain= NonNegativeReals, initialize=1.0) # voltage magnitude at bus b, rad
 # model.alpha_AC  = Var(model.D_AC, initialize=1.0, domain= NonNegativeReals)# proportion to supply of load d
 
-# --- cost function ---
-def objective(model):
-    # obj = sum(model.c2_AC[g]*(model.baseMVA_AC*model.pG_AC[g])**2+model.c1_AC[g]*model.baseMVA_AC*model.pG_AC[g]+ model.c0_AC[g] for g in model.G_AC)+\
-    # sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
-    obj = sum(model.c1_DC[g]*(model.baseMVA_DC*model.pG_DC[g])+model.c0_DC[g] for g in model.G_DC) +\
-    sum(model.VOLL_DC[d]*(1-model.alpha_DC[d])*model.baseMVA_DC*model.PD_DC[d] for d in model.D_DC)
-    return obj
-model.OBJ = Objective(rule=objective, sense=minimize)
+
 
 # --- Kirchoff's current law at each bus b ---
 # def KCL_real_def(model, b):
@@ -282,8 +275,8 @@ model.OBJ = Objective(rule=objective, sense=minimize)
 #     return model.pG_AC[g]**2 + model.qG_AC[g]**2 <= model.PGmax_AC[g]**2
 # def ACDC_Link(model, g_AC, g_DC):
 #     return model.pG_AC[g_AC] == model.pG_DC[g_DC]
-# model.PGmaxC_DC = Constraint(model.G_AC, rule=Real_Power_Max)
-# model.PGminC_DC = Constraint(model.G_AC, rule=Real_Power_Min)
+# model.PGmaxC_AC = Constraint(model.G_AC, rule=Real_Power_Max)
+# model.PGminC_AC = Constraint(model.G_AC, rule=Real_Power_Min)
 # model.QGmaxC = Constraint(model.G_AC, rule=Reactive_Power_Max)
 # model.QGminC = Constraint(model.G_AC, rule=Reactive_Power_Min)
 # model.equalHVDC = Constraint(model.HVDC_Pairs, rule=Equal_HVDC)
@@ -357,6 +350,15 @@ model.OBJ = Objective(rule=objective, sense=minimize)
 
 # # ================================== DC ===================================
 
+# --- cost function ---
+def objective(model):
+    # obj = sum(model.c2_AC[g]*(model.baseMVA_AC*model.pG_AC[g])**2+model.c1_AC[g]*model.baseMVA_AC*model.pG_AC[g]+ model.c0_AC[g] for g in model.G_AC)+\
+    # sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
+    obj = sum(model.c1_DC[g]*(model.baseMVA_DC*model.pG_DC[g])+model.c0_DC[g] for g in model.G_DC) +\
+    sum(model.VOLL_DC[d]*(1-model.alpha_DC[d])*model.baseMVA_DC*model.PD_DC[d] for d in model.D_DC)
+    return obj
+model.OBJ = Objective(rule=objective, sense=minimize)
+
 # --- Kirchoff's current law at each bus b ---
 def KCL_def(model, b):
     return sum(model.pG_DC[g] for g in model.G_DC if (b,g) in model.Gbs_DC) +\
@@ -368,9 +370,6 @@ def KCL_def(model, b):
     sum(model.pLT_DC[l] for l in model.TRANSF_DC if model.AT_DC[l,2]==b)+\
     sum(model.GB_DC[s] for s in model.SHUNT_DC if (b,s) in model.SHUNTbs_DC)
 model.KCL_const = Constraint(model.B_DC, rule=KCL_def)
-
-    with open("modelformulation.txt", "w") as outputfile:
-            self.instance.pprint(outputfile)
 
 # --- Kirchoff's voltage law on each line and transformer---
 def KVL_line_def(model,l):
@@ -395,8 +394,8 @@ def Real_Power_Min(model,g):
     return model.pG_DC[g] >= model.PGmin_DC[g]
     
 
-model.PGmaxC_AC = Constraint(model.G_DC, rule=Real_Power_Max)
-model.PGminC_AC = Constraint(model.G_DC, rule=Real_Power_Min)
+model.PGmaxC_DC = Constraint(model.G_DC, rule=Real_Power_Max)
+model.PGminC_DC = Constraint(model.G_DC, rule=Real_Power_Min)
 
 # # ---wind generator power limits ---
 def Wind_Real_Power_Max(model,w):
