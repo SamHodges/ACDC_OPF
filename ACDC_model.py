@@ -187,7 +187,6 @@ model.delta_DC   = Var(model.B_DC, domain= Reals, initialize=0.0) # voltage phas
 model.pL_DC      = Var(model.L_DC, domain= Reals) # real power injected at b onto line l, p.u.
 model.pLT_DC     = Var(model.TRANSF_DC, domain= Reals) # real power injected at b onto transformer line l, 
 
-# model.deltaL = Var(model.L_AC, domain= Reals) # angle difference across lines
 model.delta_AC  = Var(model.B_AC, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
 model.v_AC      = Var(model.B_AC, domain= NonNegativeReals, initialize=1.0) # voltage magnitude at bus b, rad
 model.alpha_AC  = Var(model.D_AC, initialize=1.0, domain= NonNegativeReals)# proportion to supply of load d
