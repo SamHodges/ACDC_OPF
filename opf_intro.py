@@ -9,6 +9,7 @@ from pyomo.opt import SolverFactory
 from pyomo.opt import SolverStatus, TerminationCondition
 import logging
 import math
+import json
 
 
 def dcopf(tc='default',solver='ipopt',neos=True,out=0):
@@ -30,7 +31,9 @@ def run_opf(opt, model, tc='default',solver='ipopt',neos=True,out=0):
     instance       = model.create_instance(datfile)
     solveroptions  = SolverFactory(opt['solver'])
     solver_manager = SolverManagerFactory('neos')
-    solver_manager.solve(instance, opt=solveroptions)
+    results = solver_manager.solve(instance, opt=solveroptions, tee=True)
+
+    # print("Results: ", results)
 
     results = {}
 
@@ -44,7 +47,11 @@ def run_opf(opt, model, tc='default',solver='ipopt',neos=True,out=0):
             
             
     # with open("modelformulation.txt", "w") as outputfile:
-    #     solver_manager.instance.pprint(outputfile)
+    #     instance.pprint(outputfile)
+    
+    with open("output_log.json", "a") as myfile:
+        json_object = json.dumps(results, indent=4)
+        myfile.write(json_object)
             
     return results
 
@@ -174,7 +181,6 @@ class printdata(object):
         f = open(self.datfile, 'a')
         ##===sets===
         #---set of buses---
-        print("mode is ... ", mode_add_on)
         f.write('set B' + mode_add_on + ':=\n')
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+"\n")

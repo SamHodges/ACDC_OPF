@@ -274,6 +274,8 @@ def PQ_Circle(model, g):
     return model.pG_AC[g]**2 + model.qG_AC[g]**2 <= model.PGmax_AC[g]**2
 def ACDC_Link(model, g_AC, g_DC):
     return model.pG_AC[g_AC] == model.pG_DC[g_DC]
+def ACDC_stop_circumnavigation(model, g_AC, g_DC):
+    return sum(model.pG_AC[g[0]] for g in model.ACDC_Links) <= 0
 model.PGmaxC_AC = Constraint(model.G_AC, rule=Real_Power_Max)
 model.PGminC_AC = Constraint(model.G_AC, rule=Real_Power_Min)
 model.QGmaxC = Constraint(model.G_AC, rule=Reactive_Power_Max)
@@ -281,6 +283,7 @@ model.QGminC = Constraint(model.G_AC, rule=Reactive_Power_Min)
 model.equalHVDC = Constraint(model.HVDC_Pairs, rule=Equal_HVDC)
 model.inside_PQ = Constraint(model.HVDC_CONV, rule=PQ_Circle)
 model.link_ACDC = Constraint(model.ACDC_Links, rule=ACDC_Link)
+model.ACDC_Limit = Constraint(model.ACDC_Links, rule=ACDC_stop_circumnavigation)
 
 
 # ---wind generator power limits ---
