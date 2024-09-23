@@ -1,5 +1,6 @@
 #This is Python generated data file for Pyomo model DCLF.py
-#Time stamp: 2024-09-23 13:08:20.930013
+#_author_:W. Bukhsh
+#Time stamp: 2024-09-17 11:00:47.380603
 set B_AC:=
 0
 1
@@ -2027,18 +2028,11 @@ set B_DC:=
 1
 2
 3
-4
-5
-6
-7
-8
-9
 ;
 set G_DC:=
 G1 
-G2 
-G3 
 Test
+Testagain
 ;
 set D_DC:=
 D1
@@ -2046,16 +2040,16 @@ D2
 D3
 ;
 param PD_DC:=
-D1 0.9
-D2 1.0
-D3 1.25
+D1 0.0
+D2 0.0
+D3 0.0
 ;
 set DNeg_DC:=
 ;
 param VOLL_DC:=
-D1 100000.0
-D2 100000.0
-D3 100000.0
+D1 7000.0
+D2 7000.0
+D3 7000.0
 ;
 param baseMVA_DC:=
 100
@@ -2065,101 +2059,77 @@ set LE_DC:=
  2
 ;
 set L_DC:=
-L1-14
-L2-45
-L3-56
-L4-36
-L5-67
-L6-78
-L7-82
-L8-89
-L9-94
+L1-12
+L2-13
+L3-15
+;
+set TRANSF_DC:= 
+T1-324
 ;
 set Gbs_DC:=
 1 G1 
-2 G2 
-3 G3 
 3 Test
+2 Testagain
 ;
 set Dbs_DC:=
-5 D1
-7 D2
-9 D3
+1 D1
+2 D2
+3 D3
 ;
 set b0_DC:=
-1
 ;
 param A_DC:=
-L1-14 1 1
-L2-45 1 4
-L3-56 1 5
-L4-36 1 3
-L5-67 1 6
-L6-78 1 7
-L7-82 1 8
-L8-89 1 8
-L9-94 1 9
-L1-14 2 4
-L2-45 2 5
-L3-56 2 6
-L4-36 2 6
-L5-67 2 7
-L6-78 2 8
-L7-82 2 2
-L8-89 2 9
-L9-94 2 4
+L1-12 1 1
+L2-13 1 1
+L3-15 1 1
+L1-12 2 2
+L2-13 2 3
+L3-15 2 3
+;
+param AT_DC:= 
+T1-324 1 3
+T1-324 2 1
 ;
 param PGmin_DC:=
-G1 0.1
-G2 0.1
-G3 0.1
+G1 0.16
 Test -22.0
+Testagain -10.0
 ;
 param PGmax_DC:=
-G1 2.5
-G2 3.0
-G3 2.7
+G1 0.2
 Test 22.0
+Testagain 10.0
 ;
 param SLmax_DC:=
-L1-14 2.5
-L2-45 2.5
-L3-56 1.5
-L4-36 3.0
-L5-67 1.5
-L6-78 2.5
-L7-82 2.5
-L8-89 2.5
-L9-94 2.5
+L1-12 1.75
+L2-13 1.75
+L3-15 1.75
+;
+param SLmaxT_DC:=
+T1-324 4.0
 ;
 param c2_DC:=
 G1 0.0
-G2 0.0
-G3 0.0
 Test 0
+Testagain 0
 ;
 param c1_DC:=
-G1 5.0
-G2 1.2
-G3 1.0
+G1 130.0
 Test 0
+Testagain 0
 ;
 param c0_DC:=
-G1 0.0
-G2 0.0
-G3 0.0
+G1 400.6849
 Test 0
+Testagain 0
 ;
 param BL_DC:=
-L1-14 -17.36111111111111
-L2-45 -10.869565217391305
-L3-56 -5.88235294117647
-L4-36 -17.064846416382252
-L5-67 -9.920634920634921
-L6-78 -13.88888888888889
-L7-82 -16.0
-L8-89 -6.211180124223603
-L9-94 -11.76470588235294
+L1-12 -71.94244604316548
+L2-13 -4.734848484848485
+L3-15 -11.834319526627219
+;
+param BLT_DC:=
+T1-324 -11.918951132300357
 ;
 set ACDC_Links:=
 (Test_gen,Test) 
