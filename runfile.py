@@ -58,7 +58,8 @@ class OPF:
                 dc_opf = Linearised_DC.Linear_DC(self.solver, self.tc_dc, self.model)
             case "transport":
                 dc_opf = Transport_DC.Transport_DC(self.solver, self.tc_dc, self.model)
-            case "nlp":
+            case "nonlinear":
+                print("nlp!")
                 dc_opf = NLP_DC.NLP_DC(self.solver, self.tc_dc, self.model)
             case _:
                 dc_opf = Linearised_DC.Linearised_DC(self.solver, self.tc_dc, self.model)
@@ -132,7 +133,7 @@ class OPF:
         if ac_mode:
             r.printACOPF()
         else:
-            r.printDCOPF()
+            r.printDCOPF(opf_type)
             
         return ptc_ac
         
@@ -163,12 +164,11 @@ class OPF:
 def objective(model):
     obj = sum(model.c2_AC[g]*(model.baseMVA_AC*model.pG_AC[g])**2+model.c1_AC[g]*model.baseMVA_AC*model.pG_AC[g]+ model.c0_AC[g] for g in model.G_AC)+\
         sum(model.VOLL_AC[d]*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
-        sum(model.c1_DC[g]*(model.baseMVA_DC*model.pG_DC[g])+model.c0_DC[g] for g in model.G_DC) +\
-        sum(model.VOLL_DC[d]*(1-model.alpha_DC[d])*model.baseMVA_DC*model.PD_DC[d] for d in model.D_DC)
+        sum(model.c1_DC[g]*(model.baseMVA_DC*model.pG_DC[g])+model.c0_DC[g] for g in model.G_DC)
         # sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
 
     return obj    
 
             
-newOPF = OPF(opf_type_ac="nonlinear", opf_type_dc="linear", link_type="vsc", \
+newOPF = OPF(opf_type_ac="linear", opf_type_dc="linear", link_type="vsc", \
     tc_ac="PYPSA_case9_combined.xlsx", tc_dc="case9_DC.xlsx", solver="ipopt", neos=True, out=0)

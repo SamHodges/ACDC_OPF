@@ -134,9 +134,9 @@ class DC_model:
         self.model.transf_lim2_DC = Constraint(self.model.TRANSF_DC, rule=transf_lim2_def)
 
         # --- reference bus constraint ---
-        def ref_bus_def(model,b):
-            return model.delta_DC[b]==0
-        self.model.refbus_DC = Constraint(self.model.b0_DC, rule=ref_bus_def)
+        # def ref_bus_def(model,b):
+        #     return model.delta_DC[b]==0
+        # self.model.refbus_DC = Constraint(self.model.b0_DC, rule=ref_bus_def)
      
     def extra_constraints(self):
         pass
