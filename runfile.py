@@ -162,7 +162,7 @@ class OPF:
     
 def objective(model):
     obj = sum(model.c2_AC[g]*(model.baseMVA_AC*model.pG_AC[g])**2+model.c1_AC[g]*model.baseMVA_AC*model.pG_AC[g]+ model.c0_AC[g] for g in model.G_AC)+\
-        sum(model.VOLL_AC[d]*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
+        sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
         sum(model.c1_DC[g]*(model.baseMVA_DC*model.pG_DC[g])+model.c0_DC[g] for g in model.G_DC) +\
         sum(model.VOLL_DC[d]*(1-model.alpha_DC[d])*model.baseMVA_DC*model.PD_DC[d] for d in model.D_DC)
         # sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
@@ -170,5 +170,5 @@ def objective(model):
     return obj    
 
             
-newOPF = OPF(opf_type_ac="linear", opf_type_dc="linear", link_type="vsc", \
+newOPF = OPF(opf_type_ac="nonlinear", opf_type_dc="linear", link_type="vsc", \
     tc_ac="PYPSA_case9_combined.xlsx", tc_dc="case9_DC.xlsx", solver="ipopt", neos=True, out=0)

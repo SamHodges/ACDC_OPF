@@ -72,8 +72,6 @@ class DC_model:
         self.model.pW_DC       = Var(self.model.WIND_DC, domain= Reals) #real power generation from wind
         self.model.pD_DC       = Var(self.model.D_DC, domain= Reals)# real power absorbed by demand
         self.model.alpha_DC  = Var(self.model.D_DC, initialize=1.0, domain= NonNegativeReals)# proportion to supply of load d
-        self.model.pL_DC      = Var(self.model.L_DC, domain= Reals) # real power injected at b onto line l, p.u.
-        self.model.pLT_DC     = Var(self.model.TRANSF_DC, domain= Reals) # real power injected at b onto transformer line l, 
         self.model.delta_DC  = Var(self.model.B_DC, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
 
 
@@ -81,18 +79,6 @@ class DC_model:
         pass
             
     def basic_constraints(self):   
-        # --- Kirchoff's current law at each bus b ---
-        def KCL_def(model, b):
-            return sum(model.pG_DC[g] for g in model.G_DC if (b,g) in model.Gbs_DC) +\
-            sum(model.pW_DC[w] for w in model.WIND_DC if (b,w) in model.Wbs_DC) == \
-            sum(model.pD_DC[d] for d in model.D_DC if (b,d) in model.Dbs_DC)+\
-            sum(model.pL_DC[l] for l in model.L_DC if model.A_DC[l,1]==b)- \
-            sum(model.pL_DC[l] for l in model.L_DC if model.A_DC[l,2]==b)+\
-            sum(model.pLT_DC[l] for l in model.TRANSF_DC if model.AT_DC[l,1]==b)- \
-            sum(model.pLT_DC[l] for l in model.TRANSF_DC if model.AT_DC[l,2]==b)+\
-            sum(model.GB_DC[s] for s in model.SHUNT_DC if (b,s) in model.SHUNTbs_DC)
-        self.model.KCL_const_DC = Constraint(self.model.B_DC, rule=KCL_def)
-
         # --- demand model ---
         def demand_model(model,d):
             return model.pD_DC[d] == model.alpha_DC[d]*model.PD_DC[d]
