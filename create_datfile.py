@@ -402,6 +402,22 @@ class printdata(object):
             for i in self.data["shunt"].index.tolist():
                 f.write(str(self.data["shunt"]["name"][i])+" "+str(float(self.data["shunt"]["BL"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
             f.write(';\n')
+        f.write('param BL_AC:=\n')
+        for i in self.data["branch"].index.tolist():
+            f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
+        for i in self.data["hvdc"].index.tolist():
+            if str(self.data["hvdc"]["type"][i]) == "GB":
+                f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["x"][i])) + "\n")
+                f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["x"][i])) + "\n")
+            else:
+                f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["x"][i])) + "\n")
+        f.write(';\n')
+        #---Transformer chracteristics---
+        if not(self.data["transformer"].empty):
+            f.write('param BLT_AC:=\n')
+            for i in self.data["transformer"].index.tolist():
+                f.write(str(self.data["transformer"]["name"][i])+" "+str(-float(1/self.data["transformer"]["x"][i]))+"\n")
+            f.write(';\n')
         #---Reactive power demand---
         if self.opf_case != "linear":
             f.write('param QD_AC:=\n')
