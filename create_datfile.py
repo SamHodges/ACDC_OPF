@@ -161,6 +161,7 @@ class printdata(object):
         #---Real power demand---
         f.write('param PD' + mode_add_on + ':=\n')
         for i in self.data["demand"].index.tolist():
+            print("")
             f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["real"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         # set of negative demands
@@ -383,23 +384,6 @@ class printdata(object):
     def printACOPF(self):
         f = open(self.datfile, 'a')
         
-        f.write('param BL_AC:=\n')
-        for i in self.data["branch"].index.tolist():
-            f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
-        for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a" +"\n" +" "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b" +"\n" +" "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) +"\n" +" "+str(-1/float(self.data["hvdc"]["x"][i]))+"\n")
-        f.write(';\n')
-        #---Transformer chracteristics---
-        if not(self.data["transformer"].empty):
-            f.write('param BLT_AC:=\n')
-            for i in self.data["transformer"].index.tolist():
-                f.write(str(self.data["transformer"]["name"][i])+" "+str(-float(1/self.data["transformer"]["x"][i]))+"\n")
-            f.write(';\n')
-        
         #set of shunts
         if self.data["flags"]["shunt"] and not(self.data["shunt"].empty):
             f.write('set SHUNT_AC:=\n')
@@ -616,9 +600,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + " " + str(1.1) +"\n")
             f.write(';\n')
             f.close()
-            
-        
-    def printDCOPF(self, opf_type):
+    def printDCOPF(self):
         f = open(self.datfile, 'a')
         #---Tranmission line chracteristics---
         f.write('param BL_DC:=\n')
@@ -630,15 +612,6 @@ class printdata(object):
             f.write('param BLT_DC:=\n')
             for i in self.data["transformer"].index.tolist():
                 f.write(str(self.data["transformer"]["name"][i])+" "+str(-float(1/self.data["transformer"]["x"][i]))+"\n")
-            f.write(';\n')
-        if opf_type == "nonlinear":
-            f.write('param resistance_DC:=\n')
-            for i in self.data["branch"].index.tolist():
-                f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["r"][i])+"\n")
-            f.write(';\n')
-            f.write('param poles_DC:=\n')
-            for i in self.data["branch"].index.tolist():
-                f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["poles"][i])+"\n")
             f.write(';\n')
              
         f.close()

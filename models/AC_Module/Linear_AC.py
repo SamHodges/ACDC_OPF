@@ -25,6 +25,7 @@ class Linear_AC(AC_model):
             sum(model.pLT_AC[l] for l in model.TRANSF_AC if model.AT_AC[l,2]==b)+\
             sum(model.GB_AC[s] for s in model.SHUNT_AC if (b,s) in model.SHUNTbs_AC)
         self.model.KCL_const_AC = Constraint(self.model.B_AC, rule=KCL_def)
+        print("extra G_AC constraint")
 
         # --- Kirchoff's voltage law on each line and transformer---
         def KVL_line_def(model,l):
