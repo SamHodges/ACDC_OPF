@@ -61,7 +61,7 @@ class OPF:
             case "nlp":
                 dc_opf = NLP_DC.NLP_DC(self.solver, self.tc_dc, self.model)
             case _:
-                dc_opf = Linearised_DC.Linearised_DC(self.solver, self.tc_dc, self.model)
+                dc_opf = Linearised_DC.Linear_DC(self.solver, self.tc_dc, self.model)
         
         dc_opf.create_dc_opf()
         
@@ -132,7 +132,7 @@ class OPF:
         if ac_mode:
             r.printACOPF()
         else:
-            r.printDCOPF()
+            r.printDCOPF(opf_type)
             
         return ptc_ac
         
@@ -170,5 +170,5 @@ def objective(model):
     return obj    
 
             
-newOPF = OPF(opf_type_ac="nonlinear", opf_type_dc="linear", link_type="vsc", \
+newOPF = OPF(opf_type_ac="nonlinear", opf_type_dc="nlp", link_type="vsc", \
     tc_ac="PYPSA_case9_combined.xlsx", tc_dc="case9_DC.xlsx", solver="ipopt", neos=True, out=0)

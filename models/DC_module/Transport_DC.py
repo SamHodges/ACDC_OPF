@@ -22,3 +22,19 @@ class Transport_DC(DC_model):
             sum(model.pLT_DC[l] for l in model.TRANSF_DC if model.AT_DC[l,2]==b)+\
             sum(model.GB_DC[s] for s in model.SHUNT_DC if (b,s) in model.SHUNTbs_DC)
         self.model.KCL_const_DC = Constraint(self.model.B_DC, rule=KCL_def)
+        
+        # # --- line power limits ---
+        def line_lim1_def(model,l):
+            return model.pL_DC[l] <= model.SLmax_DC[l]
+        def line_lim2_def(model,l):
+            return model.pL_DC[l] >= -model.SLmax_DC[l]
+        self.model.line_lim1_DC = Constraint(self.model.L_DC, rule=line_lim1_def)
+        self.model.line_lim2_DC = Constraint(self.model.L_DC, rule=line_lim2_def)
+
+        # # --- power flow limits on transformer lines---
+        def transf_lim1_def(model,l):
+            return model.pLT_DC[l] <= model.SLmaxT_DC[l]
+        def transf_lim2_def(model,l):
+            return model.pLT_DC[l] >= -model.SLmaxT_DC[l]
+        self.model.transf_lim1_DC = Constraint(self.model.TRANSF_DC, rule=transf_lim1_def)
+        self.model.transf_lim2_DC = Constraint(self.model.TRANSF_DC, rule=transf_lim2_def)

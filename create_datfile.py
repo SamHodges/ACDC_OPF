@@ -616,7 +616,7 @@ class printdata(object):
                     f.write(str(self.data["hvdc"]["name"][i]) + " " + str(1.1) +"\n")
             f.write(';\n')
             f.close()
-    def printDCOPF(self):
+    def printDCOPF(self, opf_type):
         f = open(self.datfile, 'a')
         #---Tranmission line chracteristics---
         f.write('param BL_DC:=\n')
@@ -629,8 +629,25 @@ class printdata(object):
             for i in self.data["transformer"].index.tolist():
                 f.write(str(self.data["transformer"]["name"][i])+" "+str(-float(1/self.data["transformer"]["x"][i]))+"\n")
             f.write(';\n')
-             
+
+        if opf_type == "nlp":
+            f.write('param poles_DC:=\n')
+            for i in self.data["branch"].index.tolist():
+                f.write(str(self.data["branch"]["name"][i])+" "+str(float(self.data["branch"]["poles"][i]))+"\n")
+            f.write(';\n')
+            f.write('param r_DC:=\n')
+            for i in self.data["branch"].index.tolist():
+                f.write(str(self.data["branch"]["name"][i])+" "+str(float(self.data["branch"]["r"][i]))+"\n")
+            f.write(';\n')
+            if not(self.data["transformer"].empty):
+                f.write('param rT_DC:=\n')
+                for i in self.data["transformer"].index.tolist():
+                    f.write(str(self.data["transformer"]["name"][i])+" "+str(float(self.data["transformer"]["r"][i]))+"\n")
+                f.write(';\n')
+        
         f.close()
+        
+        
         
 def connectACDC(ac_data, dc_data, datfile):
     f = open(datfile, 'a')

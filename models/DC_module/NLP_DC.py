@@ -7,8 +7,10 @@ class NLP_DC(DC_model):
          super().__init__(solver, testcase, model)
           
     def extra_setup(self):
+        pass
         self.model.poles_DC = Param(self.model.L_DC,  within=NonNegativeReals) # poles per line
         self.model.r_DC = Param(self.model.L_DC,  within=NonNegativeReals) # resistance per line
+        self.model.rT_DC = Param(self.model.L_DC,  within=NonNegativeReals) # resistance per line
         
         self.model.v_DC = Var(self.model.B_DC,  within=NonNegativeReals) # voltage per bus
         self.model.pLfrom_DC   = Var(self.model.L_DC, domain= Reals) # real power injected at b onto line
@@ -28,31 +30,23 @@ class NLP_DC(DC_model):
             sum(model.pLtoT_DC[l] for l in model.TRANSF_DC if model.AT_DC[l,2]==b)+\
             sum(model.GB_DC[s]*model.v_DC[b]**2 for s in model.SHUNT_DC if (b,s) in model.SHUNTbs_DC)
 
-        self.model.KCL_real     = Constraint(self.model.B_DC, rule=KCL_real_def)
+        self.model.KCL_DC     = Constraint(self.model.B_DC, rule=KCL_real_def)
         
         # --- Kirchoff's voltage law on each line ---
-        def KVL_real_fromend(model,l):
-            return model.pLfrom_DC[l] == model.G11[l]*(model.v_DC[model.A_DC[l,1]]**2)+\
-            model.v_DC[model.A_DC[l,1]]*model.v_DC[model.A_DC[l,2]]*(model.B12[l]*sin(model.delta_DC[model.A_DC[l,1]]-\
-            model.delta_DC[model.A_DC[l,2]])+model.G12[l]*cos(model.delta_DC[model.A_DC[l,1]]-model.delta_DC[model.A_DC[l,2]]))
-        def KVL_real_toend(model,l):
-            return model.pLto_DC[l] == model.G22[l]*(model.v_DC[model.A_DC[l,2]]**2)+\
-            model.v_DC[model.A_DC[l,1]]*model.v_DC[model.A_DC[l,2]]*(model.B21[l]*sin(model.delta_DC[model.A_DC[l,2]]-\
-            model.delta_DC[model.A_DC[l,1]])+model.G21[l]*cos(model.delta_DC[model.A_DC[l,2]]-model.delta_DC[model.A_DC[l,1]]))
-        self.model.KVL_real_from     = Constraint(self.model.L_DC, rule=KVL_real_fromend)
-        self.model.KVL_real_to       = Constraint(self.model.L_DC, rule=KVL_real_toend)
+        def KVL_DC_from(model,l):
+            return model.pLfrom_DC[l] == (model.v_DC[model.A_DC[l,1]] ** 2) / model.r_DC[l]
+        def KVL_DC_to(model,l):
+            return model.pLto_DC[l] == (model.v_DC[model.A_DC[l,2]] ** 2) / model.r_DC[l]
+        self.model.KVL_DC_from_C     = Constraint(self.model.L_DC, rule=KVL_DC_from)
+        self.model.KVL_DC_to_C      = Constraint(self.model.L_DC, rule=KVL_DC_to)
         
         # --- Kirchoff's voltage law on each transformer line ---
-        def KVL_real_fromendTransf(model,l):
-            return model.pLfromT_DC[l] == model.G11T[l]*(model.v_DC[model.AT_DC[l,1]]**2)+\
-            model.v_DC[model.AT_DC[l,1]]*model.v_DC[model.AT_DC[l,2]]*(model.B12T[l]*sin(model.delta_DC[model.AT_DC[l,1]]-\
-            model.delta_DC[model.AT_DC[l,2]])+model.G12T[l]*cos(model.delta_DC[model.AT_DC[l,1]]-model.delta_DC[model.AT_DC[l,2]]))
-        def KVL_real_toendTransf(model,l):
-            return model.pLtoT_DC[l] == model.G22T[l]*(model.v_DC[model.AT_DC[l,2]]**2)+\
-            model.v_DC[model.AT_DC[l,1]]*model.v_DC[model.AT_DC[l,2]]*(model.B21T[l]*sin(model.delta_DC[model.AT_DC[l,2]]-\
-            model.delta_DC[model.AT_DC[l,1]])+model.G21T[l]*cos(model.delta_DC[model.AT_DC[l,2]]-model.delta_DC[model.AT_DC[l,1]]))
-        self.model.KVL_real_fromTransf     = Constraint(self.model.TRANSF_DC, rule=KVL_real_fromendTransf)
-        self.model.KVL_real_toTransf       = Constraint(self.model.TRANSF_DC, rule=KVL_real_toendTransf)
+        def KVL_T_DC_from(model,l):
+            return model.pLfromT_DC[l] == (model.v_DC[model.A_DC[l,1]] ** 2) / model.rT_DC[l]
+        def KVL_T_DC_to(model,l):
+            return model.pLtoT_DC[l] == (model.v_DC[model.A_DC[l,2]] ** 2) / model.rT_DC[l]
+        self.model.KVL_T_DC_from_C     = Constraint(self.model.TRANSF_DC, rule=KVL_T_DC_from)
+        self.model.KVL_T_DC_to_C       = Constraint(self.model.TRANSF_DC, rule=KVL_T_DC_to)
         
         
         def voltage_to_constraint(model, l):

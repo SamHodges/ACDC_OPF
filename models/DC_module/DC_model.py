@@ -103,22 +103,6 @@ class DC_model:
         self.model.WGmaxC_DC  = Constraint(self.model.WIND_DC, rule=Wind_Real_Power_Max)
         self.model.WGminC_DC  = Constraint(self.model.WIND_DC, rule=Wind_Real_Power_Min)
 
-        # # --- line power limits ---
-        def line_lim1_def(model,l):
-            return model.pL_DC[l] <= model.SLmax_DC[l]
-        def line_lim2_def(model,l):
-            return model.pL_DC[l] >= -model.SLmax_DC[l]
-        self.model.line_lim1_DC = Constraint(self.model.L_DC, rule=line_lim1_def)
-        self.model.line_lim2_DC = Constraint(self.model.L_DC, rule=line_lim2_def)
-
-        # # --- power flow limits on transformer lines---
-        def transf_lim1_def(model,l):
-            return model.pLT_DC[l] <= model.SLmaxT_DC[l]
-        def transf_lim2_def(model,l):
-            return model.pLT_DC[l] >= -model.SLmaxT_DC[l]
-        self.model.transf_lim1_DC = Constraint(self.model.TRANSF_DC, rule=transf_lim1_def)
-        self.model.transf_lim2_DC = Constraint(self.model.TRANSF_DC, rule=transf_lim2_def)
-
         # --- reference bus constraint ---
         def ref_bus_def(model,b):
             return model.delta_DC[b]==0

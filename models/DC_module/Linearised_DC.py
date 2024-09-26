@@ -40,3 +40,19 @@ class Linear_DC(DC_model):
             return model.deltaL_DC[l] == model.delta_DC[model.A_DC[l,1]] - \
             model.delta_DC[model.A_DC[l,2]]
         self.model.phase_diff1_DC = Constraint(self.model.L_DC, rule=phase_angle_diff1)
+        
+        # # --- line power limits ---
+        def line_lim1_def(model,l):
+            return model.pL_DC[l] <= model.SLmax_DC[l]
+        def line_lim2_def(model,l):
+            return model.pL_DC[l] >= -model.SLmax_DC[l]
+        self.model.line_lim1_DC = Constraint(self.model.L_DC, rule=line_lim1_def)
+        self.model.line_lim2_DC = Constraint(self.model.L_DC, rule=line_lim2_def)
+
+        # # --- power flow limits on transformer lines---
+        def transf_lim1_def(model,l):
+            return model.pLT_DC[l] <= model.SLmaxT_DC[l]
+        def transf_lim2_def(model,l):
+            return model.pLT_DC[l] >= -model.SLmaxT_DC[l]
+        self.model.transf_lim1_DC = Constraint(self.model.TRANSF_DC, rule=transf_lim1_def)
+        self.model.transf_lim2_DC = Constraint(self.model.TRANSF_DC, rule=transf_lim2_def)
