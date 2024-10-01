@@ -146,6 +146,14 @@ class printdata(object):
                 else:
                     f.write(str(self.data["hvdc"]["name"][i]) + "_gen" +"\n")
             f.write(';\n')
+            f.write('set LOCAL_HVDC:=\n')
+            for i in self.data["hvdc"].index.tolist():
+                if str(self.data["hvdc"]["type"][i]) == "GB":
+                    f.write(str(self.data["hvdc"]["name"][i]) + "_gen_A" +"\n")
+                    f.write(str(self.data["hvdc"]["name"][i]) + "_gen_B" +"\n")
+                elif str(self.data["hvdc"]["type"][i]) == "MTDC":
+                    f.write(str(self.data["hvdc"]["name"][i]) + "_gen" +"\n")
+            f.write(';\n')
         #---set of demands---
         f.write('set D' + mode_add_on + ':=\n')
         for i in self.data["demand"]["name"].unique():
