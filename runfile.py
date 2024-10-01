@@ -28,7 +28,7 @@ class OPF:
         self.instance = None
         self.datfile = 'datafile.dat'
         
-        # self.create_datfile()
+        self.create_datfile()
         self.initialise_models()
         self.solve_model()
         
@@ -171,4 +171,4 @@ def objective(model):
 
             
 newOPF = OPF(opf_type_ac="nonlinear", opf_type_dc="linear", link_type="vsc", \
-    tc_ac="PYPSA_case9_combined.xlsx", tc_dc="case9_DC.xlsx", solver="gurobi", neos=True, out=0)
+    tc_ac="case2_AC.xlsx", tc_dc="case2_DC.xlsx", solver="ipopt", neos=True, out=0)

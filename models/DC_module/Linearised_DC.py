@@ -19,7 +19,6 @@ class Linear_DC(DC_model):
         def KCL_def(model, b):
             return sum(model.pG_DC[g] for g in model.G_DC if (b,g) in model.Gbs_DC) +\
             sum(model.pW_DC[w] for w in model.WIND_DC if (b,w) in model.Wbs_DC) == \
-            sum(model.pD_DC[d] for d in model.D_DC if (b,d) in model.Dbs_DC)+\
             sum(model.pL_DC[l] for l in model.L_DC if model.A_DC[l,1]==b)- \
             sum(model.pL_DC[l] for l in model.L_DC if model.A_DC[l,2]==b)+\
             sum(model.pLT_DC[l] for l in model.TRANSF_DC if model.AT_DC[l,1]==b)- \

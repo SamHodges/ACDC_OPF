@@ -17,8 +17,6 @@ class DC_model:
         self.model.B_DC      = Set()  # set of buses
         self.model.G_DC      = Set()  # set of generators
         self.model.WIND_DC   = Set()  # set of wind generators
-        self.model.D_DC      = Set()  # set of demands
-        self.model.DNeg_DC   = Set()  # set of demands
         self.model.L_DC      = Set()  # set of lines
         self.model.SHUNT_DC  = Set()  # set of shunts
         self.model.LE_DC     = Set()  # line-to and from ends set (1,2)
@@ -27,7 +25,6 @@ class DC_model:
 
         # generators, buses, loads linked to eDCh bus b
         self.model.Gbs_DC = Set(within=self.model.B_DC * self.model.G_DC)    # generator-bus mapping
-        self.model.Dbs_DC = Set(within=self.model.B_DC * self.model.D_DC)    # demand-bus mapping
         self.model.Wbs_DC = Set(within=self.model.B_DC * self.model.WIND_DC) # wind-bus mapping
         self.model.SHUNTbs_DC = Set(within=self.model.B_DC * self.model.SHUNT_DC)# shunt-bus mapping
         
@@ -36,9 +33,6 @@ class DC_model:
         self.model.A_DC = Param(self.model.L_DC*self.model.LE_DC,within=Any)       # bus-line
         self.model.AT_DC = Param(self.model.TRANSF_DC*self.model.LE_DC,within=Any) # bus-transformer
 
-        # demands
-        self.model.PD_DC = Param(self.model.D_DC, within=Reals)  # real power demand
-        self.model.VOLL_DC    = Param(self.model.D_DC, within=Reals) #value of lost load
 
         # generators
         self.model.PGmax_DC    = Param(self.model.G_DC, within=NonNegativeReals) # max real power of generator
@@ -70,8 +64,6 @@ class DC_model:
         # --- variables ---
         self.model.pG_DC       = Var(self.model.G_DC, domain= NonNegativeReals)# real power output of generator
         self.model.pW_DC       = Var(self.model.WIND_DC, domain= Reals) #real power generation from wind
-        self.model.pD_DC       = Var(self.model.D_DC, domain= Reals)# real power absorbed by demand
-        self.model.alpha_DC  = Var(self.model.D_DC, initialize=1.0, domain= NonNegativeReals)# proportion to supply of load d
         self.model.delta_DC  = Var(self.model.B_DC, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
 
 
@@ -79,13 +71,6 @@ class DC_model:
         pass
             
     def basic_constraints(self):   
-        # --- demand model ---
-        def demand_model(model,d):
-            return model.pD_DC[d] == model.alpha_DC[d]*model.PD_DC[d]
-        def demand_LS_bound_Max(model,d):
-            return model.alpha_DC[d] <= 1
-        self.model.demandmodelC_DC = Constraint(self.model.D_DC, rule=demand_model)
-        self.model.demandalphaC_DC = Constraint(self.model.D_DC, rule=demand_LS_bound_Max)
 
         # --- generator power limits ---
         def Real_Power_Max(model,g):

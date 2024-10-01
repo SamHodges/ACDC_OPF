@@ -1,12 +1,15 @@
 #This is Python generated data file for Pyomo model DCLF.py
-#Time stamp: 2024-10-01 14:36:17.800873
+#Time stamp: 2024-10-01 16:33:57.271058
 set B_AC:=
-0
+1
+2
 Test
 ;
 set G_AC:=
-G2 
+G1 
 Test_gen
+;
+set HVDC_Pairs:=
 ;
 set HVDC_CONV:=
 Test_gen
@@ -19,169 +22,192 @@ D1
 D2
 ;
 param PD_AC:=
-D1 3.16094
+D1 90.0
+D2 500.0
+;
+set DNeg_AC:=
 ;
 param VOLL_AC:=
 D1 100000.0
+D2 100000.0
 ;
 param baseMVA_AC:=
 100
 ;
 set LE_AC:=
  1 
+ 2
 ;
 set L_AC:=
-L0
+L_AC
 Test
 ;
 set Gbs_AC:=
-0 G2 
+1 G1 
 Test Test_gen
 ;
 set Dbs_AC:=
-0 D1
+2 D1
+1 D2
 ;
 set b0_AC:=
+1
+;
+param A_AC:=
+L_AC 1 1
+Test 1 Test
+L_AC 2 2
+Test 2 2
 ;
 param PGmin_AC:=
-G2 0.1
+G1 0.1
 Test_gen -22.0
 ;
 param PGmax_AC:=
-G2 1.8163551100939301
+G1 2.5
 Test_gen 22.0
 ;
 param SLmax_AC:=
-L0 5.25
+L_AC 2.5
 Test 22.0
 ;
 param c2_AC:=
-G2 0.0
+G1 0.0
 Test_gen 0.0
 ;
 param c1_AC:=
-G2 48.1
+G1 500.0
 Test_gen 0.0
 ;
 param c0_AC:=
-G2 0.0
+G1 0.0
 Test_gen 0
 ;
 param BL_AC:=
-L0 -50.0
+L_AC -17.36111111111111
 Test 0.0586
 ;
 param QD_AC:=
-D1 1.0536466666666666
+D1 0.3
+D2 0.35
 ;
 param G11:=
-L0 22.22870053203119
+L_AC 0.0
 Test 0.0
 ;
 param G12:=
-L0 -22.22870053203119
+L_AC 0.0
 Test 0.0
 ;
 param G21:=
-L0 -22.22870053203119
+L_AC 0.0
 Test 0.0
 ;
 param G22:=
-L0 22.22870053203119
+L_AC 0.0
 Test 0.0
 ;
 param B11:=
-L0 -36.397692675460966
-Test -17.022046416382253
+L_AC -17.36111111111111
+Test -17.064846416382252
 ;
 param B12:=
-L0 36.440492675460966
+L_AC 17.36111111111111
 Test 17.064846416382252
 ;
 param B21:=
-L0 36.440492675460966
+L_AC 17.36111111111111
 Test 17.064846416382252
 ;
 param B22:=
-L0 -36.397692675460966
-Test -17.022046416382253
+L_AC -17.36111111111111
+Test -17.064846416382252
 ;
 param QGmin_AC:=
-G2 -3.0
+G1 -3.0
 Test_gen 0
 ;
 param QGmax_AC:=
-G2 3.0
+G1 3.0
 Test_gen 22.0
 ;
 param Vmin_AC:=
-0 0.9
+1 0.9
+2 0.9
 Test 0.9
 ;
 param Vmax_AC:=
-0 1.1
+1 1.1
+2 1.1
 Test 1.1
 ;
 set B_DC:=
 1
+2
 ;
 set G_DC:=
 G1 
+G2 
 Test
 ;
 set D_DC:=
-D1
-;
-param PD_DC:=
-D1 0.0
-;
-param VOLL_DC:=
-D1 100000.0
+1
 ;
 param baseMVA_DC:=
 100
 ;
 set LE_DC:=
  1 
+ 2
 ;
 set L_DC:=
-L1-14
+LDC
 ;
 set Gbs_DC:=
 1 G1 
-1 Test
+2 G2 
+2 Test
 ;
 set Dbs_DC:=
-1 D1
+1 1
 ;
 set b0_DC:=
 1
 ;
+param A_DC:=
+LDC 1 1
+LDC 2 2
+;
 param PGmin_DC:=
 G1 0.1
+G2 0.1
 Test -22.0
 ;
 param PGmax_DC:=
 G1 2.5
+G2 3.0
 Test 22.0
 ;
 param SLmax_DC:=
-L1-14 2.5
+LDC 2.5
 ;
 param c2_DC:=
 G1 0.0
+G2 0.0
 Test 0
 ;
 param c1_DC:=
 G1 0.0
+G2 0.0
 Test 0
 ;
 param c0_DC:=
 G1 0.0
+G2 0.0
 Test 0
 ;
 param BL_DC:=
-L1-14 -17.36111111111111
+LDC -17.36111111111111
 ;
 set ACDC_Links:=
 (Test_gen,Test) 

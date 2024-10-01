@@ -167,21 +167,22 @@ class printdata(object):
             f.write(';\n')
         #===parameters===
         #---Real power demand---
-        f.write('param PD' + mode_add_on + ':=\n')
-        for i in self.data["demand"].index.tolist():
-            print("")
-            f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["real"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        f.write(';\n')
-        # set of negative demands
-        f.write('set DNeg' + mode_add_on + ':=\n')
-        for i in self.data["demand"].index.tolist():
-            if float(self.data["demand"]["real"][i]) < 0:
-                f.write(str(self.data["demand"]["name"][i]) + "\n")
-        f.write(';\n')
-        f.write('param VOLL' + mode_add_on + ':=\n')
-        for i in self.data["demand"].index.tolist():
-            f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["VOLL"][i]))+"\n")
-        f.write(';\n')
+        if mode_add_on == "_AC":
+            f.write('param PD' + mode_add_on + ':=\n')
+            for i in self.data["demand"].index.tolist():
+                print("")
+                f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["real"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
+            f.write(';\n')
+            # set of negative demands
+            f.write('set DNeg' + mode_add_on + ':=\n')
+            for i in self.data["demand"].index.tolist():
+                if float(self.data["demand"]["real"][i]) < 0:
+                    f.write(str(self.data["demand"]["name"][i]) + "\n")
+            f.write(';\n')
+            f.write('param VOLL' + mode_add_on + ':=\n')
+            for i in self.data["demand"].index.tolist():
+                f.write(str(self.data["demand"]["name"][i])+" "+str(float(self.data["demand"]["VOLL"][i]))+"\n")
+            f.write(';\n')
         f.write('param baseMVA' + mode_add_on + ':=\n')
         f.write(str(self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
