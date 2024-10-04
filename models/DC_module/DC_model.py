@@ -78,7 +78,7 @@ class DC_model:
         def Real_Power_Min(model,g):
             return model.pG_DC[g] >= model.PGmin_DC[g]
         self.model.PGmaxC_DC = Constraint(self.model.G_DC, rule=Real_Power_Max)
-        self.model.PGminC_DC = Constraint(self.model.G_DC, rule=Real_Power_Min)
+        # self.model.PGminC_DC = Constraint(self.model.G_DC, rule=Real_Power_Min)
 
         # ---wind generator power limits ---
         def Wind_Real_Power_Max(model,w):
