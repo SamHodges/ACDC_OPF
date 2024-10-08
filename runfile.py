@@ -111,7 +111,7 @@ class OPF:
         with open("modelformulation.txt", "w") as outputfile:
             self.instance.pprint(outputfile)
         
-        with open("output_log.json", "a") as myfile:
+        with open("output_log.json", "w") as myfile:
             json_object = json.dumps(results, indent=4)
             myfile.write(json_object)
                 
@@ -163,15 +163,16 @@ class OPF:
             
     
 def objective(model):
-    obj = sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC)
+    # obj = sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC)
     # sum(model.c2_AC[g]*(model.baseMVA_AC*model.pG_AC[g])**2+model.c1_AC[g]*model.baseMVA_AC*model.pG_AC[g]+ model.c0_AC[g] for g in model.G_AC)+\
         
         # sum(model.c1_DC[g]*(model.baseMVA_DC*model.pG_DC[g])+model.c0_DC[g] for g in model.G_DC) +\
         # -(sum(model.pG_AC[g] for g in model.LOCAL_HVDC))
         # sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC) +\
-
-    return obj    
+    obj = sum(model.c1_AC[g]*(model.baseMVA_AC*model.pG_AC[g])+model.c0_AC[g] for g in model.G_AC) +\
+    sum(model.VOLL_AC[d]*(1-model.alpha_AC[d])*model.baseMVA_AC*model.PD_AC[d] for d in model.D_AC)
+    return obj
 
             
-newOPF = OPF(opf_type_ac="nonlinear", opf_type_dc="linear", link_type="vsc", \
+newOPF = OPF(opf_type_ac="linear", opf_type_dc="linear", link_type="vsc", \
     tc_ac="case2_AC.xlsx", tc_dc="case2_DC.xlsx", solver="ipopt", neos=False, out=0)

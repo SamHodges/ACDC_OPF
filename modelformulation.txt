@@ -87,7 +87,7 @@
         Key  : Dimen : Domain : Size : Members
         None :     1 :   B_DC :    1 :    {1,}
 
-70 Param Declarations
+36 Param Declarations
     AT_AC : Size=0, Index=TRANSF_AC*LE_AC, Domain=Any, Default=None, Mutable=False
         Key : Value
     AT_DC : Size=0, Index=TRANSF_DC*LE_DC, Domain=Any, Default=None, Mutable=False
@@ -102,35 +102,9 @@
         Key        : Value
         ('LDC', 1) :     1
         ('LDC', 2) :     2
-    B11 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :  -17.36111111111111
-        Test : -17.064846416382252
-    B11T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    B12 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :  17.36111111111111
-        Test : 17.064846416382252
-    B12T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    B21 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :  17.36111111111111
-        Test : 17.064846416382252
-    B21T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    B22 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :  -17.36111111111111
-        Test : -17.064846416382252
-    B22T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
     BB_AC : Size=0, Index=SHUNT_AC, Domain=Reals, Default=None, Mutable=False
         Key : Value
     BB_DC : Size=0, Index=SHUNT_DC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    BC_AC : Size=0, Index=L_AC, Domain=Reals, Default=None, Mutable=False
         Key : Value
     BLT_AC : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
         Key : Value
@@ -143,43 +117,9 @@
     BL_DC : Size=1, Index=L_DC, Domain=Reals, Default=None, Mutable=False
         Key : Value
         LDC : -17.36111111111111
-    DeltashiftLB_AC : Size=0, Index=TRANSF_AC, Domain=Any, Default=None, Mutable=False
-        Key : Value
-    DeltashiftUB_AC : Size=0, Index=TRANSF_AC, Domain=Any, Default=None, Mutable=False
-        Key : Value
-    Deltashift_AC : Size=0, Index=TRANSF_AC, Domain=Any, Default=None, Mutable=False
-        Key : Value
-    G11 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :   0.0
-        Test :   0.0
-    G11T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    G12 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :   0.0
-        Test :   0.0
-    G12T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    G21 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :   0.0
-        Test :   0.0
-    G21T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    G22 : Size=2, Index=L_AC, Domain=Reals, Default=None, Mutable=False
-        Key  : Value
-        L_AC :   0.0
-        Test :   0.0
-    G22T : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
     GB_AC : Size=0, Index=SHUNT_AC, Domain=Reals, Default=None, Mutable=False
         Key : Value
     GB_DC : Size=0, Index=SHUNT_DC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    GLT_AC : Size=0, Index=TRANSF_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-    GL_AC : Size=0, Index=L_AC, Domain=Reals, Default=None, Mutable=False
         Key : Value
     PD_AC : Size=2, Index=D_AC, Domain=Reals, Default=None, Mutable=False
         Key : Value
@@ -203,23 +143,9 @@
           G1 :   0.1
           G2 :   0.1
         Test : -22.0
-    QD_AC : Size=2, Index=D_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
-         D1 : 1.6666666666666665
-         D2 :               1.75
-    QGmax_AC : Size=2, Index=G_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key      : Value
-              G1 :   0.0
-        Test_gen :  22.0
-    QGmin_AC : Size=2, Index=G_AC, Domain=Reals, Default=None, Mutable=False
-        Key      : Value
-              G1 :  -3.0
-        Test_gen :     0
     SLmaxT_AC : Size=0, Index=TRANSF_AC, Domain=NonNegativeReals, Default=None, Mutable=False
         Key : Value
     SLmaxT_DC : Size=0, Index=TRANSF_DC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
-    SLmaxT_E_AC : Size=0, Index=TRANSF_AC, Domain=NonNegativeReals, Default=None, Mutable=False
         Key : Value
     SLmax_AC : Size=2, Index=L_AC, Domain=NonNegativeReals, Default=None, Mutable=False
         Key  : Value
@@ -228,32 +154,10 @@
     SLmax_DC : Size=1, Index=L_DC, Domain=NonNegativeReals, Default=None, Mutable=False
         Key : Value
         LDC :   2.5
-    SLmax_E_AC : Size=0, Index=L_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
-    TapLB_AC : Size=0, Index=TRANSF_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
-    TapUB_AC : Size=0, Index=TRANSF_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
-    Tap_AC : Size=0, Index=TRANSF_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
     VOLL_AC : Size=2, Index=D_AC, Domain=Reals, Default=None, Mutable=False
         Key : Value
          D1 : 100000.0
          D2 : 100000.0
-    Vmax_AC : Size=3, Index=B_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key  : Value
-           1 :   1.1
-           2 :   1.1
-        Test :   1.1
-    Vmin_AC : Size=3, Index=B_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key  : Value
-           1 :   0.9
-           2 :   0.9
-        Test :   0.9
-    WGQmax_AC : Size=0, Index=WIND_AC, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
-    WGQmin_AC : Size=0, Index=WIND_AC, Domain=Reals, Default=None, Mutable=False
-        Key : Value
     WGmax_AC : Size=0, Index=WIND_AC, Domain=NonNegativeReals, Default=None, Mutable=False
         Key : Value
     WGmax_DC : Size=0, Index=WIND_DC, Domain=NonNegativeReals, Default=None, Mutable=False
@@ -300,147 +204,82 @@
     eps_DC : Size=0, Index=None, Domain=NonNegativeReals, Default=None, Mutable=False
         Key : Value
 
-24 Var Declarations
+16 Var Declarations
     alpha_AC : Size=2, Index=D_AC
-        Key : Lower : Value                 : Upper : Fixed : Stale : Domain
-         D1 :     0 : 2.000316341018882e-09 :  None : False : False : NonNegativeReals
-         D2 :     0 : 1.999119098229438e-09 :  None : False : False : NonNegativeReals
+        Key : Lower : Value                  : Upper : Fixed : Stale : Domain
+         D1 :     0 : -9.999948818066272e-09 :  None : False : False : NonNegativeReals
+         D2 :     0 : -9.999948908946146e-09 :  None : False : False : NonNegativeReals
+    deltaLT_AC : Size=0, Index=TRANSF_AC
+        Key : Lower : Value : Upper : Fixed : Stale : Domain
     deltaLT_DC : Size=0, Index=TRANSF_DC
         Key : Lower : Value : Upper : Fixed : Stale : Domain
+    deltaL_AC : Size=2, Index=L_AC
+        Key  : Lower : Value                 : Upper : Fixed : Stale : Domain
+        L_AC :  None : 4.607970673861813e-10 :  None : False : False :  Reals
+        Test :  None : 4.436842384762241e-07 :  None : False : False :  Reals
     deltaL_DC : Size=1, Index=L_DC
-        Key : Lower : Value                 : Upper : Fixed : Stale : Domain
-        LDC :  None : 2.915590568154543e-10 :  None : False : False :  Reals
+        Key : Lower : Value                   : Upper : Fixed : Stale : Domain
+        LDC :  None : -1.0781096973422265e-14 :  None : False : False :  Reals
     delta_AC : Size=3, Index=B_AC
         Key  : Lower : Value                 : Upper : Fixed : Stale : Domain
-           1 :  None : 7.961144447940059e-30 :  None : False : False :  Reals
-           2 :  None : 1.493897454842267e-13 :  None : False : False :  Reals
-        Test :  None : 5.553064452541715e-10 :  None : False : False :  Reals
+           1 :  None :  -0.03160122643667759 :  None : False : False :  Reals
+           2 :  None :  -0.03160122689747466 :  None : False : False :  Reals
+        Test :  None : -0.031600783213236186 :  None : False : False :  Reals
     delta_DC : Size=2, Index=B_DC
         Key : Lower : Value                  : Upper : Fixed : Stale : Domain
-          1 :  None : 2.4463105059149255e-42 :  None : False : False :  Reals
-          2 :  None : -2.915590568154543e-10 :  None : False : False :  Reals
+          1 :  None : -3.386859694401913e-37 :  None : False : False :  Reals
+          2 :  None : 1.0781096973422265e-14 :  None : False : False :  Reals
     pD_AC : Size=2, Index=D_AC
-        Key : Lower : Value                  : Upper : Fixed : Stale : Domain
-         D1 :  None : 1.0001581705094408e-08 :  None : False : False :  Reals
-         D2 :  None :  9.995595491147188e-09 :  None : False : False :  Reals
+        Key : Lower : Value                   : Upper : Fixed : Stale : Domain
+         D1 :  None : -3.3999845462036535e-08 :  None : False : False :  Reals
+         D2 :  None :  -3.399984591643591e-08 :  None : False : False :  Reals
     pG_AC : Size=2, Index=G_AC
-        Key      : Lower : Value                 : Upper : Fixed : Stale : Domain
-              G1 :     0 : 9.999090967394625e-09 :  None : False : False : NonNegativeReals
-        Test_gen :     0 : 9.998163719348779e-09 :  None : False : False : NonNegativeReals
+        Key      : Lower : Value                  : Upper : Fixed : Stale : Domain
+              G1 :     0 : -9.999997747176062e-09 :  None : False : False : NonNegativeReals
+        Test_gen :     0 : -9.999997746411906e-09 :  None : False : False : NonNegativeReals
     pG_DC : Size=3, Index=G_DC
         Key  : Lower : Value                  : Upper : Fixed : Stale : Domain
-          G1 :     0 :   5.06178918082386e-09 :  None : False : False : NonNegativeReals
-          G2 :     0 :  4.936396195959052e-09 :  None : False : False : NonNegativeReals
-        Test :     0 : -9.998185376782912e-09 :  None : False : False : NonNegativeReals
+          G1 :     0 :     1.2500000074999917 :  None : False : False : NonNegativeReals
+          G2 :     0 :      1.500000009999992 :  None : False : False : NonNegativeReals
+        Test :     0 : -9.999997798069598e-09 :  None : False : False : NonNegativeReals
+    pLT_AC : Size=0, Index=TRANSF_AC
+        Key : Lower : Value : Upper : Fixed : Stale : Domain
     pLT_DC : Size=0, Index=TRANSF_DC
         Key : Lower : Value : Upper : Fixed : Stale : Domain
+    pL_AC : Size=2, Index=L_AC
+        Key  : Lower : Value                   : Upper : Fixed : Stale : Domain
+        L_AC :  None :   7.999949086565648e-09 :  None : False : False :  Reals
+        Test :  None : -2.5999896374706734e-08 :  None : False : False :  Reals
     pL_DC : Size=1, Index=L_DC
-        Key : Lower : Value                : Upper : Fixed : Stale : Domain
-        LDC :  None : 5.06178918082386e-09 :  None : False : False :  Reals
-    pLfromT_AC : Size=0, Index=TRANSF_AC
-        Key : Lower : Value : Upper : Fixed : Stale : Domain
-    pLfrom_AC : Size=2, Index=L_AC
-        Key  : Lower : Value                  : Upper : Fixed : Stale : Domain
-        L_AC :  None : -2.490737699784376e-12 :  None : False : False :  Reals
-        Test :  None :  9.998086228846973e-09 :  None : False : False :  Reals
-    pLtoT_AC : Size=0, Index=TRANSF_AC
-        Key : Lower : Value : Upper : Fixed : Stale : Domain
-    pLto_AC : Size=2, Index=L_AC
-        Key  : Lower : Value                  : Upper : Fixed : Stale : Domain
-        L_AC :  None :  2.490737699784376e-12 :  None : False : False :  Reals
-        Test :  None : -9.998086228846973e-09 :  None : False : False :  Reals
+        Key : Lower : Value                   : Upper : Fixed : Stale : Domain
+        LDC :  None : -1.8717182245524765e-13 :  None : False : False :  Reals
     pW_AC : Size=0, Index=WIND_AC
         Key : Lower : Value : Upper : Fixed : Stale : Domain
     pW_DC : Size=0, Index=WIND_DC
         Key : Lower : Value : Upper : Fixed : Stale : Domain
-    qD_AC : Size=2, Index=D_AC
-        Key : Lower : Value                  : Upper : Fixed : Stale : Domain
-         D1 :  None : 3.3338605683648026e-09 :  None : False : False :  Reals
-         D2 :  None : 3.4984584219015157e-09 :  None : False : False :  Reals
-    qG_AC : Size=2, Index=G_AC
-        Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-              G1 :  None : -0.779378227618006 :  None : False : False :  Reals
-        Test_gen :  None :  0.856479974501784 :  None : False : False :  Reals
-    qLfromT_AC : Size=0, Index=TRANSF_AC
-        Key : Lower : Value : Upper : Fixed : Stale : Domain
-    qLfrom_AC : Size=2, Index=L_AC
-        Key  : Lower : Value               : Upper : Fixed : Stale : Domain
-        L_AC :  None : -0.7793782309518666 :  None : False : False :  Reals
-        Test :  None :   0.856479974501784 :  None : False : False :  Reals
-    qLtoT_AC : Size=0, Index=TRANSF_AC
-        Key : Lower : Value : Upper : Fixed : Stale : Domain
-    qLto_AC : Size=2, Index=L_AC
-        Key  : Lower : Value               : Upper : Fixed : Stale : Domain
-        L_AC :  None :   0.817597337731538 :  None : False : False :  Reals
-        Test :  None : -0.8175973412299964 :  None : False : False :  Reals
-    qW_AC : Size=0, Index=WIND_AC
-        Key : Lower : Value : Upper : Fixed : Stale : Domain
-    v_AC : Size=3, Index=B_AC
-        Key  : Lower : Value              : Upper : Fixed : Stale : Domain
-           1 :     0 : 0.9567957696388232 :  None : False : False : NonNegativeReals
-           2 :     0 : 1.0037150679126583 :  None : False : False : NonNegativeReals
-        Test :     0 : 1.0514489375413314 :  None : False : False : NonNegativeReals
 
 1 Objective Declarations
     OBJ : Size=1, Index=None, Active=True
         Key  : Active : Sense    : Expression
-        None :   True : minimize : 100000.0*(1 - alpha_AC[D1])*100*5.0 + 100000.0*(1 - alpha_AC[D2])*100*5.0
+        None :   True : minimize : 100000.0*(1 - alpha_AC[D1])*100*5.0 + 100000.0*(1 - alpha_AC[D2])*100*5.0 + (50000.0*pG_AC[G1] + 1000000.0 + 0.0*pG_AC[Test_gen])
 
-45 Constraint Declarations
-    ACDC_Limit : Size=1, Index=ACDC_Links, Active=True
-        Key                  : Lower : Body            : Upper : Active
-        ('Test_gen', 'Test') :  -Inf : pG_AC[Test_gen] :   0.0 :   True
-    KCL_const_DC : Size=2, Index=B_DC, Active=True
-        Key : Lower : Body                                 : Upper : Active
-          1 :   0.0 :               pG_DC[G1] - pL_DC[LDC] :   0.0 :   True
-          2 :   0.0 : pG_DC[G2] + pG_DC[Test] + pL_DC[LDC] :   0.0 :   True
-    KCL_reactive : Size=3, Index=B_AC, Active=True
-        Key  : Lower : Body                                      : Upper : Active
-           1 :   0.0 : qG_AC[G1] - (qD_AC[D1] + qLfrom_AC[L_AC]) :   0.0 :   True
-           2 :   0.0 : qLto_AC[L_AC] + qLto_AC[Test] + qD_AC[D2] :   0.0 :   True
-        Test :   0.0 :         qG_AC[Test_gen] - qLfrom_AC[Test] :   0.0 :   True
-    KCL_real : Size=3, Index=B_AC, Active=True
-        Key  : Lower : Body                                      : Upper : Active
-           1 :   0.0 : pG_AC[G1] - (pD_AC[D1] + pLfrom_AC[L_AC]) :   0.0 :   True
-           2 :   0.0 : pLto_AC[L_AC] + pLto_AC[Test] + pD_AC[D2] :   0.0 :   True
-        Test :   0.0 :         pG_AC[Test_gen] - pLfrom_AC[Test] :   0.0 :   True
+25 Constraint Declarations
+    KCL_const_AC : Size=3, Index=B_AC, Active=True
+        Key  : Lower : Body                                    : Upper : Active
+           1 :   0.0 :   pG_AC[G1] - (pD_AC[D1] + pL_AC[L_AC]) :   0.0 :   True
+           2 :   0.0 : pD_AC[D2] - (pL_AC[L_AC] + pL_AC[Test]) :   0.0 :   True
+        Test :   0.0 :           pG_AC[Test_gen] - pL_AC[Test] :   0.0 :   True
+    KVL_line_const_AC : Size=2, Index=L_AC, Active=True
+        Key  : Lower : Body                                            : Upper : Active
+        L_AC :   0.0 : pL_AC[L_AC] - 17.36111111111111*deltaL_AC[L_AC] :   0.0 :   True
+        Test :   0.0 :            pL_AC[Test] + 0.0586*deltaL_AC[Test] :   0.0 :   True
     KVL_line_const_DC : Size=1, Index=L_DC, Active=True
         Key : Lower : Body                                          : Upper : Active
         LDC :   0.0 : pL_DC[LDC] - 17.36111111111111*deltaL_DC[LDC] :   0.0 :   True
-    KVL_reactive_from : Size=2, Index=L_AC, Active=True
-        Key  : Lower : Body                                                                                                                                                                     : Upper : Active
-        L_AC :   0.0 :               qLfrom_AC[L_AC] - (17.36111111111111*v_AC[1]**2 + v_AC[1]*v_AC[2]*(0.0*sin(delta_AC[1] - delta_AC[2]) - 17.36111111111111*cos(delta_AC[1] - delta_AC[2]))) :   0.0 :   True
-        Test :   0.0 : qLfrom_AC[Test] - (17.064846416382252*v_AC[Test]**2 + v_AC[Test]*v_AC[2]*(0.0*sin(delta_AC[Test] - delta_AC[2]) - 17.064846416382252*cos(delta_AC[Test] - delta_AC[2]))) :   0.0 :   True
-    KVL_reactive_fromTransf : Size=0, Index=TRANSF_AC, Active=True
-        Key : Lower : Body : Upper : Active
-    KVL_reactive_to : Size=2, Index=L_AC, Active=True
-        Key  : Lower : Body                                                                                                                                                                : Upper : Active
-        L_AC :   0.0 :            qLto_AC[L_AC] - (17.36111111111111*v_AC[2]**2 + v_AC[1]*v_AC[2]*(0.0*sin(delta_AC[2] - delta_AC[1]) - 17.36111111111111*cos(delta_AC[2] - delta_AC[1]))) :   0.0 :   True
-        Test :   0.0 : qLto_AC[Test] - (17.064846416382252*v_AC[2]**2 + v_AC[Test]*v_AC[2]*(0.0*sin(delta_AC[2] - delta_AC[Test]) - 17.064846416382252*cos(delta_AC[2] - delta_AC[Test]))) :   0.0 :   True
-    KVL_reactive_toTransf : Size=0, Index=TRANSF_AC, Active=True
-        Key : Lower : Body : Upper : Active
-    KVL_real_from : Size=2, Index=L_AC, Active=True
-        Key  : Lower : Body                                                                                                                                                      : Upper : Active
-        L_AC :   0.0 :              pLfrom_AC[L_AC] - (0.0*v_AC[1]**2 + v_AC[1]*v_AC[2]*(17.36111111111111*sin(delta_AC[1] - delta_AC[2]) + 0.0*cos(delta_AC[1] - delta_AC[2]))) :   0.0 :   True
-        Test :   0.0 : pLfrom_AC[Test] - (0.0*v_AC[Test]**2 + v_AC[Test]*v_AC[2]*(17.064846416382252*sin(delta_AC[Test] - delta_AC[2]) + 0.0*cos(delta_AC[Test] - delta_AC[2]))) :   0.0 :   True
-    KVL_real_fromTransf : Size=0, Index=TRANSF_AC, Active=True
-        Key : Lower : Body : Upper : Active
-    KVL_real_to : Size=2, Index=L_AC, Active=True
-        Key  : Lower : Body                                                                                                                                                 : Upper : Active
-        L_AC :   0.0 :           pLto_AC[L_AC] - (0.0*v_AC[2]**2 + v_AC[1]*v_AC[2]*(17.36111111111111*sin(delta_AC[2] - delta_AC[1]) + 0.0*cos(delta_AC[2] - delta_AC[1]))) :   0.0 :   True
-        Test :   0.0 : pLto_AC[Test] - (0.0*v_AC[2]**2 + v_AC[Test]*v_AC[2]*(17.064846416382252*sin(delta_AC[2] - delta_AC[Test]) + 0.0*cos(delta_AC[2] - delta_AC[Test]))) :   0.0 :   True
-    KVL_real_toTransf : Size=0, Index=TRANSF_AC, Active=True
+    KVL_trans_const_AC : Size=0, Index=TRANSF_AC, Active=True
         Key : Lower : Body : Upper : Active
     KVL_trans_const_DC : Size=0, Index=TRANSF_DC, Active=True
         Key : Lower : Body : Upper : Active
-    LoadShed_reactive : Size=2, Index=D_AC, Active=True
-        Key : Lower : Body                                        : Upper : Active
-         D1 :   0.0 : qD_AC[D1] - 1.6666666666666665*alpha_AC[D1] :   0.0 :   True
-         D2 :   0.0 :               qD_AC[D2] - 1.75*alpha_AC[D2] :   0.0 :   True
-    LoadShed_real : Size=2, Index=D_AC, Active=True
-        Key : Lower : Body                         : Upper : Active
-         D1 :   0.0 : pD_AC[D1] - 5.0*alpha_AC[D1] :   0.0 :   True
-         D2 :   0.0 : pD_AC[D2] - 5.0*alpha_AC[D2] :   0.0 :   True
     PGmaxC_AC : Size=2, Index=G_AC, Active=True
         Key      : Lower : Body            : Upper : Active
               G1 :  -Inf :       pG_AC[G1] :   0.0 :   True
@@ -454,28 +293,6 @@
         Key      : Lower : Body            : Upper : Active
               G1 :  -2.5 :       pG_AC[G1] :  +Inf :   True
         Test_gen : -22.0 : pG_AC[Test_gen] :  +Inf :   True
-    QGmaxC : Size=2, Index=G_AC, Active=True
-        Key      : Lower : Body            : Upper : Active
-              G1 :  -Inf :       qG_AC[G1] :   0.0 :   True
-        Test_gen :  -Inf : qG_AC[Test_gen] :  22.0 :   True
-    QGminC : Size=2, Index=G_AC, Active=True
-        Key      : Lower : Body            : Upper : Active
-              G1 :  -3.0 :       qG_AC[G1] :  +Inf :   True
-        Test_gen :   0.0 : qG_AC[Test_gen] :  +Inf :   True
-    Vmaxc : Size=3, Index=B_AC, Active=True
-        Key  : Lower : Body       : Upper : Active
-           1 :  -Inf :    v_AC[1] :   1.1 :   True
-           2 :  -Inf :    v_AC[2] :   1.1 :   True
-        Test :  -Inf : v_AC[Test] :   1.1 :   True
-    Vminc : Size=3, Index=B_AC, Active=True
-        Key  : Lower : Body       : Upper : Active
-           1 :   0.9 :    v_AC[1] :  +Inf :   True
-           2 :   0.9 :    v_AC[2] :  +Inf :   True
-        Test :   0.9 : v_AC[Test] :  +Inf :   True
-    WGQmaxC : Size=0, Index=WIND_AC, Active=True
-        Key : Lower : Body : Upper : Active
-    WGQminC : Size=0, Index=WIND_AC, Active=True
-        Key : Lower : Body : Upper : Active
     WGmaxC_AC : Size=0, Index=WIND_AC, Active=True
         Key : Lower : Body : Upper : Active
     WGmaxC_DC : Size=0, Index=WIND_DC, Active=True
@@ -484,41 +301,32 @@
         Key : Lower : Body : Upper : Active
     WGminC_DC : Size=0, Index=WIND_DC, Active=True
         Key : Lower : Body : Upper : Active
-    alphaBoundLBC : Size=2, Index=D_AC, Active=True
-        Key : Lower : Body         : Upper : Active
-         D1 :   0.0 : alpha_AC[D1] :  +Inf :   True
-         D2 :   0.0 : alpha_AC[D2] :  +Inf :   True
     alphaBoundUBC : Size=2, Index=D_AC, Active=True
         Key : Lower : Body         : Upper : Active
          D1 :  -Inf : alpha_AC[D1] :   1.0 :   True
          D2 :  -Inf : alpha_AC[D2] :   1.0 :   True
-    alphaFix : Size=0, Index=DNeg_AC, Active=True
-        Key : Lower : Body : Upper : Active
+    demandmodelC_AC : Size=2, Index=D_AC, Active=True
+        Key : Lower : Body                         : Upper : Active
+         D1 :   0.0 : pD_AC[D1] - 5.0*alpha_AC[D1] :   0.0 :   True
+         D2 :   0.0 : pD_AC[D2] - 5.0*alpha_AC[D2] :   0.0 :   True
     equalHVDC : Size=0, Index=HVDC_Pairs, Active=True
         Key : Lower : Body : Upper : Active
-    line_lim1_AC : Size=2, Index=L_AC, Active=True
-        Key  : Lower : Body                                    : Upper : Active
-        L_AC :  -Inf : pLfrom_AC[L_AC]**2 + qLfrom_AC[L_AC]**2 :  6.25 :   True
-        Test :  -Inf : pLfrom_AC[Test]**2 + qLfrom_AC[Test]**2 : 484.0 :   True
     line_lim1_DC : Size=1, Index=L_DC, Active=True
         Key : Lower : Body       : Upper : Active
         LDC :  -Inf : pL_DC[LDC] :   2.5 :   True
-    line_lim2_AC : Size=2, Index=L_AC, Active=True
-        Key  : Lower : Body                                : Upper : Active
-        L_AC :  -Inf : pLto_AC[L_AC]**2 + qLto_AC[L_AC]**2 :  6.25 :   True
-        Test :  -Inf : pLto_AC[Test]**2 + qLto_AC[Test]**2 : 484.0 :   True
     line_lim2_DC : Size=1, Index=L_DC, Active=True
         Key : Lower : Body       : Upper : Active
         LDC :  -2.5 : pL_DC[LDC] :  +Inf :   True
     link_ACDC : Size=1, Index=ACDC_Links, Active=True
         Key                  : Lower : Body                          : Upper : Active
         ('Test_gen', 'Test') :   0.0 : pG_AC[Test_gen] + pG_DC[Test] :   0.0 :   True
+    phase_diff1_AC : Size=2, Index=L_AC, Active=True
+        Key  : Lower : Body                                             : Upper : Active
+        L_AC :   0.0 :    deltaL_AC[L_AC] - (delta_AC[1] - delta_AC[2]) :   0.0 :   True
+        Test :   0.0 : deltaL_AC[Test] - (delta_AC[Test] - delta_AC[2]) :   0.0 :   True
     phase_diff1_DC : Size=1, Index=L_DC, Active=True
         Key : Lower : Body                                         : Upper : Active
         LDC :   0.0 : deltaL_DC[LDC] - (delta_DC[1] - delta_DC[2]) :   0.0 :   True
-    refbus : Size=1, Index=b0_AC, Active=True
-        Key : Lower : Body        : Upper : Active
-          1 :   0.0 : delta_AC[1] :   0.0 :   True
     refbus_DC : Size=1, Index=b0_DC, Active=True
         Key : Lower : Body        : Upper : Active
           1 :   0.0 : delta_DC[1] :   0.0 :   True
@@ -531,4 +339,4 @@
     transf_lim2_DC : Size=0, Index=TRANSF_DC, Active=True
         Key : Lower : Body : Upper : Active
 
-169 Declarations: B_AC G_AC WIND_AC D_AC DNeg_AC L_AC SHUNT_AC LE_AC TRANSF_AC b0_AC Gbs_AC Dbs_AC Wbs_AC SHUNTbs_AC A_AC AT_AC PD_AC VOLL_AC PGmax_AC PGmin_AC WGmax_AC WGmin_AC SLmax_AC BL_AC SLmaxT_AC BLT_AC GB_AC BB_AC c2_AC c1_AC c0_AC baseMVA_AC eps_AC pG_AC pW_AC pD_AC delta_AC alpha_AC QD_AC QGmax_AC QGmin_AC WGQmax_AC WGQmin_AC GL_AC BC_AC SLmax_E_AC SLmaxT_E_AC Tap_AC TapLB_AC TapUB_AC Deltashift_AC DeltashiftLB_AC DeltashiftUB_AC GLT_AC G11 G12 G21 G22 B11 B12 B21 B22 G11T G12T G21T G22T B11T B12T B21T B22T Vmax_AC Vmin_AC qG_AC qW_AC qD_AC qLfrom_AC qLto_AC qLfromT_AC qLtoT_AC pLfrom_AC pLto_AC pLfromT_AC pLtoT_AC v_AC PGmaxC_AC PGminC_AC WGmaxC_AC WGminC_AC alphaBoundUBC refbus KCL_real KVL_real_from KVL_real_to KVL_real_fromTransf KVL_real_toTransf KCL_reactive KVL_reactive_from KVL_reactive_to KVL_reactive_fromTransf KVL_reactive_toTransf QGmaxC QGminC WGQmaxC WGQminC LoadShed_reactive LoadShed_real alphaFix alphaBoundLBC line_lim1_AC line_lim2_AC transf_lim1_AC transf_lim2_AC Vmaxc Vminc B_DC G_DC WIND_DC L_DC SHUNT_DC LE_DC TRANSF_DC b0_DC Gbs_DC Wbs_DC SHUNTbs_DC A_DC AT_DC PGmax_DC PGmin_DC WGmax_DC WGmin_DC SLmax_DC BL_DC SLmaxT_DC BLT_DC GB_DC BB_DC c2_DC c1_DC c0_DC baseMVA_DC eps_DC pG_DC pW_DC delta_DC deltaL_DC deltaLT_DC pL_DC pLT_DC PGmaxC_DC WGmaxC_DC WGminC_DC refbus_DC KCL_const_DC KVL_line_const_DC KVL_trans_const_DC phase_diff1_DC line_lim1_DC line_lim2_DC transf_lim1_DC transf_lim2_DC ACDC_Links HVDC_Pairs HVDC_CONV LOCAL_HVDC equalHVDC link_ACDC ACDC_Limit OBJ
+107 Declarations: B_AC G_AC WIND_AC D_AC DNeg_AC L_AC SHUNT_AC LE_AC TRANSF_AC b0_AC Gbs_AC Dbs_AC Wbs_AC SHUNTbs_AC A_AC AT_AC PD_AC VOLL_AC PGmax_AC PGmin_AC WGmax_AC WGmin_AC SLmax_AC BL_AC SLmaxT_AC BLT_AC GB_AC BB_AC c2_AC c1_AC c0_AC baseMVA_AC eps_AC pG_AC pW_AC pD_AC delta_AC alpha_AC pL_AC pLT_AC deltaL_AC deltaLT_AC PGmaxC_AC PGminC_AC WGmaxC_AC WGminC_AC alphaBoundUBC KCL_const_AC KVL_line_const_AC KVL_trans_const_AC demandmodelC_AC transf_lim1_AC transf_lim2_AC phase_diff1_AC B_DC G_DC WIND_DC L_DC SHUNT_DC LE_DC TRANSF_DC b0_DC Gbs_DC Wbs_DC SHUNTbs_DC A_DC AT_DC PGmax_DC PGmin_DC WGmax_DC WGmin_DC SLmax_DC BL_DC SLmaxT_DC BLT_DC GB_DC BB_DC c2_DC c1_DC c0_DC baseMVA_DC eps_DC pG_DC pW_DC delta_DC deltaL_DC deltaLT_DC pL_DC pLT_DC PGmaxC_DC WGmaxC_DC WGminC_DC refbus_DC KVL_line_const_DC KVL_trans_const_DC phase_diff1_DC line_lim1_DC line_lim2_DC transf_lim1_DC transf_lim2_DC ACDC_Links HVDC_Pairs HVDC_CONV LOCAL_HVDC equalHVDC link_ACDC OBJ

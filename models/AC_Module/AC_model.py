@@ -101,7 +101,7 @@ class AC_model:
         # --- reference bus constraint ---
         def ref_bus_def(model,b):
             return model.delta_AC[b]==0
-        self.model.refbus = Constraint(self.model.b0_AC, rule=ref_bus_def)
+        # self.model.refbus = Constraint(self.model.b0_AC, rule=ref_bus_def)
 
         
     def extra_constraints():
