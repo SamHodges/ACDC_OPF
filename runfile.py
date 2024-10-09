@@ -175,4 +175,4 @@ def objective(model):
 
             
 newOPF = OPF(opf_type_ac="nonlinear", opf_type_dc="nlp", link_type="vsc", \
-    tc_ac="case9_AC.xlsx", tc_dc="case2_DC.xlsx", solver="ipopt", neos=False, out=0)
+    tc_ac="PYPSA_case9_combined.xlsx", tc_dc="case9_DC.xlsx", solver="ipopt", neos=False, out=0)
