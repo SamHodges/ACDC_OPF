@@ -106,13 +106,6 @@ class printdata(object):
         f.write('set B' + mode_add_on + ':=\n')
         for i in self.data["bus"].index.tolist():
             f.write(str(self.data["bus"]["name"][i])+"\n")
-        if ac_mode:
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_B" +"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) +"\n")
         f.write(';\n')
         #---set of generators---
         f.write('set G' + mode_add_on + ':=\n')
@@ -197,13 +190,6 @@ class printdata(object):
         f.write('set L' + mode_add_on + ':=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+"\n")
-        if ac_mode:
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a" +"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b" +"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) +"\n")
         f.write(';\n')
         #set of transformers
         if not(self.data["transformer"].empty):
@@ -219,10 +205,10 @@ class printdata(object):
         if ac_mode:
             for i in self.data["hvdc"].index.tolist():
                 if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_A "+str(self.data["hvdc"]["name"][i])+ "_gen_A" + "\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_B "+str(self.data["hvdc"]["name"][i])+ "_gen_B" + "\n")
+                    f.write(str(self.data["hvdc"]["from_busname"][i]) + " " + str(self.data["hvdc"]["name"][i])+ "_gen_A" + "\n")
+                    f.write(str(self.data["hvdc"]["to_busname"][i]) + " " + str(self.data["hvdc"]["name"][i])+ "_gen_B" + "\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " "+str(self.data["hvdc"]["name"][i])+ "_gen" + "\n")
+                    f.write(str(self.data["hvdc"]["to_busname"][i]) + " " + str(self.data["hvdc"]["name"][i])+ "_gen" + "\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["busname"][i]) + " "+str(self.data["ac_links"]["name"][i]) + "\n")
@@ -250,22 +236,8 @@ class printdata(object):
         f.write('param A' + mode_add_on + ':=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"1"+" "+str(self.data["branch"]["from_busname"][i])+"\n")
-        if ac_mode:
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i])+"_a "+"1"+" "+  str(self.data["hvdc"]["name"][i]) + "_A" +"\n")
-                    f.write(str(self.data["hvdc"]["name"][i])+"_b "+"1"+" "+ str(self.data["hvdc"]["name"][i]) + "_B"  +"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i])+" "+"1"+" "+ str(self.data["hvdc"]["name"][i]) +"\n")
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+"2"+" "+str(self.data["branch"]["to_busname"][i])+"\n")
-        if ac_mode:
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i])+"_a "+"2"+" "+str(self.data["hvdc"]["from_busname"][i])+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i])+"_b "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i])+" "+"2"+" "+str(self.data["hvdc"]["to_busname"][i])+"\n")
 
         f.write(';\n')
         #---Transformers---
@@ -330,13 +302,6 @@ class printdata(object):
         f.write('param SLmax' + mode_add_on + ':=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(float(self.data["branch"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-        if ac_mode:
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["ContinousRating"][i])/self.data["baseMVA"]["baseMVA"][0])+"\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -351,10 +316,10 @@ class printdata(object):
         if ac_mode:
             for i in self.data["hvdc"].index.tolist():
                 if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["costc2"][i]))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["costc2"][i]))+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(0))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["costc2"][i]))+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
@@ -365,10 +330,10 @@ class printdata(object):
         if ac_mode:
             for i in self.data["hvdc"].index.tolist():
                 if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(0))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(0))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["costc1"][i]))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["costc1"][i]))+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["marginal_cost"][i]))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["costc1"][i]))+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
@@ -379,10 +344,10 @@ class printdata(object):
         if ac_mode:
             for i in self.data["hvdc"].index.tolist():
                 if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(0)+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(0)+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_A "+str(float(self.data["hvdc"]["costc0"][i]))+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen_B "+str(float(self.data["hvdc"]["costc0"][i]))+"\n")
                 else:
-                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(0)+"\n")
+                    f.write(str(self.data["hvdc"]["name"][i])+"_gen "+str(float(self.data["hvdc"]["costc0"][i]))+"\n")
         else:
             for i in self.data["ac_links"].index.tolist():
                 f.write(str(self.data["ac_links"]["name"][i])+" "+str(0)+"\n")
@@ -413,12 +378,6 @@ class printdata(object):
         f.write('param BL_AC:=\n')
         for i in self.data["branch"].index.tolist():
             f.write(str(self.data["branch"]["name"][i])+" "+str(-1/float(self.data["branch"]["x"][i]))+"\n")
-        for i in self.data["hvdc"].index.tolist():
-            if str(self.data["hvdc"]["type"][i]) == "GB":
-                f.write(str(self.data["hvdc"]["name"][i])+"_a "+str(float(self.data["hvdc"]["x"][i])) + "\n")
-                f.write(str(self.data["hvdc"]["name"][i])+"_b "+str(float(self.data["hvdc"]["x"][i])) + "\n")
-            else:
-                f.write(str(self.data["hvdc"]["name"][i])+" "+str(float(self.data["hvdc"]["x"][i])) + "\n")
         f.write(';\n')
         #---Transformer chracteristics---
         if not(self.data["transformer"].empty):
@@ -436,82 +395,34 @@ class printdata(object):
             f.write('param G11:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             f.write(';\n')
             f.write('param G12:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             f.write(';\n')
             f.write('param G21:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             f.write(';\n')
             f.write('param G22:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["r"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["r"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             f.write(';\n')
             f.write('param B11:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
             f.write(';\n')
             f.write('param B12:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             f.write(';\n')
             f.write('param B21:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2))+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2))+"\n")
             f.write(';\n')
             f.write('param B22:=\n')
             for i in self.data["branch"].index.tolist():
                 f.write(str(self.data["branch"]["name"][i])+" "+str(-self.data["branch"]["x"][i]/(self.data["branch"]["r"][i]**2+self.data["branch"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_a " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_b " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " +str(-self.data["hvdc"]["x"][i]/(self.data["hvdc"]["r"][i]**2+self.data["hvdc"]["x"][i]**2)+0.5*self.data["branch"]["b"][i])+"\n")
             f.write(';\n')
 
             #derived transformer parameters
@@ -605,23 +516,11 @@ class printdata(object):
             f.write('param Vmin_AC:=\n')
             for i in self.data["bus"].index.tolist():
                 f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNLB"][i])+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_A" + " " + str(0.9) + "\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_B" + " " + str(0.9) +"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " + str(0.9) +"\n")
             f.write(';\n')
             
             f.write('param Vmax_AC:=\n')
             for i in self.data["bus"].index.tolist():
                 f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNUB"][i])+"\n")
-            for i in self.data["hvdc"].index.tolist():
-                if str(self.data["hvdc"]["type"][i]) == "GB":
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_A" + " " + str(1.1) + "\n")
-                    f.write(str(self.data["hvdc"]["name"][i]) + "_B" + " " + str(1.1) +"\n")
-                else:
-                    f.write(str(self.data["hvdc"]["name"][i]) + " " + str(1.1) +"\n")
             f.write(';\n')
             f.close()
     def printDCOPF(self, opf_type):
