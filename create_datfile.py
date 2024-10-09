@@ -551,6 +551,18 @@ class printdata(object):
                 for i in self.data["transformer"].index.tolist():
                     f.write(str(self.data["transformer"]["name"][i])+" "+str(float(self.data["transformer"]["r"][i]))+"\n")
                 f.write(';\n')
+            
+            #---Voltage bounds---
+            f.write('param Vmin_DC:=\n')
+            for i in self.data["bus"].index.tolist():
+                f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNLB"][i])+"\n")
+            f.write(';\n')
+            
+            f.write('param Vmax_DC:=\n')
+            for i in self.data["bus"].index.tolist():
+                f.write(str(self.data["bus"]["name"][i])+" "+str(self.data["bus"]["VNUB"][i])+"\n")
+            f.write(';\n')
+            f.close()
         
         f.close()
         
