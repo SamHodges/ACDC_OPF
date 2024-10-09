@@ -1,7 +1,6 @@
 # opf code let's go!
 # import oats
 import os
-import imp
 import pandas as pd
 import datetime
 from pyomo.environ import *

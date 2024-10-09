@@ -1,5 +1,5 @@
 #This is Python generated data file for Pyomo model DCLF.py
-#Time stamp: 2024-10-08 13:50:54.360589
+#Time stamp: 2024-10-09 10:29:40.153713
 set B_AC:=
 1
 2
