@@ -68,7 +68,7 @@ class AC_model:
         self.model.eps_AC = Param(within=NonNegativeReals)
 
         # --- variables ---
-        self.model.pG_AC       = Var(self.model.G_AC, domain= NonNegativeReals)# real power output of generator
+        self.model.pG_AC       = Var(self.model.G_AC, domain= Reals)# real power output of generator
         self.model.pW_AC       = Var(self.model.WIND_AC, domain= Reals) #real power generation from wind
         self.model.pD_AC       = Var(self.model.D_AC, domain= Reals)# real power absorbed by demand
         self.model.delta_AC  = Var(self.model.B_AC, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
@@ -101,7 +101,7 @@ class AC_model:
         # --- reference bus constraint ---
         def ref_bus_def(model,b):
             return model.delta_AC[b]==0
-        # self.model.refbus = Constraint(self.model.b0_AC, rule=ref_bus_def)
+        self.model.refbus = Constraint(self.model.b0_AC, rule=ref_bus_def)
 
         
     def extra_constraints():

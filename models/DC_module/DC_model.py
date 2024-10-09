@@ -62,7 +62,7 @@ class DC_model:
         self.model.eps_DC = Param(within=NonNegativeReals)
 
         # --- variables ---
-        self.model.pG_DC       = Var(self.model.G_DC, domain= NonNegativeReals)# real power output of generator
+        self.model.pG_DC       = Var(self.model.G_DC, domain= Reals)# real power output of generator
         self.model.pW_DC       = Var(self.model.WIND_DC, domain= Reals) #real power generation from wind
         self.model.delta_DC  = Var(self.model.B_DC, domain= Reals, initialize=0.0) # voltage phase angle at bus b, rad
 
